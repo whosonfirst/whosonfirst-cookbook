@@ -1,0 +1,21 @@
+##**Key terms:**
+
+- **Significant Event** _Defined [here](https://github.com/whosonfirst/whosonfirst-docs/wiki/What-is-a-Significant-Event%3F)._
+- **Concordance** _Identifying equivalence between features in two dataset, useful for data joins._
+- **Deprecating** _Keeping a Who's on First record's attributes and geometry intact, but removing it from search results and other Mapzen services._
+- **Supersedes, Superseded_by** _Linking record A to record B and vice versa, usually after deprecating one record._
+- **Record** _A single file (.geojson or .shp) in the Who's On First repository._
+- **Geometry** _The shape of a Who's on First record._
+- **Attribute Table** _A table of cells in QGIS that are joined or related to geographic data._
+- **Metafiles** _Files generated programtically that are meant to be updated as the underlying Who's On First (WOF) is updated and used to perform targeted lookups against the entire WOF dataset. A **large** list of all the neighbourhoods in the world._
+- **Point in Polygon (PIP)** _A system that asks whether a given point in the plane lies inside, outside, or on the boundary of a polygon._
+- **Hierarchy** _A top-down list of [placetypes](https://github.com/whosonfirst/whosonfirst-placetypes)._
+- **Who's on First (WOF)** _A gazetteer of places._
+- **Zetashapes** _A source of machine-generated US neighbourhood polygons derived from geotags on flickr photos: [zetashapes.com](https://www.zetashapes.com)_
+- **Quattroshapes** _A global polygon gazetteer: [quattroshapes.com](https://www.quattroshapes.com). Similar to Zetashapes, but more pixelated._
+- **Open License** _A license that that allows for free distribution of data, usually called a CC-BY license_
+- **Brooklyn Integer** _An independently owned and operated integer-as-a-service provider. Creates  a unique 8-digit or 9-digit integer that we use as unique identifier (ID) for records._
+- **Utils and Scripts** _Open source tools developed by Mapzen to gather data from the Who's on First project and save locally._
+- **Repositories (repos)** _A digital directory or storage space where you can access your project, its files, and all the versions of its files that Git saves._
+- **Cloning** _GitHub speak for copying a repository to your local machine. Allows a user to work remotely._
+- **QGIS** _An free and open source Geographic Information System. [Download Link](http://www.qgis.org/en/site/)_.
