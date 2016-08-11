@@ -135,8 +135,18 @@ While the above steps took care of the majority of our issues, there were a few 
 
 * The Who's On First record for the **Ft. Winfield Scott** neighbourhood in Marin County needed to be updated with a new geometry and correct parenting; it was also given a new name, `Fort Baker`. This qualifies as a significant event, so the record was deprecated and superseded to a new record for this neighbourhood.
 
-We also have to ensure that all microhood, neighbourhood, and macrohood records are given appropriate `mz:min_zoom` and `mz:max_zoom` values.  These values should be consistent across place types, as they are used to determine at what zoom level the name label will appear. We also need to give neighbourhood records default zoom values of `15` (min) and `18` (max). Optimally, modify the `min_zoom` up to zoom `13`. Default `min_zoom` for macrohoods is `13`, microhoods is `16`.
+We also have to ensure that all microhood, neighbourhood, and macrohood records are given appropriate `mz:min_zoom` and `mz:max_zoom` values.  These values should be consistent across place types, as they are used to determine at what zoom level the name label will appear (and when it will disappear). 
 
+- `neighbourhood`: 
+  - Default: `min_zoom`:`15`, optionally modify up to `13` for important places.
+  - Default: `max_zoom`:`18`, rarely modify.
+- `macrohood`: 
+  - Default: `min_zoom`:`13`, optionally modify up to `11` for important places.
+  - Default: `max_zoom`:`15`, rarely modify. 
+- `microhood`: 
+  - Default: `min_zoom`:`16`, rarely modify.
+  - Default: `max_zoom`:`18`, rarely modify.
+  
 ##Now that we have files... server magic!
 
 We could update each WOF record and it's dependents accordingly, but because San Francisco is a large locality with many placetype updates, we've developed in-house tools to automate some of this work. The following tasks need to be completed for records that we've edited:
