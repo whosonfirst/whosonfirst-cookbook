@@ -137,6 +137,8 @@ While the above steps took care of the majority of our issues, there were a few 
 
 We also have to ensure that all microhood, neighbourhood, and macrohood records are given appropriate `mz:min_zoom` and `mz:max_zoom` values.  These values should be consistent across place types, as they are used to determine at what zoom level the name label will appear (and when it will disappear). 
 
+For existing features, probably don't modify the existing `min_zoom` and `max_zoom` values. But for new features, do the following:
+
 - `neighbourhood`: 
   - Default: `min_zoom`:`15`, optionally modify up to `13` for important places.
   - Default: `max_zoom`:`18`, rarely modify.
