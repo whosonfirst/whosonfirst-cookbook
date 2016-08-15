@@ -106,7 +106,7 @@ _Image: Advanced Digitizing Toolbar in QGIS, with the Split Feature tool highlig
 
 Alternatively, the Clip with Polygon from Another Layer tool in the Digitizing Toolbar will automatically cut neighboburhood polygons into microhood polygons. 
 
-Since we are creating new microhood records, we'll need to use Brooklyn Integers to get new `wof:id` values, similar to what we did with new neighbourhood records. The remaining *21* neighbourhood records were given a new `wof:id` and imported accordingly. Lastly, since a change to the `wof:placetype` value qualifies as a "[Significant Event](https://github.com/whosonfirst/whosonfirst-docs/wiki/What-is-a-Significant-Event%3F)," new microhood records need to supersede the original neighbourhood records and the original neighbourhood records needed to be superseded_by these new microhood records.
+Since we are creating new microhood records, we'll need to use Brooklyn Integers to get new `wof:id` values, similar to what we did with new neighbourhood records. The remaining *21* neighbourhood records were given a new `wof:id` and imported accordingly. Lastly, since a change to the `wof:placetype` value qualifies as a "[Significant Event](https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/definition/significant_event.md)," new microhood records need to supersede the original neighbourhood records and the original neighbourhood records needed to be superseded_by these new microhood records.
 
 <img width="600" alt="SF OpenData neighbourhood data and updated WOF microhoods projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/microhoods.png">
 
