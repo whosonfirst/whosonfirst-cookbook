@@ -33,7 +33,7 @@ This tutorial addresses the issues we found with San Francisco's neighbourhoods 
 
 **Key terms:**
 
-Check out [these key terms](https://github.com/whosonfirst/whosonfirst-docs/wiki/Issue-%23125---Key-Terms) if you have any questions about the vocabulary used in this guide.
+Check out [these key terms](https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/definition/key_terms.md) if you have any questions about the vocabulary used in this guide.
 
 ##The Issue
 
