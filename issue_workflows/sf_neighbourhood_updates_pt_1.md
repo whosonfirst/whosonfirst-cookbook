@@ -74,7 +74,7 @@ _Note: Windows users should ensure they have Powershell 3.0 before beginning any
 
 Entering the following string in the terminal from the whosonfirst-utils repository's `scripts` folder allows us to collect San Francisco's neighbourhoods as a single .geojson file:
 
->_python wof-csv-to-feature-collection -p /usr/local/mapzen/whosonfirst-data/data -c /usr/local/mapzen/whosonfirst-data/meta/wof-neighbourhood-latest.csv --aliases /usr/local/mapzen/whosonfirst-properties/aliases/property_aliases.json -o ~/Desktop/Ventura_Neighbourhoods.geojson --slim --slim-template external_editor -f 85922583_
+>_python wof-csv-to-feature-collection -p /usr/local/mapzen/whosonfirst-data/data -c /usr/local/mapzen/whosonfirst-data/meta/wof-neighbourhood-latest.csv --aliases /usr/local/mapzen/whosonfirst-properties/aliases/property_aliases.json -o ~/Desktop/SF_Neighbourhoods.geojson --slim --slim-template external_editor -f 85922583_
 
 <img width="600" alt="San Francisco neighbourhood records in WOF" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/terminal_command.png">
 
