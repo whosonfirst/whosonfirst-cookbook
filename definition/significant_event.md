@@ -21,7 +21,8 @@ If a WOF record is updated due to a **Significant Event**, a new record should b
 
 #####Existing/Old Record
 * Update the old record's `superseded_by` property to include the new record's wof:id.
-* Add/update old record's the `edtf_deprecated` property with the date of the new record's creation (format: _YYYY-MM-DD_).
+* Add/update old record's the `edtf:cessation` field with the date of the new record's creation (format: _YYYY-MM-DD_).
+* Add a new `"mz:is_current":0,` field (with the 0 value) to each record that was given a date value in the `edtf:cessation` field.
 
 #####New Record
 * Update the new record's `supersedes` property to include the old record's wof:id.
