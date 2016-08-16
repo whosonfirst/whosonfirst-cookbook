@@ -149,6 +149,26 @@ For existing features, probably don't modify the existing `min_zoom` and `max_zo
   - Default: `min_zoom`:`16`, rarely modify.
   - Default: `max_zoom`:`18`, rarely modify.
   
+##Let's Recap
+
+A big **thank you** to those who have made it to this point in the tutorial! Before we finalize our PR, let's recap the work we've completed so far and make sure we have all records in order.
+
+We've found a new administrative source, compared it to our Who's on First record and made one of the following updates (depending on that feature's unique situation):
+
+* **A.** Updated the WoF neighbourhood feature's geometry with a new administrative geometry and imported new source attributes.
+* **B.** Minted a new Brooklyn Integer for new administrative neighbourhood shapes that are new to Who's on First.
+* **C.** "Downgraded" the neighbourhood feature to a microhood. This required minting a new Brooklyn Integer for our microhood record, updating the `edtf:cessation`, `mz:is_current`, `mz:min_zoom`, `mz:max_zoom`, `lbl:latitude`, `lbl:longitude` attribute fields accordingly, and superseding our old neighbourhood record to our new microhood record.
+* **D.** "Upgraded" the neighbourhood feature to a microhood. This required minting a new Brooklyn Integer for our microhood record, updating the `edtf:cessation`, `mz:is_current`, `mz:min_zoom`, `mz:max_zoom`, `lbl:latitude`, `lbl:longitude` attribute fields accordingly, and superseding our old neighbourhood record to our new macrohood record.
+* **E.** Deprecated our neighbourhood record, as it was never valid to begin with.
+
+Now, we should have a collection of .geojson files that we have use to create a pull request (if this step is too difficult or not possible for some reason, [email us](mailto:stephen.epps@mapzen.com), as we may be able to import your .geojson files independently of a pull request). While you may have updated several other attribute fields(`lbl` fields, `zoom` fields, etc.), the following required attributes should _always_ be in your .geojson files:
+
+* `wof:name`
+* `wof:id`
+* `wof:placetype`
+* `wof:country`
+* `wof:parent_id`
+
 ##Now that we have files... server magic!
 
 We've developed in-house tools to automate much of the import process for Who's on First. The following tasks will be auto-completed for records that we've edited:
