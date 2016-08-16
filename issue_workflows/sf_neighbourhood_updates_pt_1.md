@@ -209,9 +209,9 @@ In this section, you will:
 - **Develop** an action plan to modify data
 - Note possible **data modifications** needed in our datasets
 
-**Remember** - not all of the existing neighbourhood records matched to an SF OpenData geometry (96 new records were given existing IDs, but there were 156 existing neighbourhood records). This begs the question: *What should happen to the 60 leftover neighbourhood records?* 
+**Remember** - not all of the existing neighbourhood records matched to an SF OpenData geometry (96 new records were given existing IDs, but there were 165 existing neighbourhood records). This begs the question: *What should happen to the 69 leftover neighbourhood records?* 
 
-There are three options for the 60 leftover records:
+There are three options for the 69 leftover records:
 
 * **Deprecate** the record, as it was never a valid neighbourhood to begin with. Research can't verify this name or shape. Sometimes a neighbourhood falls out of common usage, or the error was an error.
 * **Downgrade** the record as a microhood and give it a `parented_by` value for the neighbourhood it falls within. People still use this name, but only the residents of those few city blocks.
@@ -221,7 +221,7 @@ There are three options for the 60 leftover records:
 
 Before importing the city-provided geometries, it is important to ensure the new neighbourhood boundaries will work in Who’s On First. While we can easily import the new neighbourhood geometries raw from our source (SF OpenData), we should "trust but verify" our data before the  import.
 
-The majority of geometries in the SF OpenData source were imported as-is, though two neighbourhood records were edited prior to import (_Rincon Hill_ and _Financial District South_). Using our local knowledge and opinions, we adjusted these neighbourhood boundaries slightly. 
+The majority of geometries in the SF OpenData source were imported as-is, though four neighbourhood records in our San Francisco example were edited prior to import. Using our local knowledge and opinions, we adjusted these neighbourhood boundaries slightly. 
 
 ###Modifying WoF Data
 
