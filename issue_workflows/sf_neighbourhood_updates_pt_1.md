@@ -146,13 +146,13 @@ Once the data source was added to our source repository, the data was downloaded
 
 _Image: WoF records projected in QGIS._
 
-Now that we have WoF records and data provided by the City of San Francisco, we can begin reconciling the two datasets. We will join the two datasets based on a common attribute; in this case the `WoF:name` field from the WoF data was joined to the SF OpenData's `name` field. The join tool in QGIS can be found by navigating to the properties of the WoF .geojson layer and clicking the "Join" option (below).
+Now that we have WoF records and data provided by the City of San Francisco, we can begin reconciling the two datasets. We will join the two datasets based on a common attribute; in this case the `wof:name` field from the WoF data was joined to the SF OpenData's `name` field. The join tool in QGIS can be found by navigating to the properties of the WoF .geojson layer and clicking the "Join" option (below).
 
 <img width="600" alt="Join Properties tab in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/5.png">
 
 _Image: Join Properties tool in QGIS._
 
-In an ideal world, all WoF records would join cleanly to SF OpenData records, but that is typically not the case. This join method worked for the most part, but because the spellings are not identical between each of the attribute tables, this join needs to be verified and improved by hand. For example, QGIS's join tool did not join a value of `Haight Ashbury` to a value of `Haight-Ashbury` or a value of `Mission District` to a value of `Mission`. As described below, it's not a matter of which name field is "more correct", but a matter of importing additional names from your authoritative source while preserving the existing `WoF:name` in a `eng_x_variant` name field.
+In an ideal world, all WoF records would join cleanly to SF OpenData records, but that is typically not the case. This join method worked for the most part, but because the spellings are not identical between each of the attribute tables, this join needs to be verified and improved by hand. For example, QGIS's join tool did not join a value of `Haight Ashbury` to a value of `Haight-Ashbury` or a value of `Mission District` to a value of `Mission`. As described below, it's not a matter of which name field is "more correct", but a matter of importing additional names from your authoritative source while preserving the existing `wof:name` in a `eng_x_variant` name field.
 
 Alternately, we could perform this join based on location, instead of an attribute field. QGIS has functionality to perform a spatial join ([some documentation here](http://www.qgistutorials.com/en/docs/performing_spatial_joins.html)), which would be helpful if our WoF geometries were geographically similar to our administrative data. However, because our geometries in San Francisco overlap substantially with the SF OpenData geometries, an attribute join is more likely to give us matching records between the two datasets (generally, neighbourhood names are unique in city). If you are unsure of which join is best for your locality, give them both a try and compare the results.
 
@@ -167,7 +167,7 @@ Cathedral Hill | Cathedral Hill | _in both, great!_
 
 _Image: Comparison of WoF and SF OpenData name attributes._
 
-This method assigned `WoF:id` values to each SF OpenData record that joined to a WoF record. After comparing, **96** of **117** SF OpenData records were assigned a `WoF:id`. With the records that did not join based on the `name` field join, we will have to reconcile, adding the `WoF:id` manually whenever possible. This is done easiest by reviewing each name in your WoF attributes table with  each name of your source data.
+This method assigned `wof:id` values to each SF OpenData record that joined to a WoF record. After comparing, **96** of **117** SF OpenData records were assigned a `wof:id`. With the records that did not join based on the `name` field join, we will have to reconcile, adding the `wof:id` manually whenever possible. This is done easiest by reviewing each name in your WoF attributes table with  each name of your source data.
 
 <img width="300" alt="Attributes table after joining datasets" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/joined_attributes.png">
 
