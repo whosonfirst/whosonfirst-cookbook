@@ -73,13 +73,11 @@ After our attributes field values are filled out, the following will occur upon 
 
 ### Reclassify neighbourhoods, creating new **macrohoods** (upgrading)
 
-Three current neighbourhood records were "promoted" to macrohood records. These neighbourhoods - Richmond District, Sunset District, and Downtown - were already in WoF, as neighbourhoods. We created new shapes by combining geometries from the SF OpenData neighbourhoods and updated names if necessary. 
+While we recognied four valid macrohoods in San Francisco, only two of these records were in Who's on First as existing neighbourhoods. The other two were not existing neighbourhood records that were not in Who's on First were imported as new features that did not supersede an existing record.
 
-To combine geometries, the Dissolve tool in QGIS was used. The shape for the Sunset District macrohood record was created by selecting neighbourhood records that fall completely within the area we're designating as the Sunset District macrohood. In this case, those neighbourhoods were  Outer Sunset, Parkside, Golden Gate Heights, and Inner Sunset. With those features selected, the Dissolve tool was used to export the merged geometry of these four neighbourhood geometries by clicking the "Vector" dropdown menu and selecting `Geoprocessing Tools` > `Dissolve`.
+Since our source data only included neighbourhood shapes, we'll have to create our own macrohood shapes. We created new shapes by combining geometries from the SF OpenData neighbourhoods. To combine geometries, the Dissolve tool in QGIS was used. For example, the shape for the Sunset District macrohood record was created by selecting neighbourhood records that fall completely within the area we're designating as the Sunset District macrohood: Outer Sunset, Parkside, Golden Gate Heights, and Inner Sunset. With those features selected, the Dissolve tool was used to export the merged geometry of these four neighbourhood geometries by clicking the "Vector" dropdown menu and selecting `Geoprocessing Tools` > `Dissolve`.
 
-A similar case was made for a Mission District macrohood, but because "The Mission" is a valid neighbourhood in addition to a "cluster" of neighbourhoods, the existing record stayed in the Who's On First repository as a neighbourhood and a new record was created for the Mission District macrohood. 
-
-These four records (below) were imported as new macrohoods. These four macrohood records will parent the new and updated neighbourhood records that fall within their respective boundaries. 
+These four records (below) were imported as new macrohoods. The `wof:id` of these macrohood records will become the `wof:parent_id` of any neighbourhood within the given macrohood shape. Again, these `wof:id` values will be minted from Brooklyn Integers (just as we've done in previous steps) and the macrohood attributes will need to be updated accordingly.
 
 <img width="600" alt="SF OpenData neighbourhood data and new macrohoods projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/macro_wlabel.png">
 
@@ -87,9 +85,9 @@ _Image: SF OpenData neighbourhood-based data and new macrohoods projected in QGI
 
 ###Reclassify neighbourhoods, creating new **microhoods** (downgrading)
 
-There were 51 leftover records. These records are generally smaller than sections of larger neighbourhoods and are more appropriate as the WoF microhood placetype.
+There were 51 leftover WoF records after figuring out concordances between data sources and reclassifying macrohoods. These records were generally smaller than sections of larger neighbourhoods and were determined to be more appropriate as microhoods.
 
-Our leftover WoF neighbourhood records that did not join to an SF OpenData record in San Francisco need to be adjusted to align with the SF OpenData geometries so they can be imported to WoF as new microhoods. This is important because microhoods should _generally_ not overlap neighbourhoods. There is no rule about yes-or-no overlap between neighbourhoods and microhoods (or even between neighbourhoods and neighbourhoods, or microhoods to microhoods), but we are looking for cleaner geometry that's less overlapping for the **default** - overlapping geometries can always become alt-geometry records. 
+These leftover WoF neighbourhood records need to be adjusted to align with the SF OpenData geometries so they can be imported to WoF as new microhoods. This is important because microhoods should _generally_ not overlap neighbourhoods. There is no rule about yes-or-no overlap between neighbourhoods and microhoods (or even between neighbourhoods and neighbourhoods, or microhoods to microhoods), but we are looking for cleaner geometry that's less overlapping for the **default** - overlapping geometries can always become alt-geometry records. 
 
 **Optional:** note that the new microhood shapes can be generalized slightly (shown below). The Zetashapes occasionally cut through neighbourhoods at odd angles, so adding a missing block or two into your new microhood geometry is acceptable. 
 
