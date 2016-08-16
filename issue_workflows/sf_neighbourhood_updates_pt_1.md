@@ -1,4 +1,4 @@
-#Updating Who's on First Neighbourhood Records (part 1)
+#Updating Who's on First Neighbourhood Records (part one)
 
 The [Who's on First](https://whosonfirst.mapzen.com/) (WOF) project is not pretending to be the authority of truth, but rather a home for data from various sources and a project that we hope generates discussion. The WOF gazetteer houses data for many geographies, including counties (which parent cities) and cities (which parent microhoods, neighbourhoods, and macrohoods). Neighbourhoods are the places where we live and work in cities; _the more neighbourhood data, the better._
 
@@ -15,8 +15,7 @@ _Photo Credit: [Travis Wise, Flickr](https://www.flickr.com/photos/photographing
 * **Ability to search.** Neighbourhoods should be searchable (with the ability to know how large the feature is and fit it into view).
 * **Browsing venues.** We should be able to browse venues by neighbourhood.
 
-It is important to understand where [placetypes](https://github.co
- m/whosonfirst/whosonfirst-placetypes) fall within the WOF hierarchy. Neighbourhoods, macrohoods, and microhoods are described below:
+It is important to understand where [placetypes](https://github.com/whosonfirst/whosonfirst-placetypes) fall within the WOF hierarchy. Neighbourhoods, macrohoods, and microhoods are described below:
 
 * **Neighbourhoods:** A centralized community within a larger city, town, or borough.
 * **Macrohoods:** A grouping of neighbourhoods within a larger city, town, or borough.
@@ -26,7 +25,7 @@ This tutorial addresses the issues we found with San Francisco's neighbourhoods 
 
 **What are your options when updating neighbourhoods?**
 
-* Notice just one neighbourhood that needs cleaning up? File a [Github issue](https://github.com/whosonfirst/whosonfirst-data/issues), or [email us](mailto:stephen.epps@mapzen.com). _[See something, say something.]_
+* Notice just one neighbourhood that needs cleaning up? File a [Github issue](https://github.com/whosonfirst/whosonfirst-data/issues/new), or [email us](mailto:stephen.epps@mapzen.com). _[See something, say something.]_
 * Notice an open dataset of administrative data? Open an [issue](https://github.com/whosonfirst/whosonfirst-data/issues/new) in our WOF repository. 
 * Still interested but confused about all this Github and WOF-isms? We can send you a "starter kit" that includes your requested neighbourhoods. [Email us](mailto:stephen.epps@mapzen.com).
 * Follow the instructions below and send us a [pull request](https://github.com/whosonfirst/whosonfirst-data/pulls).
@@ -41,7 +40,7 @@ We received a [report](https://github.com/whosonfirst/whosonfirst-data/issues/12
 
 Before we begin, it is important to understand where WOF neighbourhood records came from and how the geometries were generated.
 
-Typically, Who’s On First sources [Quattroshapes](www.quattroshapes.com) geometries for most neighbourhoods globally. However, many neighbourhoods in the United States, including San Francisco, source their default geometry from [Zetashapes](www.zetashapes.com). The Zetashapes project follows the same basic principles as Quattroshapes, but builds shapes up from Census 2010 features and can draw shapes that are too big, small, or just plain weird. We’ve seen problems with shapes extending in the water and far out into neighboring rural areas. This technique is responsible for the issues that we are correcting in San Francisco.
+Typically, Who’s On First sources [Quattroshapes](http://www.quattroshapes.com) geometries for most neighbourhoods globally. However, many neighbourhoods in the United States, including San Francisco, source their default geometry from [Zetashapes](http://www.zetashapes.com). The Zetashapes project follows the same basic principles as Quattroshapes, but builds shapes up from Census 2010 features and can draw shapes that are too big, small, or just plain weird. We’ve seen problems with shapes extending in the water and far out into neighboring rural areas. This technique is responsible for the issues that we are correcting in San Francisco.
 
 Drawing neighbourhood shapes is a tricky business. Strangers generally agree on what a neighbourhood is named and its rough shape, but even good friends can argue vehemently about where one neighbourhood ends and another begins - even if there are hard edges between neighbourhoods or they should overlap. Recognizing this, Who’s On First allows multiple alternate geometries for a place, but for practical reasons we need to set just one shape as the default geometry.
 
@@ -120,7 +119,7 @@ In this section, you will:
 
 Because Who’s On First is liberally licensed open data, we must be selective about adding new data. We either need to find a new source that is open data with a CC-BY or CC-0 license that allows commercial and derivative works or create new shapes based on local knowledge and by cross-referencing multiple sources. Ideally, this new source should be an improvement over what Who’s On First already knows about the place!
 
-The City and County of San Francisco hosts various [neighbourhood-related shapefiles](https://data.sfgov.org/Geographic-Locations-and-Boundaries/SF-Find-Neighborhoods/pty2-tcw4) through it's OpenData portal, so we had a few options to choose from. 
+The City and County of San Francisco hosts various [neighbourhood-related shapefiles](https://data.sfgov.org/browse?q=neighborhoods) through it's OpenData portal, so we had a few options to choose from. 
 
 Just because your locality hosts a neighbourhood dataset, does not mean the neighbourhood geometries are useable. For example, city planning departments often group neighbourhoods together for planning purposes; you can start with these geometries, but they should be double-checked before import. For instance, if a shape is named _Name 1_ - _Name 2_ - _Name 3_ (e.g. Mission-Potrero-SoMa), it should _probably_ be split into three polygons before import, one for each neighbourhood. 
 
