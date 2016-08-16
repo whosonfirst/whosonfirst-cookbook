@@ -4,16 +4,16 @@ _Before you jump into part two of editing Who's on First neighbourhood records, 
 
 ##5. Update Records
 
-In the first part of the tutorial, we found open data and modified it to work with Who's On First. Now for the fun part - preparing our data for import into the project.
+In the first part of the tutorial, we found open data, modified it, and reconciled it to work with Who's On First. Now for the fun part - preparing our data for import!
 
 Who's on First treats each placetype slightly different, so we've broken this section down by placetype to detail what work needs to take place for each.
 
 In this section, you will:
 
 * Update and create new **neighbourhoods**
-* Reclassify (upgrade) and create new **macrohoods**
-* Reclassify (downgrade) and create new **microhoods**
-* Update the **locality**
+* Reclassify neighbourhoods, creating new **macrohoods** (upgrading)
+* Reclassify neighbourhoods, creating new **microhoods** (downgrading)
+* Update the **locality** record
 * Take care of any **deprecated** records and **outliers**
 * File the **Pull Request**
 
@@ -21,15 +21,15 @@ In this section, you will:
 
 There were two outcomes with the new SF OpenData neighbourhood records. These outcomes were either:
 
-* **A** - The modified SF OpenData record was joined to an existing Who's On First (WoF) record, the existing WoF geometry was archived as an alt-geometry, and the SF OpenData was added to the record's default geometry. Names were also updated.
+* **A** - The modified SF OpenData record was joined to an existing Who's On First record, the existing WoF geometry was archived as an alt-geometry, and the SF OpenData was added to the record's default geometry. Names were also updated, with new attributes given to the existing records.
 
-* **B** - The modified government-provided record did not join to an existing record. A new ID and record for the neighbourhood feature was created. We need to add a new WoF record for this place.
+* **B** - The modified SF OpenData record did not join to an existing record. A new ID and record for the neighbourhood feature was created. This option requires a completely new `wof:id` (minted by Brooklyn Integers).
 
 <img width="600" alt="SF OpenData updated and new neighbourhood data projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/all_hoods.png">
 
 _Image: SF OpenData neighbourhoods projected in QGIS, purple representing new records and orange representing updated records._
 
-_Note: Our data source for San Francisco included large parks as separate neighbourhood shapes (see: Golden Gate Park, McLaren Park), but some authoritative data sources do not include large parks and open spaces as individual neighbourhoods. If this is the case in your locality, you'll need to split large parks from their current neighbourhood shape, creating new neighbourhood shapes for them. As a general rule, parks over one million square meters (roughly 250 acres) should have their own neighbourhood record. Because the authoritative shapes will be modified when creating new park shapes, set the `src:geom` field to `mapzen` (or another chosen name that is different from the authoritative source)._
+_Note: Our data source for San Francisco included large parks as separate neighbourhood shapes (see: Golden Gate Park, McLaren Park), but some authoritative data sources do not include large parks and open spaces as individual neighbourhoods. If this is the case in your locality, you'll need to split large parks from their current neighbourhood shape, creating new neighbourhood shapes for them. As a general rule, parks over one million square meters (roughly 250 acres) should have their own neighbourhood record. Because the authoritative shapes will be modified when creating new park shapes, we set the `src:geom` field to [`mz`](https://github.com/whosonfirst/whosonfirst-sources/blob/master/sources/mapzen.json) (you can choose another source name that is different from the authoritative source, if you modify the source shape)._
 
 The SF OpenData source contained 117 neighbourhood records, four of which were combination names. 
 
@@ -38,11 +38,11 @@ The SF OpenData source contained 117 neighbourhood records, four of which were c
 * `Laurel Heights / Jordan Park`
 * `Lincoln Park / Ft. Miley`
 
-As discussed in part 1, these neighbourhoods need to be split into separate parts. In this case, we removed one name from each record and created a microhood record with that removed name. 
+These neighbourhoods need to be split into separate parts because WoF records should reflect a single area - not a combined place. In this case, we removed one name from each record and created a microhood record with that removed name. 
 
 **List of Neighbourhoods from SF OpenData**
 
-`Alamo Square` `Anza Vista` `Apparel City` `Aquatic Park / Ft. Mason` `Ashbury Heights` `Balboa Terrace` `Bayview` `Bernal Heights` `Bret Harte` `Buena Vista` `Candlestick Point SRA` `Castro` `Cathedral Hill` `Cayuga` `Central Waterfront` `Chinatown` `Civic Center` `Clarendon Heights` `Cole Valley` `Corona Heights` `Cow Hollow` `Crocker Amazon` `Diamond Heights` `Dogpatch` `Dolores Heights` `Downtown / Union Square` `Duboce Triangle` `Eureka Valley` `Excelsior` `Fairmount` `Financial District` `Fishermans Wharf` `Forest Hill` `Forest Knolls` `Glen Park` `Golden Gate Heights` `Golden Gate Park` `Haight Ashbury` `Hayes Valley` `Holly Park` `Hunters Point` `India Basin` `Ingleside` `Ingleside Terraces` `Inner Richmond` `Inner Sunset` `Japantown` `Laguna Honda` `Lake Street` `Lakeshore` `Laurel Heights / Jordan Park` `Lincoln Park / Ft. Miley` `Little Hollywood` `Lone Mountain` `Lower Haight` `Lower Nob Hill` `Lower Pacific Heights` `Marina` `McLaren Park` `Merced Heights` `Merced Manor` `Midtown Terrace` `Mint Hill` `Miraloma Park` `Mission` `Mission Bay` `Mission Dolores` `Mission Terrace` `Monterey Heights` `Mt. Davidson Manor` `Nob Hill` `Noe Valley` `North Beach` `Northern Waterfront` `Oceanview` `Outer Mission` `Outer Richmond` `Outer Sunset` `Pacific Heights` `Panhandle` `Parkmerced` `Parkside` `Parnassus Heights` `Peralta Heights` `Polk Gulch` `Portola` `Potrero Hill` `Presidio Heights` `Presidio National Park` `Presidio Terrace` `Produce Market` `Rincon Hill` `Russian Hill` `Seacliff` `Sherwood Forest` `Showplace Square` `Silver Terrace` `South Beach` `South of Market` `St. Francis Wood` `St. Marys Park` `Stonestown` `Sunnydale` `Sunnyside` `Sutro Heights` `Telegraph Hill` `Tenderloin` `Treasure Island` `Union Street` `University Mound` `Upper Market` `Visitacion Valley` `West Portal` `Western Addition` `Westwood Highlands` `Westwood Park` `Yerba Buena Island` 
+`Alamo Square`, `Anza Vista`, `Apparel City`, `Aquatic Park / Ft. Mason`, `Ashbury Heights`, `Balboa Terrace`, `Bayview`, `Bernal Heights`, `Bret Harte`, `Buena Vista`, `Candlestick Point SRA`, `Castro`, `Cathedral Hill`, `Cayuga`, `Central Waterfront`, `Chinatown`, `Civic Center`, `Clarendon Heights`, `Cole Valley`, `Corona Heights`, `Cow Hollow`, `Crocker Amazon`, `Diamond Heights`, `Dogpatch`, `Dolores Heights`, `Downtown / Union Square`, `Duboce Triangle`, `Eureka Valley`, `Excelsior`, `Fairmount`, `Financial District`, `Fishermans Wharf`, `Forest Hill`, `Forest Knolls`, `Glen Park`, `Golden Gate Heights`, `Golden Gate Park`, `Haight Ashbury`, `Hayes Valley`, `Holly Park`, `Hunters Point`, `India Basin`, `Ingleside`, `Ingleside Terraces`, `Inner Richmond`, `Inner Sunset`, `Japantown`, `Laguna Honda`, `Lake Street`, `Lakeshore`, `Laurel Heights / Jordan Park`, `Lincoln Park / Ft. Miley`, `Little Hollywood`, `Lone Mountain`, `Lower Haight`, `Lower Nob Hill`, `Lower Pacific Heights`, `Marina`, `McLaren Park`, `Merced Heights`, `Merced Manor`, `Midtown Terrace`, `Mint Hill`, `Miraloma Park`, `Mission`, `Mission Bay`, `Mission Dolores`, `Mission Terrace`, `Monterey Heights`, `Mt. Davidson Manor`, `Nob Hill`, `Noe Valley`, `North Beach`, `Northern Waterfront`, `Oceanview`, `Outer Mission`, `Outer Richmond`, `Outer Sunset`, `Pacific Heights`, `Panhandle`, `Parkmerced`, `Parkside`, `Parnassus Heights`, `Peralta Heights`, `Polk Gulch`, `Portola`, `Potrero Hill`, `Presidio Heights`, `Presidio National Park`, `Presidio Terrace`, `Produce Market`, `Rincon Hill`, `Russian Hill`, `Seacliff`, `Sherwood Forest`, `Showplace Square`, `Silver Terrace`, `South Beach`, `South of Market`, `St. Francis Wood`, `St. Marys Park`, `Stonestown`, `Sunnydale`, `Sunnyside`, `Sutro Heights`, `Telegraph Hill`, `Tenderloin`, `Treasure Island`, `Union Street`, `University Mound`, `Upper Market`, `Visitacion Valley`, `West Portal`, `Western Addition`, `Westwood Highlands`, `Westwood Park`, and `Yerba Buena Island` 
 
 ####Update existing neighbourhoods with new shapes and names
 
@@ -56,23 +56,22 @@ For cases where neighbourhood names were not an exact match between SF OpenData 
 
 _Image: SF OpenData neighbourhoods projected in QGIS that mapped cleanly to an existing WoF ID._
   
-A .geojson file (with an ID field) was created for SF OpenData neighbourhood records that have new geometries (above).
+Once we've completed this step, we need to fill out other necessary attribute fields. These include all attribute fields in our .geojson file retrieved using our `external_editor` command option in part one of the tutorial.
 
 ####Create new WoF neighbourhood records
 
-We needed to assign each new neighbourhood record a new [Brooklyn Integer](http://www.brooklyninteger.com), which become the `wof:id` for each record. The neighbourhoods that need new Brooklyn Integer IDs are shown below, as displayed in QGIS.
+Since these new features do not have an existing WoF record to update, this step is fairly simple. We need to assign each new neighbourhood record a new [Brooklyn Integer](http://www.brooklyninteger.com), which become the `wof:id` for each record. Then, just like our last step, we need to fill out necessary attribute fields in our .geojson file.
 
 <img width="600" alt="SF OpenData updated and new neighbourhood data projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/new_neighbourhoods_wlabel.png">
 
 _Image: Neighbourhoods in SF OpenData that should be added to WoF._
 
-A .geojson file was created for SF OpenData neighbourhood records that were identified during the research step as being "real" places but missing in Who's on First. Upon import, the following will occur:
+After our attributes field values are filled out, the following will occur upon import to our .geojson files:
 
 * All "contained by" records will be found and the hierarchy will be rebuilt (in order of placetype).
 * To automate this reverse geocoding, the Point-In-Polygon (PIP) server will be reindexed. This will allow us to regenerate hierarchy values and assign new parent IDs for any record that falls within a new neightbourhood geometry.
 
-### Reclassify (upgrade) and create new macrohoods
-
+### Reclassify neighbourhoods, creating new **macrohoods** (upgrading)
 
 Three current neighbourhood records were "promoted" to macrohood records. These neighbourhoods - Richmond District, Sunset District, and Downtown - were already in WoF, as neighbourhoods. We created new shapes by combining geometries from the SF OpenData neighbourhoods and updated names if necessary. 
 
@@ -86,7 +85,7 @@ These four records (below) were imported as new macrohoods. These four macrohood
 
 _Image: SF OpenData neighbourhood-based data and new macrohoods projected in QGIS._
 
-###Reclassify (downgrade) and create new microhoods
+###Reclassify neighbourhoods, creating new **microhoods** (downgrading)
 
 There were 51 leftover records. These records are generally smaller than sections of larger neighbourhoods and are more appropriate as the WoF microhood placetype.
 
