@@ -77,7 +77,7 @@ While we recognied four valid macrohoods in San Francisco, only two of these rec
 
 Since our source data only included neighbourhood shapes, we'll have to create our own macrohood shapes. We created new shapes by combining geometries from the SF OpenData neighbourhoods. To combine geometries, the Dissolve tool in QGIS was used. For example, the shape for the Sunset District macrohood record was created by selecting neighbourhood records that fall completely within the area we're designating as the Sunset District macrohood: Outer Sunset, Parkside, Golden Gate Heights, and Inner Sunset. With those features selected, the Dissolve tool was used to export the merged geometry of these four neighbourhood geometries by clicking the "Vector" dropdown menu and selecting `Geoprocessing Tools` > `Dissolve`.
 
-These four records (below) were imported as new macrohoods. The `wof:id` of these macrohood records will become the `wof:parent_id` of any neighbourhood within the given macrohood shape. Again, these `wof:id` values will be minted from Brooklyn Integers (just as we've done in previous steps) and the macrohood attributes will need to be updated accordingly.
+These four records (below) were imported as new macrohoods. The `wof:id` of these macrohood records will become the `wof:parent_id` of any neighbourhood within the given macrohood shape. Again, these `wof:id` values will be minted from Brooklyn Integers (just as we've done in previous steps) and the macrohood attributes will need to be updated accordingly. Since a change to the `wof:placetype` value qualifies as a "[Significant Event](https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/definition/significant_event.md)," new macrohood records' `wof:id` will become the `wof:superseded_by` value in the the original neighbourhood record and the original neighbourhood records' `wof:id`  will become the `wof:supersedes` value in these new macrohood records.
 
 <img width="600" alt="SF OpenData neighbourhood data and new macrohoods projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/macro_wlabel.png">
 
@@ -101,19 +101,19 @@ Shapes were modified using the Split Features tool in the Advanced Digitizing To
 
 _Image: Advanced Digitizing Toolbar in QGIS, with the Split Feature tool highlighted._
 
-Alternatively, the Clip with Polygon from Another Layer tool in the Digitizing Toolbar will automatically cut neighboburhood polygons into microhood polygons. 
+Alternatively, the Clip with Polygon from Another Layer tool in the Digitizing Toolbar can be used to automatically cut neighbourhood polygons into microhood polygons. 
 
-Since we are creating new microhood records, we'll need to use Brooklyn Integers to get new `wof:id` values, similar to what we did with new neighbourhood records. The remaining *21* neighbourhood records were given a new `wof:id` and imported accordingly. Lastly, since a change to the `wof:placetype` value qualifies as a "[Significant Event](https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/definition/significant_event.md)," new microhood records need to supersede the original neighbourhood records and the original neighbourhood records needed to be superseded_by these new microhood records.
+Since we are creating new microhood records, we'll need to use Brooklyn Integers to get new `wof:id` values, similar to what we did with new neighbourhood records. Lastly, since a change to the `wof:placetype` value qualifies as a "[Significant Event](https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/definition/significant_event.md)," new microhood records' `wof:id` will become the `wof:superseded_by` value in the the original neighbourhood record and the original neighbourhood records' `wof:id`  will become the `wof:supersedes` value in these new microhood records.
 
 <img width="600" alt="SF OpenData neighbourhood data and updated WoF microhoods projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/microhoods.png">
 
 _Image: SF OpenData neighbourhood data and updated WoF microhoods projected in QGIS._
 
-###Update the locality
+###Update the locality record
 
-Now that we've fixed our neighbourhood shapes, what about the city shape? 
+Now that we've fixed our neighbourhood shapes... what about the locality (city) shape? 
 
-The Who's On First shape for San Francisco was technically correct, showing all land, water, and offshore islands administered by the city. But, its not the city's seven mile by seven mile iconic shape. [A new geometry of San Francisco](https://github.com/whosonfirst/whosonfirst-data/blob/master/data/859/225/83/85922583-alt-mapzen.geojson) without the outlying areas (Treasure Island and Farallon Islands) was produced as a new alt-geometry of just the contiguous San Francisco (comparison below). 
+The existing Who's On First shape for San Francisco was technically correct, showing all land, water, and offshore islands administered by the city. But, its not the city's seven mile by seven mile iconic shape that many residents and visitors recognize as the shape of San Francisco. [A new geometry of San Francisco](https://github.com/whosonfirst/whosonfirst-data/blob/master/data/859/225/83/85922583-alt-mapzen.geojson) without the outlying areas (Treasure Island and Farallon Islands) was produced as a new alt-geometry of just the contiguous San Francisco (comparison below). 
 
 <img width="600" alt="Comparison of San Francisco's WoF geometry and alt-geometry" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/overview.png">
 
@@ -129,11 +129,11 @@ Because we're mixing data from different sources, we should also modify the shap
 
 While the above steps took care of the majority of our issues, there were a few remaining edits to be made in San Francisco:
 
-* The **Westlake** neighbourhood in Daly City was incorrectly parented to San Francisco. This record needed to have its `hierarchy` and `parented_by` fields updated to replace the ID for Daly City with the ID for San Francisco. This hierarchy change qualifies as a significant event, so the record was deprecated and superseded to a new record for this neighbourhood. This requires us to duplicate the old file, update the `wof:id` property and filename to the new ID, linking up the `wof:supersedes` and `wof:supersedes_by` properties in both records.
+* The **Westlake** neighbourhood in Daly City was incorrectly parented to San Francisco. This record needed to have its `wof:hierarchy` and `wof:parent` fields updated to replace the ID for Daly City with the ID for San Francisco. This hierarchy change qualifies as a **Significant Event**, so the record was cessated and superseded to a new record for this neighbourhood. This requires us to duplicate the old file, update the `wof:id` property and filename to the new ID, linking up the `wof:supersedes` and `wof:supersedes_by` properties in both records.
  
-* The **Transmission** neighbourhood in San Francisco need to be deprecated and given an `mz:is_funky` value of `1`. Using local knowledge, it was determined that this neighbourhood would be deprecated and superseded to the nearby record of "La Lengua", rather than a new microhood.
+* The **Transmission** neighbourhood in San Francisco need to be deprecated and given an `mz:is_funky` value of `1`. Using local knowledge, it was determined that this neighbourhood would be cessated and superseded to the nearby record of "La Lengua", rather than a new microhood.
 
-* The Who's On First record for the **Ft. Winfield Scott** neighbourhood in Marin County needed to be updated with a new geometry and correct parenting; it was also given a new name, `Fort Baker`. This qualifies as a significant event, so the record was deprecated and superseded to a new record for this neighbourhood.
+* The Who's On First record for the **Ft. Winfield Scott** neighbourhood in Marin County needed to be updated with a new geometry and correct parenting; it was also given a new name, `Fort Baker`. This qualifies as a **Significant Event**, so the record was deprecated and superseded to a new record for this neighbourhood.
 
 We also have to ensure that all microhood, neighbourhood, and macrohood records are given appropriate `mz:min_zoom` and `mz:max_zoom` values.  These values should be consistent across place types, as they are used to determine at what zoom level the name label will appear (and when it will disappear). 
 
