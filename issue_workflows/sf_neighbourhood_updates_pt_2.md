@@ -1,4 +1,4 @@
-#Updating Who's on First Neighbourhood Records (part 2)
+#Updating Who's on First Neighbourhood Records (part two)
 
 _Before you jump into part two of editing Who's on First neighbourhood records, make sure to check out [part one](https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/issue_workflows/sf_neighbourhood_updates_pt_1.md) (covers the first four steps)!_
 
@@ -21,9 +21,9 @@ In this section, you will:
 
 There were two outcomes with the new SF OpenData neighbourhood records. These outcomes were either:
 
-* **A** - The modified SF OpenData record was joined to an existing Who's On First (WOF) record, the existing WOF geometry was archived as an alt-geometry, and the SF OpenData was added to the record's default geometry. Names were also updated.
+* **A** - The modified SF OpenData record was joined to an existing Who's On First (WoF) record, the existing WoF geometry was archived as an alt-geometry, and the SF OpenData was added to the record's default geometry. Names were also updated.
 
-* **B** - The modified government-provided record did not join to an existing record. A new ID and record for the neighbourhood feature was created. We need to add a new WOF record for this place.
+* **B** - The modified government-provided record did not join to an existing record. A new ID and record for the neighbourhood feature was created. We need to add a new WoF record for this place.
 
 <img width="600" alt="SF OpenData updated and new neighbourhood data projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/all_hoods.png">
 
@@ -46,7 +46,7 @@ As discussed in part 1, these neighbourhoods need to be split into separate part
 
 ####Update existing neighbourhoods with new shapes and names
 
-For cases where neighbourhood names were not an exact match between SF OpenData and Who's On First (remember `Haight Ashbury` vs. `Haight-Ashbury`), make sure we preserve the old WOF name name as a `variant` name (below) and set the SF OpenData name as the feature's `wof:name`.
+For cases where neighbourhood names were not an exact match between SF OpenData and Who's On First (remember `Haight Ashbury` vs. `Haight-Ashbury`), make sure we preserve the old WoF name name as a `variant` name (below) and set the SF OpenData name as the feature's `wof:name`.
 
  _"name:eng_x_variant":[_     
   _"Haight-Ashbury"_    
@@ -54,17 +54,17 @@ For cases where neighbourhood names were not an exact match between SF OpenData 
   
 <img width="600" alt="SF OpenData updated and new neighbourhood data projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/updated_hoods.png">
 
-_Image: SF OpenData neighbourhoods projected in QGIS that mapped cleanly to an existing WOF ID._
+_Image: SF OpenData neighbourhoods projected in QGIS that mapped cleanly to an existing WoF ID._
   
 A .geojson file (with an ID field) was created for SF OpenData neighbourhood records that have new geometries (above).
 
-####Create new WOF neighbourhood records
+####Create new WoF neighbourhood records
 
 We needed to assign each new neighbourhood record a new [Brooklyn Integer](http://www.brooklyninteger.com), which become the `wof:id` for each record. The neighbourhoods that need new Brooklyn Integer IDs are shown below, as displayed in QGIS.
 
 <img width="600" alt="SF OpenData updated and new neighbourhood data projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/new_neighbourhoods_wlabel.png">
 
-_Image: Neighbourhoods in SF OpenData that should be added to WOF._
+_Image: Neighbourhoods in SF OpenData that should be added to WoF._
 
 A .geojson file was created for SF OpenData neighbourhood records that were identified during the research step as being "real" places but missing in Who's on First. Upon import, the following will occur:
 
@@ -74,7 +74,7 @@ A .geojson file was created for SF OpenData neighbourhood records that were iden
 ### Reclassify (upgrade) and create new macrohoods
 
 
-Three current neighbourhood records were "promoted" to macrohood records. These neighbourhoods - Richmond District, Sunset District, and Downtown - were already in WOF, as neighbourhoods. We created new shapes by combining geometries from the SF OpenData neighbourhoods and updated names if necessary. 
+Three current neighbourhood records were "promoted" to macrohood records. These neighbourhoods - Richmond District, Sunset District, and Downtown - were already in WoF, as neighbourhoods. We created new shapes by combining geometries from the SF OpenData neighbourhoods and updated names if necessary. 
 
 To combine geometries, the Dissolve tool in QGIS was used. The shape for the Sunset District macrohood record was created by selecting neighbourhood records that fall completely within the area we're designating as the Sunset District macrohood. In this case, those neighbourhoods were  Outer Sunset, Parkside, Golden Gate Heights, and Inner Sunset. With those features selected, the Dissolve tool was used to export the merged geometry of these four neighbourhood geometries by clicking the "Vector" dropdown menu and selecting `Geoprocessing Tools` > `Dissolve`.
 
@@ -88,9 +88,9 @@ _Image: SF OpenData neighbourhood-based data and new macrohoods projected in QGI
 
 ###Reclassify (downgrade) and create new microhoods
 
-There were 51 leftover records. These records are generally smaller than sections of larger neighbourhoods and are more appropriate as the WOF microhood placetype.
+There were 51 leftover records. These records are generally smaller than sections of larger neighbourhoods and are more appropriate as the WoF microhood placetype.
 
-Our leftover WOF neighbourhood records that did not join to an SF OpenData record in San Francisco need to be adjusted to align with the SF OpenData geometries so they can be imported to WOF as new microhoods. This is important because microhoods should _generally_ not overlap neighbourhoods. There is no rule about yes-or-no overlap between neighbourhoods and microhoods (or even between neighbourhoods and neighbourhoods, or microhoods to microhoods), but we are looking for cleaner geometry that's less overlapping for the **default** - overlapping geometries can always become alt-geometry records. 
+Our leftover WoF neighbourhood records that did not join to an SF OpenData record in San Francisco need to be adjusted to align with the SF OpenData geometries so they can be imported to WoF as new microhoods. This is important because microhoods should _generally_ not overlap neighbourhoods. There is no rule about yes-or-no overlap between neighbourhoods and microhoods (or even between neighbourhoods and neighbourhoods, or microhoods to microhoods), but we are looking for cleaner geometry that's less overlapping for the **default** - overlapping geometries can always become alt-geometry records. 
 
 **Optional:** note that the new microhood shapes can be generalized slightly (shown below). The Zetashapes occasionally cut through neighbourhoods at odd angles, so adding a missing block or two into your new microhood geometry is acceptable. 
 
@@ -108,9 +108,9 @@ Alternatively, the Clip with Polygon from Another Layer tool in the Digitizing T
 
 Since we are creating new microhood records, we'll need to use Brooklyn Integers to get new `wof:id` values, similar to what we did with new neighbourhood records. The remaining *21* neighbourhood records were given a new `wof:id` and imported accordingly. Lastly, since a change to the `wof:placetype` value qualifies as a "[Significant Event](https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/definition/significant_event.md)," new microhood records need to supersede the original neighbourhood records and the original neighbourhood records needed to be superseded_by these new microhood records.
 
-<img width="600" alt="SF OpenData neighbourhood data and updated WOF microhoods projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/microhoods.png">
+<img width="600" alt="SF OpenData neighbourhood data and updated WoF microhoods projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/microhoods.png">
 
-_Image: SF OpenData neighbourhood data and updated WOF microhoods projected in QGIS._
+_Image: SF OpenData neighbourhood data and updated WoF microhoods projected in QGIS._
 
 ###Update the locality
 
@@ -118,13 +118,13 @@ Now that we've fixed our neighbourhood shapes, what about the city shape?
 
 The Who's On First shape for San Francisco was technically correct, showing all land, water, and offshore islands administered by the city. But, its not the city's seven mile by seven mile iconic shape. [A new geometry of San Francisco](https://github.com/whosonfirst/whosonfirst-data/blob/master/data/859/225/83/85922583-alt-mapzen.geojson) without the outlying areas (Treasure Island and Farallon Islands) was produced as a new alt-geometry of just the contiguous San Francisco (comparison below). 
 
-<img width="600" alt="Comparison of San Francisco's WOF geometry and alt-geometry" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/overview.png">
+<img width="600" alt="Comparison of San Francisco's WoF geometry and alt-geometry" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/overview.png">
 
-_Image: Comparison of San Francisco's new WOF geometry and its original geometry, now preserved as an alt-geometry._
+_Image: Comparison of San Francisco's new WoF geometry and its original geometry, now preserved as an alt-geometry._
 
 This new geometry was created using the Dissolve tool in QGIS with the nieghbourhood shapes from SF OpenData. This alt-geometry was more detailed than the [current outline for San Francisco](https://github.com/whosonfirst/whosonfirst-data/blob/master/data/859/225/83/85922583.geojson) and is debatably the general outline that most consider the San Francisco locality.
 
-When we update WoF neighbourhoods to default to a new geometry, we also need to preserve the earlier Zetashapes geometry as an alt-geometry in WoF. An alt-geometry is a dedicated WoF record that only contains source information and a geometry - check out an example of an alt-geometry [here](https://github.com/whosonfirst/whosonfirst-data/blob/master/data/859/225/83/85922583-alt-mapzen.geojson). Alt-geometries use the same `WoF:id` as the record's main geometry, but append `-alt-"source"`.
+When we update WoF neighbourhoods to default to a new geometry, we also need to preserve the earlier Zetashapes geometry as an alt-geometry in WoF. An alt-geometry is a dedicated WoF record that only contains source information and a geometry - check out an example of an alt-geometry [here](https://github.com/whosonfirst/whosonfirst-data/blob/master/data/859/225/83/85922583-alt-mapzen.geojson). Alt-geometries use the same `wof:id` as the record's main geometry, but append `-alt-"source"`.
 
 Because we're mixing data from different sources, we should also modify the shapes so they are more consistent with eachother regardless of the source. We'll revisit this in part 5.
 
@@ -154,7 +154,7 @@ For existing features, probably don't modify the existing `min_zoom` and `max_zo
   
 ##Now that we have files... server magic!
 
-We could update each WOF record and it's dependents accordingly, but because San Francisco is a large locality with many placetype updates, we've developed in-house tools to automate some of this work. The following tasks need to be completed for records that we've edited:
+We could update each WoF record and it's dependents accordingly, but because San Francisco is a large locality with many placetype updates, we've developed in-house tools to automate some of this work. The following tasks need to be completed for records that we've edited:
 
 * Updates to the **supersedes** and **supersedes_by** fields.
 * All hierarchy values of "contained by" records need to be updated to include the new `wof:id`. To automate this reverse geocoding, we'll use the Point-In-Polygon (PIP) server which will rebuild a record's hierarchy.
