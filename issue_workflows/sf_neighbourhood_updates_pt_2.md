@@ -1,6 +1,6 @@
 #Updating Who's on First Neighbourhood Records (part 2)
 
-_Before you jump into part two of editing Who's on First neighbourhood records, make sure to check out [part one](https://github.com/whosonfirst/whosonfirst-docs/wiki/Issue-%23125---A-Guide-to-Updating-Neighbourhood-Records-in-Who's-on-First-%28part-1%29_) (covers the first four steps)!_
+_Before you jump into part two of editing Who's on First neighbourhood records, make sure to check out [part one](https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/issue_workflows/sf_neighbourhood_updates_pt_1.md) (covers the first four steps)!_
 
 ##5. Update Records
 
@@ -60,7 +60,7 @@ A .geojson file (with an ID field) was created for SF OpenData neighbourhood rec
 
 ####Create new WOF neighbourhood records
 
-We needed to assign each new neighbourhood record a new [Brooklyn Integer](www.brooklyninteger.com), which become the `wof:id` for each record. The neighbourhoods that need new Brooklyn Integer IDs are shown below, as displayed in QGIS.
+We needed to assign each new neighbourhood record a new [Brooklyn Integer](http://www.brooklyninteger.com), which become the `wof:id` for each record. The neighbourhoods that need new Brooklyn Integer IDs are shown below, as displayed in QGIS.
 
 <img width="600" alt="SF OpenData updated and new neighbourhood data projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/new_neighbourhoods_wlabel.png">
 
