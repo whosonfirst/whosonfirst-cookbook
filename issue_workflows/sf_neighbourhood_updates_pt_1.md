@@ -210,10 +210,6 @@ After our WoF shapes were added to a QGIS document (below), they were given a ne
 
 _Image: Developing an action plan in QGIS by assigning records' status in QGIS, reviewing WoF record matches with new SF OpenData source. Colors represent status value._
 
-When we update WoF neighbourhoods to default to a new geometry, we also need to preserve the earlier Zetashapes geometry as an alt-geometry in WoF. An alt-geometry is a dedicated WoF record that only contains source information and a geometry - check out an example of an alt-geometry [here](https://github.com/whosonfirst/whosonfirst-data/blob/master/data/859/225/83/85922583-alt-mapzen.geojson). Alt-geometries use the same `WoF:id` as the record's main geometry, but append `-alt-"source"`.
-
-Because we're mixing data from different sources, we should also modify the shapes so they are more consistent with eachother regardless of the source. We'll revisit this in part 5.
-
 **Congratulations!** You have finished collecting and evaluating new neighbourhood shapes for WoF! In the next part of this tutorial, we'll prepare the data for import. But first, a well-deserved break.
 
 To finalize your work and prepare data for import, check out [part two](https://github.com/whosonfirst/whosonfirst-docs/wiki/Issue-%23125---A-Guide-to-Updating-Neighbourhood-Records-in-Who's-on-First-%28part-2%29)!
