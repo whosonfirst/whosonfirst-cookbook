@@ -94,7 +94,34 @@ To better understand what we're requesting of our command, here is a breakdown o
 * **`external_editor`** Return only necessary attribute fields for neighbourhood edits. 
 * **`-f 85922583`** ID of the locality you need neighbourhood records for, found by searching our [Spelunker](https://whosonfirst.mapzen.com/spelunker).
 
-From the WoF repository for San Francisco, a total of **156** records for neighbourhoods were collected. QGIS was used to preview Who’s On First neighbourhood shapes (below). 
+**About the `external_editor` option:**
+* This option was created for our neighbourhood editors and exports only relevant and required record attributes for WoF neighbourhood records. All required attributes (and applicable optional attributes) should be included when filing your PR of updated neighbourhood records. The `external_editor` attribute fields include:
+
+* **'name'** The attribute that will be used for the `wof:name` field. Required for all files.
+* **'id'** The attribute that will be used for the `wof:id` field. Required for all files.
+* **'placetype'** The attribute that will be used for the `wof:placetype` field. Required for all files.
+* **'parent_id'** The attribute that will be used for the `wof:parent_id` field. Should equal the `wof:id` of the next placetype up in the feature's hierarchy. Required for all files.
+* **'is_landuse_aoi'** Used to signify an "area of interest" land use, different than the `wof:placetype` would suggest.
+* **'supersedes'** The attribute that will be used for the `wof:supersedes` field. Required for all files that supersede another WoF record.
+* **'superseded_by'** The attribute that will be used for the `wof:superseded_by` field. Required for all files that are superseded by another WoF record.
+* **'deprecated'** The attribute that will be used for the `edtf:deprecated` field. A date field _(YYYY-MM-DD)_ used to signify when we determined this record was "junk" and incorrect since inclusion in Who's on First. Required for all files that are deprecated.
+* **'cessation'**The attribute that will be used for the `edtf:cessation` field. A date field _(YYYY-MM-DD)_ used to signify when we determined this record was no longer valid in Who's on First (usually when it has been replaced by another record). Also requires a new field called `mz:is_current` to be created. The `mz:is_current` field value is '0' if the record has a `edtf:cessation` date.
+* **'eng_preferred_name'** Preferred alternative names for a feature. 
+* **'eng_variant_name'** Variant alternative names for a feature. 
+* **'max_zoom'** Maximum zoom level at which feature labels appear on a map. Required for all new features to Who's on First.
+* **'min_zoom'** Minimum zoom level at which feature labels appear on a map. Required for all new features to Who's on First.
+* **'lbl_latitude'** A decimal value of a feature's Y coordinate. Value should be derived from [MapShaper](https://github.com/mbloch/mapshaper) and included on any new shape imported to Who's on First. New X/Y coordinates attributes will be created when running a geojson or shapefile through the MapShaper tool. These new fields will be used for `lbl:latitude` and `lbl:longitude`.
+* **'lbl_longitude'** A decimal value of a feature's X coordinate. Value should be derived from [MapShaper](https://github.com/mbloch/mapshaper) and included on any new shape imported to Who's on First. New X/Y coordinates attributes will be created when running a geojson or shapefile through the MapShaper tool. These new fields will be used for `lbl:latitude` and `lbl:longitude`.
+* **'is_funky'** Optional.
+* **'is_hard_boundary'** Optional.
+* **'is_official'** Optional.
+* **'tier_locality'** Optional.
+* **'country_id'** The `wof:id` of the feature's parent country.
+* **'region_id'** The `wof:id` of the feature's parent region.
+* **'locality_id'** The `wof:id` of the feature's parent locality.
+* **'wof_country'** Usually equal to the ISO code, this is a two-digit key representing the country your features are in. Required for all features.
+
+From the WoF repository for San Francisco, a total of **165** (157 polygon geometries, 8 point geometries) records for neighbourhoods were collected using our `external_editor` option. QGIS was used to preview Who’s On First neighbourhood shapes (below). 
 
 <img width="600" alt="San Francisco neighbourhood records in WoF" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/bay_overview1.png">
 
