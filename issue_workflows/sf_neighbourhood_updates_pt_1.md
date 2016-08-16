@@ -239,4 +239,4 @@ _Image: Developing an action plan in QGIS by assigning records' status in QGIS, 
 
 **Congratulations!** You have finished collecting and evaluating new neighbourhood shapes for WoF! In the next part of this tutorial, we'll prepare the data for import. But first, a well-deserved break.
 
-To finalize your work and prepare data for import, check out [part two](https://github.com/whosonfirst/whosonfirst-docs/wiki/Issue-%23125---A-Guide-to-Updating-Neighbourhood-Records-in-Who's-on-First-%28part-2%29)!
+To finalize your work and prepare data for import, check out [part two](https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/issue_workflows/sf_neighbourhood_updates_pt_2.md)!
