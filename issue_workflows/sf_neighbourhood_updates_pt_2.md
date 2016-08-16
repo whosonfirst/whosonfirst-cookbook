@@ -124,8 +124,11 @@ _Image: Comparison of San Francisco's new WOF geometry and its original geometry
 
 This new geometry was created using the Dissolve tool in QGIS with the nieghbourhood shapes from SF OpenData. This alt-geometry was more detailed than the [current outline for San Francisco](https://github.com/whosonfirst/whosonfirst-data/blob/master/data/859/225/83/85922583.geojson) and is debatably the general outline that most consider the San Francisco locality.
 
-###Take care of any deprecated records and outliers
+When we update WoF neighbourhoods to default to a new geometry, we also need to preserve the earlier Zetashapes geometry as an alt-geometry in WoF. An alt-geometry is a dedicated WoF record that only contains source information and a geometry - check out an example of an alt-geometry [here](https://github.com/whosonfirst/whosonfirst-data/blob/master/data/859/225/83/85922583-alt-mapzen.geojson). Alt-geometries use the same `WoF:id` as the record's main geometry, but append `-alt-"source"`.
 
+Because we're mixing data from different sources, we should also modify the shapes so they are more consistent with eachother regardless of the source. We'll revisit this in part 5.
+
+###Take care of any deprecated records and outliers
 
 While the above steps took care of the majority of our issues, there were a few remaining edits to be made in San Francisco:
 
