@@ -151,12 +151,12 @@ For existing features, probably don't modify the existing `min_zoom` and `max_zo
   
 ##Now that we have files... server magic!
 
-We could update each WoF record and it's dependents accordingly, but because San Francisco is a large locality with many placetype updates, we've developed in-house tools to automate some of this work. The following tasks need to be completed for records that we've edited:
+We've developed in-house tools to automate much of the import process for Who's on First. The following tasks will be auto-completed for records that we've edited:
 
 * Updates to the **supersedes** and **supersedes_by** fields.
 * All hierarchy values of "contained by" records need to be updated to include the new `wof:id`. To automate this reverse geocoding, we'll use the Point-In-Polygon (PIP) server which will rebuild a record's hierarchy.
 
-The Point-In-Polygon server is a tool that update parent IDs for descendent records. Records are assigned a parent ID based on what boundary they fall within, and, since we've updated many records in San Francisco, thousands of records will need their parent ID updated. This automated Point-In-Polygon server does an excellent job in automating this process compared to doing this work by hand.
+The Point-In-Polygon server is a tool that update parent IDs for descendent records. Records are assigned a hierarchy based on their `wof:parent`, and, since we've updated many records in San Francisco, twe'll need to ensure these are all correct before import. This automated Point-In-Polygon server does an excellent job in automating this process compared to doing this work by hand.
 
 ##Conclusion
 
@@ -171,4 +171,4 @@ This was an exercise in data curation and data management that will undoubtedly 
 
 Please remember - some of this work is automated and some of this work is not. Please contact us via an [issue](https://github.com/whosonfirst/whosonfirst-data/issues/new) or an [email](mailto:stephen.epps@mapzen.com) to work through the best approach for your city.
 
-**Happy mapping!**
+**Thanks for reading and happy mapping!**
