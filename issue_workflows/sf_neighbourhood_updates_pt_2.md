@@ -139,6 +139,10 @@ We also have to ensure that all microhood, neighbourhood, and macrohood records 
 
 For existing features, probably don't modify the existing `min_zoom` and `max_zoom` values. But for new features, do the following:
 
+
+- `borough`:
+  - Default: `min_zoom`:`10`, optionally modify up to `9` for important places.
+  - Default: `max_zoom`:`13`, rarely modify.
 - `neighbourhood`: 
   - Default: `min_zoom`:`15`, optionally modify up to `13` for important places.
   - Default: `max_zoom`:`18`, rarely modify.
