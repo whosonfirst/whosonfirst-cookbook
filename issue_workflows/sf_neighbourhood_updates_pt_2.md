@@ -173,6 +173,8 @@ Now, we should have a collection of .geojson files that we have use to create a 
 * `wof:country`
 * `wof:parent_id`
 
+Last thing - Remember the single-part versus multi-part editing issues that can arise in QGIS? Click on the `Vector` tab and navigate to `Geometry Tools > Check Geometry Validity` to ensure that you have not added multi-part features to a single-part geojson file or vice versa. 
+
 ##Now that we have files... server magic!
 
 We've developed in-house tools to automate much of the import process for Who's on First. The following tasks will be auto-completed for records that we've edited:
