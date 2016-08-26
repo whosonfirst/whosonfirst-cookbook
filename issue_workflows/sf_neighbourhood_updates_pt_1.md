@@ -127,7 +127,7 @@ From the WoF repository for San Francisco, a total of **165** (157 polygon geome
 
 _Image: San Francisco neighbourhood records (light purple) in comparison to the San Francisco Bay Area and the WoF shapes of San Francisco (blue)._
 
-You might notice the general shape of San Francisco present in the photo below, but it's tough to make out. Many of these WoF neighbourhood shapes cross into what most people would consider a different neighbourhood, and, in two cases, include areas in different counties. The good news? The majority of these neighbourhood records contain usable information in their WoF attribute fields.
+You might notice the general shape of San Francisco present in the photo below, but it's tough to make out. Many of these WoF neighbourhood shapes cross into what most people would consider a different neighbourhood, and, in two cases, include areas in different counties. The good news? The majority of these neighbourhood records contain usable information in their WoF attribute fields. Also, be mindful of the differences between single-part and multi-part polygon edits in QGIS. If your neighbourhood shapes are single-part polygons to begin with, you are unable to add a multi-part polygon into your feature collection. 
 
 <img width="600" alt="San Francisco neighbourhood records in WoF" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/new_contig.png">
 
