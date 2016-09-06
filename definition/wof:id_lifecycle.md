@@ -57,5 +57,6 @@ Placeholder for `wof:id` life-cycle documentation.
       - Sig Events
       - Non-Sig Events
       
-#### Flowchart(s) of workflows
+#### Flowchart(s) of workflows (omnigraffle)
+
 
