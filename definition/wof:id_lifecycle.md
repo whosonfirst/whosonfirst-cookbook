@@ -14,7 +14,7 @@ Placeholder for `wof:id` life-cycle documentation.
 #### Three types
   - Create
   - Modify
-  - Delete
+  - Deprecating
   
 #### If sig event, as explained below, new wof:id
   - explain superseding / supersedes_by
