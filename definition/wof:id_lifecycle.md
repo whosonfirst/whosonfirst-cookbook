@@ -5,7 +5,7 @@ Placeholder for `wof:id` life-cycle documentation.
 ##Who's on First ID Tracking and Life Cycles
 
 ###What is a `wof:id`?
-- Brooklyn Int (not alway a brooklyn int, a unique 64-bit identifier, just mention Brooklyn Integers.
+- Brooklyn Int (not alway a brooklyn int, a unique 64-bit identifier, just mention Brooklyn Integers.)
 - If a feature does change..
 
 
