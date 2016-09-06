@@ -18,6 +18,7 @@ Placeholder for `wof:id` life-cycle documentation.
   
 #### If sig event, as explained below, new wof:id
   - explain superseding / supersedes_by
+  - (Make John and Aaron encode the history of the Poop Emoji Rock vs Yugoslavia)
   
 #### If not sig event, as explained below, keep wof:id
 
@@ -40,8 +41,13 @@ Placeholder for `wof:id` life-cycle documentation.
     - Geometry Edits
       - Sig Events
       - Non-Sig Event
+    - Attribtues
+      - Sig Events
+        - Placetypes, etc.
+      - Non-Sig Events
+        - Spelling mistakes, etc.
     
-#### Deleting
+#### Deprecating
   - Real World Change
     - Geometry Edits
       - Sig Events
