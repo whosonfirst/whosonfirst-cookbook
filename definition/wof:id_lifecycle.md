@@ -7,9 +7,11 @@ That's not to say that features never change; often times a feature is updated (
 
 #### Significant Event
 
-If changes fall under the Significant Event category, a new feature with new `wof:id` is created, then the non-valid feature is given a `wof:superseded_by` value equal to that of the new feature's `wof:id` and the new feature is given a `wof:supersedes` value equal to that of the non-valid feature. By linking features through the `supersedes` and `superseded_by` values, it allows a user and various map services to string together the history of any given feature and understand which features are no longer valid (and which features _are_ valid).
+If an existing feature experiences a Significant Event, the old feature should be duplicated but receive a new `wof:id` and given a `wof:supersedes` value equal to that of the existing feature, and the existing feature should be given a `wof:superseded_by` value equal to that of the new feature's `wof:id`. 
 
-Who's on First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what _was_ and what _is_. Our `supersedes` and `superseded_by` fields allow us to look back to find features that existed at a certain time, with the help of those `supersedes` and `superseded_by` ID values.
+By linking features through the `supersedes` and `superseded_by` values, it allows a downstream consumers of Who's On First data to link together the history of any given feature at any given time and to understand which features are no longer valid (and which features _are_ valid).
+
+Who's on First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what _was_ and what _is_. 
 
 Below, the life cycle and tracking rules are outlined to help you understand what changes require a new `wof:id` and what changes allow the `wof:id` to be kept as-is.
 
