@@ -61,7 +61,7 @@ Significant modifications fall into one of two categories: _real-world changes_ 
 
 #### Examples
 
-** Cessation events**
+**Cessation events**
 
 When one feature cesses and other feature(s) replace it with inception events.
 
