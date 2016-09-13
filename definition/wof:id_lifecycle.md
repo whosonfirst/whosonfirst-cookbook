@@ -3,7 +3,7 @@
 ## What is a `wof:id`?
 A Who's on First ID (`wof:id`) is a unique 64-bit identifier that represents a single point or polygon feature in Who's on First. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though alternative methods of retrieving a `wof:id` are available. Unlike OpenStreetMap (OSM) or the United Kingdom's Local Ordnance Survey (OS) a `wof:id` is stable to an individual feature and will not update when minor updates to a feature occur. Once a feature is given a `wof:id`, that feature will maintain that `wof:id` for it's entire lifecycle.
 
-That's not to say that features never change; often times a feature is updated (significant change in size, changes placetype, is given additional properties, etc.) which may require a new feature to be created with a new `wof:id`. Updates to a feature that require a new feature with a new `wof:id` to be created are classified as a "**Significant Event**". 
+That's not to say that features never change; often times a feature is updated (significant change in size, changes placetype, is given additional properties, etc.) which may require a new feature to be created with a new `wof:id`. Updates to a feature that require a new feature with a new `wof:id` to be created are classified as a "significant event". 
 
 #### Significant Event
 
