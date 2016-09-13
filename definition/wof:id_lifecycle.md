@@ -34,6 +34,7 @@ We'll refer to the non-valid feature as the **superseded** version and the new f
 There are three reasons for changing a `wof:id`; these reasons include: 
 
 - **Creation of a New Feature:** A new `wof:id` should be minted when a feature previously unknown to Who's on First is added to the Who's on First database.
+- **Cessation of a Existing Feature:** When a feature (like Yugoslavia) no longer exists in the real world (often replaced by 1 or more something elses).
 - **Making Significant Modifications to an Existing Feature:** If specific, major modifications are made to an existing feature in Who's on First, a new feature with a new `wof:id` needs to be created. Superseding work is required to replace the old feature with the new feature.
 - **Adding a deprecated or cessation date to an Existing Feature:** If an existing feature in Who's on First is found to have never been correct, either due to an error correction or real-world change, a new feature with a new `wof:id` needs to be created. Superseding work is required to replace the old feature with the new feature.
 
@@ -53,11 +54,16 @@ Another example could be a new military facility on a Pacific Island. Similar to
 
 Significant modifications fall into one of two categories: _real-world changes_ or _error corrections_. Both of these categories can have one of two edits made: **geometry edits** or **attribute edits** (or both). The following changes, what Who's on First calls a Significant Event, would require a new `wof:id` to be minted for a superseding feature and updates to a superseded feature.
 
+- Cessation events (but when other feature(s) replace it with inception events)
 - Changes to the `wof:placetype`
 - Changes to the geometry, where more than 50% (area or length) is added or removed
 - Moving a feature's location more than (roughly) ten kilometers or five miles from it's original location
 
 #### Examples
+
+** Cessation events**
+
+When one feature cesses and other feature(s) replace it with inception events.
 
 **Changes to the `wof:placetype`**
 
