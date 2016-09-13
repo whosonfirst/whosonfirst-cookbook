@@ -5,7 +5,7 @@ A Who's on First ID (`wof:id`) is a unique 64-bit identifier that represents a s
 
 That's not to say that features never change; often times a feature is updated (significant change in size, changes placetype, is given additional properties, etc.) which may require a new feature to be created with a new `wof:id`. Updates to a feature that require a new feature with a new `wof:id` to be created are classified as a "**Significant Event**". 
 
-### Significant Event
+#### Significant Event
 
 If changes fall under the Significant Event category, a new feature with new `wof:id` is created, then the non-valid feature is given a `wof:superseded_by` value equal to that of the new feature's `wof:id` and the new feature is given a `wof:supersedes` value equal to that of the non-valid feature. By linking features through the `supersedes` and `superseded_by` values, it allows a user and various map services to string together the history of any given feature and understand which features are no longer valid (and which features _are_ valid).
 
