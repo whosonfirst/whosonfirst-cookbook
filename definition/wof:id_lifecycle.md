@@ -16,11 +16,6 @@ Who's On First is not in the business of removing features from history, but rat
 
 Below, the life cycle and tracking rules are outlined to help you understand what changes require a new `wof:id` and what changes allow the `wof:id` to be kept as-is.
 
-## `wof:id` Lifecycle Flowchart
-####placeholder for FC #2
-
-![flowchart.png](https://cloud.githubusercontent.com/assets/18567700/18456781/81bb5c02-7908-11e6-98d4-048b23694a50.png)
-
 ## Life Cycle / Tracking Rules
 
 Feature life cycles and tracking rules are necessary in understanding changes to a `wof:id`, what constitutes a change, and how Who's On First tracks both valid and non-valid features. By following the steps below, a standard is set in Who's On First to ensure that all users and mapping services are able to follow along with changes to a feature and the history of a given feature. 
@@ -35,29 +30,20 @@ For example, in 1991, the country of Yugoslavia began to break-up into countries
 
 We'll refer to the non-valid feature as the **superseded** version and the new feature as the **superseding** version.
 
+## `wof:id` Lifecycle Flowchart
 
-## Updating or Creating a `wof:id`
+####placeholder for FC #2
 
-There are four reasons for changing a `wof:id`; these reasons include: 
+![flowchart.png](https://cloud.githubusercontent.com/assets/18567700/18456781/81bb5c02-7908-11e6-98d4-048b23694a50.png)
 
-- **Creation of a New Feature:** A new `wof:id` should be minted when a feature previously unknown to Who's On First is added to the Who's On First database.
-- **Cessation of a Existing Feature:** When a feature (like Yugoslavia) no longer exists in the real world (often replaced by 1 or more something elses).
-- **Making Significant Modifications to an Existing Feature:** If specific, major modifications are made to an existing feature in Who's On First, a new feature with a new `wof:id` needs to be created. Superseding work is required to replace the old feature with the new feature.
-- **Adding a deprecated or cessation date to an Existing Feature:** If an existing feature in Who's On First is found to have never been correct, either due to an error correction or real-world change, a new feature with a new `wof:id` needs to be created. Superseding work is required to replace the old feature with the new feature.
 
-Each of these three reasons for changing a `wof:id` are explained below. 
+## Birth
 
-## Changes to the `wof:placetype`
+### Creation of a New Feature
 
-If Who's On First incorrectly classified a set of localities as regions, said region records would become the superseded records, with new superseding locality records created in their place. The `mz:is_current` field, `wof:superseded_by`, and `edtf:cessation` date field would be updated for each of the superseded region records. Completely new features with new `wof:id`s, a corrected `wof:placetype` field, and updated `wof:supersedes` field would be created for the superseding locality records. 
+Creating a new feature that was previously unknown to Who's On First is the most straightforward; no existing records need modifications and the only required work takes place in the record for the newly created feature.
 
-In this case, since the correction was made on the `wof:placetype` field and other attribute field values were correct, all other correct attributes would be transferred to the superseding feature (zoom levels, geometries, concordances, hierarchies, etc).
- 
-### Creation of a New Feature:
-
-Creating a new feature that was previously unknown to Who's On First is the most straightforward; no existing records need modifications and the only required work takes place in the record for the newly created feature. 
-
-### Making Significant Modifications to an Existing Feature
+## Life
 
 Significant modifications fall into one of two categories: _real-world changes_ or _error corrections_. Both of these categories can have one of two edits made: **geometry edits** or **attribute edits** (or both). The following changes, what Who's On First calls a Significant Event, would require a new `wof:id` to be minted for a superseding feature and updates to a superseded feature.
 
@@ -65,6 +51,53 @@ Significant modifications fall into one of two categories: _real-world changes_ 
 - Changes to the `wof:placetype`
 - Changes to the geometry, where more than 50% (area or length) is added or removed
 - Moving a feature's location more than (roughly) ten kilometers or five miles from it's original location
+
+
+
+#### Moving a feature's location more than ten kilometers from it's original location
+
+Similar to the Yugoslavia example, above, if a feature has it's geometry move more than ten kilometers or five miles from its original location, a new feature with a new `wof:id` would be created. 
+
+If an error correction needed to occur to move Iceland, for example, fifty kilometers to the east (let's pretend it was imported incorrectly), the record for Iceland would recieve a date (the date of it's error correction) in the `edtf:deprecated` field, an updated `mz:is_current` field, and the `wof:id` of the newly created Iceland record in it's `wof:superseded_by` field.
+
+The new Iceland record would recieve a new `wof:id`, and would have it's `wof:supersedes` field updated to include the `wof:id` of the original Iceland record. This new record would be our superseding features.
+
+### If any of the above are true:
+
+We are required to do the following:
+
+* Mint a new `wof:id`
+* Link up supersedes values
+* `is_current- field updates
+* Mark the `edtf:cessation` field with the edit date
+
+
+## Rebirth
+
+## Death
+
+> ## Adding a deprecated or cassation date to an existing feature
+> 
+> When one feature cesses and other feature(s) replace it with inception events.
+> A superseded feature will either need a `edtf:deprecated` or `edtf:cessation` date field update. This date is an essential > attribute, as it identifies the specific date at which that feature was superseded (and when the superseding feature took > over as the valid feature). When one of these field updates occurs, the superseding feature will always get a new          > `wof:id`.
+
+> * `edtf:deprecated` - Used when a feature was **never** correct to begin with. _Typically_ the field to update when >dealing with an error correction.
+> 
+> * `edtf:cessation` - Used when a feature was correct at a point in time, but for one or more reasons is no longer correct.
+
+## Examples
+
+#### Adding a new feature to Who's On First
+
+An example of a new feature would be a venue record for a new restaurant in New York City. If said restaurant was opened in September 2016, Who's On First would not known about this feature previous to this date, which means a new `wof:id` would be created and attached to a venue record in the New York venues repository for inclusion into Who's On First. Note that since this feature was never in Who's On First prior to the creation of this new venue record, a new `wof:id` would be minted from Brooklyn Integers.
+
+Another example could be a new military facility on a Pacific Island. Similar to the new venue record described above, this facility would receive a new `wof:id`, geometry, and attributes. This feature is an example of a completely new feature to Who's On First.
+
+#### Changes to the `wof:placetype`
+
+If Who's on First incorrectly classified a set of localities as regions, said region records would become the superseded records, with new superseding locality records created in their place. The `mz:is_current` field, `wof:superseded_by`, and `edtf:cessation` date field would be updated for each of the superseded region records. Completely new features with new `wof:id`s, a corrected `wof:placetype` field, and updated `wof:supersedes` field would be created for the superseding locality records. 
+
+In this case, since the correction was made on the `wof:placetype` field and other attribute field values were correct, all other correct attributes would be transferred to the superseding feature (zoom levels, geometries, concordances, hierarchies, etc).
 
 #### Changes to the geometry, where more than 50% (area or length) is added or removed
 
@@ -74,34 +107,22 @@ The new countries, Slovenia, Croatia, Bosnia and Herzegovina, the Republic of Ma
 
 This superseding work would allow someone looking at, say, Montenegro, to see when it was created and what superseded feature it came from.
 
-#### Moving a feature's location more than (roughly) ten kilometers or five miles from it's original location
+#### Moving a feature's location more than ten kilometers from it's original location
 
 Similar to the Yugoslavia example, above, if a feature has it's geometry move more than ten kilometers or five miles from its original location, a new feature with a new `wof:id` would be created. 
 
 If an error correction needed to occur to move Iceland, for example, fifty kilometers to the east (let's pretend it was imported incorrectly), the record for Iceland would recieve a date (the date of it's error correction) in the `edtf:deprecated` field, an updated `mz:is_current` field, and the `wof:id` of the newly created Iceland record in it's `wof:superseded_by` field.
 
-The new Iceland record would recieve a new `wof:id`, and would have it's `wof:supersedes` field updated to include the `wof:id` of the original Iceland record. This new record would be our superseding features.#### Examples
+The new Iceland record would recieve a new `wof:id`, and would have it's `wof:supersedes` field updated to include the `wof:id` of the original Iceland record. This new record would be our superseding features.
 
-## Adding a deprecated or cassation date to an existing feature
+#### Updates to empire geometries
 
-When one feature cesses and other feature(s) replace it with inception events.
-A superseded feature will either need a `edtf:deprecated` or `edtf:cessation` date field update. This date is an essential attribute, as it identifies the specific date at which that feature was superseded (and when the superseding feature took over as the valid feature). When one of these field updates occurs, the superseding feature will always get a new `wof:id`.
+Ongoing...
 
-* `edtf:deprecated` - Used when a feature was **never** correct to begin with. _Typically_ the field to update when dealing with an error correction.
+#### https://github.com/whosonfirst-data/whosonfirst-data/pull/362
 
-* `edtf:cessation` - Used when a feature was correct at a point in time, but for one or more reasons is no longer correct.
+Bounding box updates
 
+#### https://github.com/whosonfirst-data/whosonfirst-data/pull/363
 
-## Examples
-
-#### Example 1
-
-The `edtf:deprecated` field would be used, for example, when a set of features was imported with invalid geometries or inaccurate placetype designations.
-
-Updates to the `edtf:cessation` date would occur, for example, when the Yugoslavia record was no longer valid. At one point in time, Yugoslavia was a valid feature in Who's On First. 
-
-#### Example 2
-
-An example of a new feature would be a venue record for a new restaurant in New York City. If said restaurant was opened in September 2016, Who's On First would not known about this feature previous to this date, which means a new `wof:id` would be created and attached to a venue record in the New York venues repository for inclusion into Who's On First. Note that since this feature was never in Who's On First prior to the creation of this new venue record, a new `wof:id` would be minted from Brooklyn Integers.
-
-Another example could be a new military facility on a Pacific Island. Similar to the new venue record described above, this facility would receive a new `wof:id`, geometry, and attributes. This feature is an example of a completely new feature to Who's On First.
+Kutztown updates (spans several repos, updates several placetypes, and updates geometries)
