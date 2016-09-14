@@ -61,17 +61,17 @@ Significant modifications fall into one of two categories: _real-world changes_ 
 
 #### Examples
 
-**Cessation events**
+##### Cessation events
 
 When one feature cesses and other feature(s) replace it with inception events.
 
-**Changes to the `wof:placetype`**
+##### Changes to the `wof:placetype`
 
 If Who's on First incorrectly classified a set of localities as regions, said region records would become the superseded records, with new superseding locality records created in their place. The `mz:is_current` field, `wof:superseded_by`, and `edtf:cessation` date field would be updated for each of the superseded region records. Completely new features with new `wof:id`s, a corrected `wof:placetype` field, and updated `wof:supersedes` field would be created for the superseding locality records. 
 
 In this case, since the correction was made on the `wof:placetype` field and other attribute field values were correct, all other correct attributes would be transferred to the superseding feature (zoom levels, geometries, concordances, hierarchies, etc).
 
-**Changes to the geometry, where more than 50% (area or length) is added or removed**
+##### Changes to the geometry, where more than 50% (area or length) is added or removed
 
 The Yugoslavia example, above, is a perfect example of a real-world geometry change causing new `wof:id`s to be minted. In this case, Yugoslavia was dissolved and split into several different countries (and a disputed area). The record for Yugoslavia would recieve a date (the date of it's dissolution) in the `edtf:cessation` field, an updated `mz:is_current` field, and the `wof:id`s of the newly created countires in it's `wof:superseded_by` field.
 
@@ -79,7 +79,7 @@ The new countries, Slovenia, Croatia, Bosnia and Herzegovina, the Republic of Ma
 
 This superseding work would allow someone looking at, say, Montenegro, to see when it was created and what superseded feature it came from.
 
-**Moving a feature's location more than (roughly) ten kilometers or five miles from it's original location**
+##### Moving a feature's location more than (roughly) ten kilometers or five miles from it's original location
 
 Similar to the Yugoslavia example, above, if a feature has it's geometry move more than ten kilometers or five miles from its original location, a new feature with a new `wof:id` would be created. 
 
