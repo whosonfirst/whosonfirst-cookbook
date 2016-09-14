@@ -1,8 +1,8 @@
-# Who's on First ID Life Cycle Documentation
+# Who's On First ID Life Cycle Documentation
 
 ## What is a `wof:id`?
 
-A Who's on First ID (`wof:id`) is a unique 64-bit identifier that represents a single point or polygon feature in Who's on First. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though alternative methods of retrieving a `wof:id` are available. Unlike OpenStreetMap (OSM) or the United Kingdom's Local Ordnance Survey (OS) a `wof:id` is stable to an individual feature and will not update when minor updates to a feature occur. Once a feature is given a `wof:id`, that feature will maintain that `wof:id` for it's entire lifecycle.
+A Who's On First ID (`wof:id`) is a unique 64-bit identifier that represents a single point or polygon feature in Who's On First. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though alternative methods of retrieving a `wof:id` are available. Unlike OpenStreetMap (OSM) or the United Kingdom's Local Ordnance Survey (OS) a `wof:id` is stable to an individual feature and will not update when minor updates to a feature occur. Once a feature is given a `wof:id`, that feature will maintain that `wof:id` for it's entire lifecycle.
 
 That's not to say that features never change; often times a feature is updated (significant change in size, changes placetype, is given additional properties, etc.) which may require a new feature to be created with a new `wof:id`. Updates to a feature that require a new feature with a new `wof:id` to be created are classified as a "significant event". 
 
@@ -12,7 +12,7 @@ If an existing feature experiences a Significant Event, the old feature should b
 
 By linking features through the `supersedes` and `superseded_by` values, it allows a downstream consumers of Who's On First data to link together the history of any given feature at any given time and to understand which features are no longer valid (and which features _are_ valid).
 
-Who's on First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what _was_ and what _is_. 
+Who's On First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what _was_ and what _is_. 
 
 Below, the life cycle and tracking rules are outlined to help you understand what changes require a new `wof:id` and what changes allow the `wof:id` to be kept as-is.
 
@@ -23,43 +23,43 @@ Below, the life cycle and tracking rules are outlined to help you understand wha
 
 ## Life Cycle / Tracking Rules
 
-Feature life cycles and tracking rules are necessary in understanding changes to a `wof:id`, what constitutes a change, and how Who's on First tracks both valid and non-valid features. By following the steps below, a standard is set in Who's on First to ensure that all users and mapping services are able to follow along with changes to a feature and the history of a given feature. 
+Feature life cycles and tracking rules are necessary in understanding changes to a `wof:id`, what constitutes a change, and how Who's On First tracks both valid and non-valid features. By following the steps below, a standard is set in Who's On First to ensure that all users and mapping services are able to follow along with changes to a feature and the history of a given feature. 
 
-Additionally, what Who's on First considers a Significant Event may be different than what a data user would consider a Significant Event. This could mean that while a feature in Who's on First was given a new record and `wof:id`, a specific user may not agree with that change - therefore, it is important for us to outline the rules and guidelines around Who's on First features and the `wof:id` field so users and their mapping services can optimize their data usage.
+Additionally, what Who's On First considers a Significant Event may be different than what a data user would consider a Significant Event. This could mean that while a feature in Who's On First was given a new record and `wof:id`, a specific user may not agree with that change - therefore, it is important for us to outline the rules and guidelines around Who's On First features and the `wof:id` field so users and their mapping services can optimize their data usage.
 
 #### wof:superseded and wof:superseded_by:
 
-Keeping up with `wof:id` changes and new features taking the place of old, outdated features can be tricky business. Who's on First has a built-in series of attributes that can be used to track the changes and updates to a feature, even if a Significant Event has taken place and replaced a `wof:id`. 
+Keeping up with `wof:id` changes and new features taking the place of old, outdated features can be tricky business. Who's On First has a built-in series of attributes that can be used to track the changes and updates to a feature, even if a Significant Event has taken place and replaced a `wof:id`. 
 
 For example, in 1991, the country of Yugoslavia began to break-up into countries that we now call Slovenia, Croatia, Bosnia and Herzegovina, the Republic of Macedonia, Montenegro and Serbia which includes (Vojvodina and Kosovo). Yugoslavia has it's own `wof:id`, but because it ceased to exist as a formal entity after 1991, it was given a cessation date in 1991 and superseded_by the new `wof:id`s of the six countries that came out of Yugoslavia. The six new countries were given new `wof:id`s, new geometries (portions of the former Yugoslavia geometry) and new attributes. They were also given a supersedes value of Yugoslavia's `wof:id`.
 
 We'll refer to the non-valid feature as the **superseded** version and the new feature as the **superseding** version.
 
 
-## `wof:id` Updates
+## Updating or Creating a `wof:id`
 
 There are four reasons for changing a `wof:id`; these reasons include: 
 
-- **Creation of a New Feature:** A new `wof:id` should be minted when a feature previously unknown to Who's on First is added to the Who's on First database.
+- **Creation of a New Feature:** A new `wof:id` should be minted when a feature previously unknown to Who's On First is added to the Who's On First database.
 - **Cessation of a Existing Feature:** When a feature (like Yugoslavia) no longer exists in the real world (often replaced by 1 or more something elses).
-- **Making Significant Modifications to an Existing Feature:** If specific, major modifications are made to an existing feature in Who's on First, a new feature with a new `wof:id` needs to be created. Superseding work is required to replace the old feature with the new feature.
-- **Adding a deprecated or cessation date to an Existing Feature:** If an existing feature in Who's on First is found to have never been correct, either due to an error correction or real-world change, a new feature with a new `wof:id` needs to be created. Superseding work is required to replace the old feature with the new feature.
+- **Making Significant Modifications to an Existing Feature:** If specific, major modifications are made to an existing feature in Who's On First, a new feature with a new `wof:id` needs to be created. Superseding work is required to replace the old feature with the new feature.
+- **Adding a deprecated or cessation date to an Existing Feature:** If an existing feature in Who's On First is found to have never been correct, either due to an error correction or real-world change, a new feature with a new `wof:id` needs to be created. Superseding work is required to replace the old feature with the new feature.
 
 Each of these three reasons for changing a `wof:id` are explained below. 
 
 ## Changes to the `wof:placetype`
 
-If Who's on First incorrectly classified a set of localities as regions, said region records would become the superseded records, with new superseding locality records created in their place. The `mz:is_current` field, `wof:superseded_by`, and `edtf:cessation` date field would be updated for each of the superseded region records. Completely new features with new `wof:id`s, a corrected `wof:placetype` field, and updated `wof:supersedes` field would be created for the superseding locality records. 
+If Who's On First incorrectly classified a set of localities as regions, said region records would become the superseded records, with new superseding locality records created in their place. The `mz:is_current` field, `wof:superseded_by`, and `edtf:cessation` date field would be updated for each of the superseded region records. Completely new features with new `wof:id`s, a corrected `wof:placetype` field, and updated `wof:supersedes` field would be created for the superseding locality records. 
 
 In this case, since the correction was made on the `wof:placetype` field and other attribute field values were correct, all other correct attributes would be transferred to the superseding feature (zoom levels, geometries, concordances, hierarchies, etc).
  
 ### Creation of a New Feature:
 
-Creating a new feature that was previously unknown to Who's on First is the most straightforward; no existing records need modifications and the only required work takes place in the record for the newly created feature. 
+Creating a new feature that was previously unknown to Who's On First is the most straightforward; no existing records need modifications and the only required work takes place in the record for the newly created feature. 
 
 ### Making Significant Modifications to an Existing Feature
 
-Significant modifications fall into one of two categories: _real-world changes_ or _error corrections_. Both of these categories can have one of two edits made: **geometry edits** or **attribute edits** (or both). The following changes, what Who's on First calls a Significant Event, would require a new `wof:id` to be minted for a superseding feature and updates to a superseded feature.
+Significant modifications fall into one of two categories: _real-world changes_ or _error corrections_. Both of these categories can have one of two edits made: **geometry edits** or **attribute edits** (or both). The following changes, what Who's On First calls a Significant Event, would require a new `wof:id` to be minted for a superseding feature and updates to a superseded feature.
 
 - Cessation events (but when other feature(s) replace it with inception events)
 - Changes to the `wof:placetype`
@@ -98,10 +98,10 @@ A superseded feature will either need a `edtf:deprecated` or `edtf:cessation` da
 
 The `edtf:deprecated` field would be used, for example, when a set of features was imported with invalid geometries or inaccurate placetype designations.
 
-Updates to the `edtf:cessation` date would occur, for example, when the Yugoslavia record was no longer valid. At one point in time, Yugoslavia was a valid feature in Who's on First. 
+Updates to the `edtf:cessation` date would occur, for example, when the Yugoslavia record was no longer valid. At one point in time, Yugoslavia was a valid feature in Who's On First. 
 
 #### Example 2
 
-An example of a new feature would be a venue record for a new restaurant in New York City. If said restaurant was opened in September 2016, Who's on First would not known about this feature previous to this date, which means a new `wof:id` would be created and attached to a venue record in the New York venues repository for inclusion into Who's on First. Note that since this feature was never in Who's on First prior to the creation of this new venue record, a new `wof:id` would be minted from Brooklyn Integers.
+An example of a new feature would be a venue record for a new restaurant in New York City. If said restaurant was opened in September 2016, Who's On First would not known about this feature previous to this date, which means a new `wof:id` would be created and attached to a venue record in the New York venues repository for inclusion into Who's On First. Note that since this feature was never in Who's On First prior to the creation of this new venue record, a new `wof:id` would be minted from Brooklyn Integers.
 
-Another example could be a new military facility on a Pacific Island. Similar to the new venue record described above, this facility would receive a new `wof:id`, geometry, and attributes. This feature is an example of a completely new feature to Who's on First.
+Another example could be a new military facility on a Pacific Island. Similar to the new venue record described above, this facility would receive a new `wof:id`, geometry, and attributes. This feature is an example of a completely new feature to Who's On First.
