@@ -16,7 +16,7 @@ Who's On First is not in the business of removing features from history, but rat
 
 Below, the life cycle and tracking rules are outlined to help you understand what changes require a new `wof:id` and what changes allow the `wof:id` to be kept as-is.
 
-## Life Cycle / Tracking Rules
+## Life Cycle Rules
 
 Feature life cycles and tracking rules are necessary in understanding changes to a `wof:id`, what constitutes a change, and how Who's On First tracks both valid and non-valid features. By following the steps below, a standard is set in Who's On First to ensure that all users and mapping services are able to follow along with changes to a feature and the history of a given feature. 
 
@@ -36,7 +36,6 @@ We'll refer to the non-valid feature as the **superseded** version and the new f
 
 ![flowchart.png](https://cloud.githubusercontent.com/assets/18567700/18456781/81bb5c02-7908-11e6-98d4-048b23694a50.png)
 
-
 ## Birth
 
 ### Creation of a New Feature
@@ -51,8 +50,6 @@ Significant modifications fall into one of two categories: _real-world changes_ 
 - Changes to the `wof:placetype`
 - Changes to the geometry, where more than 50% (area or length) is added or removed
 - Moving a feature's location more than (roughly) ten kilometers or five miles from it's original location
-
-
 
 #### Moving a feature's location more than ten kilometers from it's original location
 
@@ -70,7 +67,6 @@ We are required to do the following:
 * Link up supersedes values
 * `is_current- field updates
 * Mark the `edtf:cessation` field with the edit date
-
 
 ## Rebirth
 
