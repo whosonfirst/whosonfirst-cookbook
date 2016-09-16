@@ -84,7 +84,7 @@ We are required to do the following:
 When one feature ceases and other feature(s), it is replaced with inception events.
 A **superseded** feature will either need a `edtf:deprecated` or `edtf:cessation` date field update. This date is an essential attribute, as it identifies the specific date at which that feature was superseded (and when the superseding feature took over as the valid feature). When one of these field updates occurs, the superseding feature will always get a new `wof:id`.
 
-* `edtf:deprecated` - Used when a feature was **never** correct to begin with. _Typically_ the field to update when >dealing with an error correction.
+* `edtf:deprecated` - Used when a feature was **never** correct to begin with. _Typically_ the field to update when dealing with an error correction.
  
 * `edtf:cessation` - Used when a feature was correct at a point in time, but for one or more reasons is no longer correct.
 
