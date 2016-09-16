@@ -34,7 +34,7 @@ We'll refer to the non-valid feature as the **superseded** version and the new f
 
 ####placeholder for FC #2
 
-![flowchart.png](https://cloud.githubusercontent.com/assets/18567700/18456781/81bb5c02-7908-11e6-98d4-048b23694a50.png)
+![flowchart_final](https://cloud.githubusercontent.com/assets/18567700/18594751/492c8906-7bf6-11e6-878f-1f705c07bdd3.png)
 
 ## Birth
 
