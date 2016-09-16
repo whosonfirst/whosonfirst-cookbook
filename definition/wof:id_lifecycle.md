@@ -2,15 +2,13 @@
 
 ## Feature Life Cycle Rules
 
-Feature life cycles and tracking rules are necessary in understanding changes to a `wof:id`, what constitutes a change, and how Who's On First tracks both valid and non-valid features. By following the steps below, a standard is set in Who's On First to ensure that all users and mapping services are able to follow along with changes to a feature and the history of a given feature. 
-
-Additionally, what Who's On First considers a Significant Event may be different than what a data user would consider a Significant Event. This could mean that while a feature in Who's On First was given a new record and `wof:id`, a specific user may not agree with that change - therefore, it is important for us to outline the rules and guidelines around Who's On First features and the `wof:id` field so users and their mapping services can optimize their data usage.
+Feature life cycles and tracking rules are necessary in understanding changes to a `wof:id`, what constitutes a change, and how [Who's On First](https://whosonfirst.mapzen.com/) tracks new, existing, and outdated features. By following the steps below, a standard is set in Who's On First to ensure that all users and mapping services are able to follow along with changes to a feature and the history of a given feature. 
 
 ### What is a `wof:id`?
 
-A Who's On First ID (`wof:id`) is a unique 64-bit identifier that represents a single point or polygon feature in Who's On First. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though alternative methods of retrieving a `wof:id` are available. Unlike OpenStreetMap (OSM) or the United Kingdom's Local Ordnance Survey (OS) a `wof:id` is stable to an individual feature and will not update when minor updates to a feature occur. Once a feature is given a `wof:id`, that feature will maintain that `wof:id` for it's entire lifecycle.
+A Who's On First ID (`wof:id`) is a unique 64-bit identifier that represents a single point or polygon feature in the Who's On First database. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though alternative methods of retrieving a `wof:id` are available. Unlike OpenStreetMap (OSM) or the United Kingdom's Local Ordnance Survey (OS) a `wof:id` is stable to an individual feature and will not update when minor updates to a feature occur. Once a feature is given a `wof:id`, that feature will maintain that `wof:id` for it's entire lifecycle, unless that feature experiences a Significant Event (explained below).
 
-That's not to say that features never change; often times a feature is updated (significant change in size, changes placetype, is given additional properties, etc.) which may require a new feature to be created with a new `wof:id`. Updates to a feature that require a new feature with a new `wof:id` to be created are classified as a "significant event". 
+That's not to say that features never change; often times a feature is updated (significant change in size, changes placetype, is given additional properties, etc.) which may require a new feature to be created with a new `wof:id`. 
 
 ### What is Significant Event?
 
@@ -25,7 +23,9 @@ Updates and edits that qualify as a Significant Event:
 
 When a Significant Event occurs, a new `wof:id` is minted for a new feature; this new feature replaces the old feature that required edits. The `supersedes` and `superseded_by` values are updated in the respective records which allows a user to track the life of a given record in Who's on First.
 
-Significant Events are detailed below in the "Life" section.
+Additionally, what Who's On First considers a Significant Event may be different than what a data user would consider a Significant Event. This could mean that while a feature in Who's On First was given a new record and `wof:id`, a specific user may not agree with that change - therefore, it is important for us to outline the rules and guidelines around Who's On First features and the `wof:id` field so users and their mapping services can optimize their data usage.
+
+Significant Events are detailed below in the _"Life"_ section.
 
 ### What are `supersedes` and `superseded_by` values?
 
@@ -45,6 +45,7 @@ We'll refer to the non-valid feature as the **superseded** version and the new f
 
 ![flowchart_final](https://cloud.githubusercontent.com/assets/18567700/18595704/baf94e30-7bfa-11e6-8c41-0f58cec2a67b.png)
  _Image 1: A flowchart to describe possible work to a new or existing Who's On First feature_
+ 
 ### Birth
 
 If a feature unknown to Who's on First is added to the database, a new `wof:id` is minted and used for that feature's record.
@@ -92,7 +93,7 @@ A **superseded** feature will either need a `edtf:deprecated` or `edtf:cessation
 
 ### Adding a new feature to Who's On First
 
-An example of a new feature would be a venue record for a new restaurant in New York City. If said restaurant was opened in September 2016, Who's On First would not known about this feature previous to this date, which means a new `wof:id` would be created and attached to a venue record in the New York venues repository for inclusion into Who's On First. Note that since this feature was never in Who's On First prior to the creation of this new venue record, a new `wof:id` would be minted from Brooklyn Integers.
+An example of a new feature to Who's On First: A venue record for a new restaurant that recently opened in New York City. If said restaurant was opened in September 2016, Who's On First would not known about this feature previous to this date, which means a new `wof:id` would be created and attached to a venue record in the New York venues repository for inclusion into Who's On First. Note that since this feature was never in Who's On First prior to the creation of this new venue record, a new `wof:id` would be minted from Brooklyn Integers.
 
 Another example could be a new military facility on a Pacific Island. Similar to the new venue record described above, this facility would receive a new `wof:id`, geometry, and attributes. This feature is an example of a completely new feature to Who's On First.
 
