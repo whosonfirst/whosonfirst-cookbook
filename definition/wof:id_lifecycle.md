@@ -76,7 +76,7 @@ We are required to do the following:
 
 * Mint a new `wof:id`
 * Link up supersedes values
-* `is_current- field updates
+* `is_current` field updates
 * Mark the `edtf:cessation` field with the edit date
 
 ### Death
