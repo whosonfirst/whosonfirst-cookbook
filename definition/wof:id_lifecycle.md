@@ -2,7 +2,9 @@
 
 ## Feature Life Cycle Rules
 
-Feature life cycles and tracking rules are necessary in understanding changes to a `wof:id`, what constitutes a change, and how [Who's On First](https://whosonfirst.mapzen.com/) tracks new, existing, and outdated features. By following the steps below, a standard is set in Who's On First to ensure that all users and mapping services are able to follow along with changes to a feature and the history of a given feature. 
+Feature life cycle rules are necessary in understanding changes to a `wof:id`, what constitutes a change, and how [Who's On First](https://whosonfirst.mapzen.com/) tracks new, existing, and outdated features. By following the steps below, a standard is set in Who's On First to ensure that all users and mapping services are able to follow along with changes to a feature and the history of a given feature. 
+
+It is important to understand that Who's On First's rules may differ when compared to what a data user would assume. This could mean that while a feature in Who's On First was given a new record and `wof:id`, a specific user may not agree with that change - therefore, it is important for us to outline the rules and guidelines around Who's On First features and the `wof:id` field so users and their mapping services can optimize their data usage.
 
 ### What is a `wof:id`?
 
@@ -10,30 +12,30 @@ A Who's On First ID (`wof:id`) is a unique 64-bit identifier that represents a s
 
 That's not to say that features never change; often times a feature is updated (significant change in size, changes placetype, is given additional properties, etc.) which may require a new feature to be created with a new `wof:id`. 
 
+By linking features through the `supersedes` and `superseded_by` values (see below), it allows a downstream consumers of Who's On First data to link together the history of any given feature at any given time and to understand which features are no longer valid (and which features _are_ valid). This history is not inherent to the linked feature list, but rather the linked feature list _and_ GitHub log.
+
+Who's On First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what _was_ and what _is_. The `wof:id` field allows Who's On First to provide an accurate description of the present, while also retaining historical records of a place.
+
 ### What is Significant Event?
 
 While minor edits require an update to the attribute field and the `wof:lastmodified` field, major edits or updates to a feature in Who's on First are called "Significant Events". 
 
-Updates and edits that qualify as a Significant Event:
+Updates and edits that qualify as absolute Significant Events_*_ :
 
-- Cessation events (but when other feature(s) replace it with inception events)
+- Replacing or superseding a record (cessation event; see below)
 - Changes to the `wof:placetype` 
 - Changes to the geometry, where more than 50% (area or length) is added or removed
 - Moving a feature's location more than ten kilometers from it's original location
 
-When a Significant Event occurs, a new `wof:id` is minted for a new feature; this new feature replaces the old feature that required edits. The `supersedes` and `superseded_by` values are updated in the respective records which allows a user to track the life of a given record in Who's on First.
+_* This list, as written today, may be incomplete or unable to capture the subtleties and demands of real-life._
 
-Additionally, what Who's On First considers a Significant Event may be different than what a data user would consider a Significant Event. This could mean that while a feature in Who's On First was given a new record and `wof:id`, a specific user may not agree with that change - therefore, it is important for us to outline the rules and guidelines around Who's On First features and the `wof:id` field so users and their mapping services can optimize their data usage.
+When a Significant Event occurs, a new `wof:id` is minted for a new feature; this new feature supersedes the old feature that required edits. 
 
 Significant Events are detailed below in the _"Life"_ section.
 
 ### What are `supersedes` and `superseded_by` values?
 
-If an existing feature experiences a Significant Event, the old feature should be duplicated but receive a new `wof:id` and given a `wof:supersedes` value equal to that of the existing feature, and the existing feature should be given a `wof:superseded_by` value equal to that of the new feature's `wof:id`. 
-
-By linking features through the `supersedes` and `superseded_by` values, it allows a downstream consumers of Who's On First data to link together the history of any given feature at any given time and to understand which features are no longer valid (and which features _are_ valid).
-
-Who's On First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what _was_ and what _is_. 
+If an existing feature experiences a Significant Event, the old feature should be duplicated but receive a new `wof:id` and given a `wof:supersedes` value equal to that of the existing feature, and the existing feature should be given a `wof:superseded_by` value equal to that of the new feature's `wof:id`. The `supersedes` and `superseded_by` values are updated in the respective records which allows a user to track the life of a given record in Who's on First.
 
 Below, the life cycle and tracking rules are outlined to help you understand what changes require a new `wof:id` and what changes allow the `wof:id` to be kept as-is.
 
@@ -43,7 +45,7 @@ We'll refer to the non-valid feature as the **superseded** version and the new f
 
 ## Lifecycle Flowchart
 
-![flowchart_final](https://cloud.githubusercontent.com/assets/18567700/18595704/baf94e30-7bfa-11e6-8c41-0f58cec2a67b.png)
+![flowchart_final](https://cloud.githubusercontent.com/assets/18567700/18650617/db069f3e-7e7a-11e6-9b22-e9272613a480.png)
  _Image 1: A flowchart to describe possible work to a new or existing Who's On First feature_
  
 ### Birth
@@ -56,18 +58,13 @@ Creating a new feature that was previously unknown to Who's On First is the most
 
 ### Life
 
-Significant modifications fall into one of two categories: _real-world changes_ or _error corrections_. Both of these categories can have one of two edits made: **geometry edits** or **attribute edits** (or both). The following changes, what Who's On First calls a Significant Event, would require a new `wof:id` to be minted for a superseding feature and updates to a superseded feature.
-
-- Cessation events (but when other feature(s) replace it with inception events)
-- Changes to the `wof:placetype`
-- Changes to the geometry, where more than 50% (area or length) is added or removed
-- Moving a feature's location more than ten kilometers from it's original location
+Significant modifications fall into one of two categories: _real-world changes_ or _error corrections_. Both of these categories can have **geometry edits** or **attribute edits** made. The following changes, what Who's On First calls a Significant Event, would require a new `wof:id` to be minted for a superseding feature and updates to a superseded feature.
 
 #### Moving a feature's location more than ten kilometers from it's original location
 
-Similar to the Yugoslavia example, above, if a feature has it's geometry move more than ten kilometers or five miles from its original location, a new feature with a new `wof:id` would be created. 
+Who's On First uses ten kilometers as a measure of significance for feature updates. Though a user or service may consider a smaller or larger distance to be significant, Who's On First considers one-tenth of a decimal degree (roughly ten kilometers) to be significant enough to warrant a new `wof:id` and feature.
 
-If an error correction needed to occur to move Iceland, for example, fifty kilometers to the east (let's pretend it was imported incorrectly), the record for Iceland would receive a date (the date of it's error correction) in the `edtf:deprecated` field, an updated `mz:is_current` field, and the `wof:id` of the newly created Iceland record in it's `wof:superseded_by` field.
+If an error correction needed to occur to move Iceland, for example, fifty kilometers to the east (let's pretend it was imported incorrectly), the record for Iceland would receive a date (the date of it's error correction) in the `edtf:deprecated` field (see description below), an updated `mz:is_current` field, and the `wof:id` of the newly created Iceland record in it's `wof:superseded_by` field.
 
 The new Iceland record would receive a new `wof:id`, and would have it's `wof:supersedes` field updated to include the `wof:id` of the original Iceland record. This new record would be our superseding features.
 
@@ -105,9 +102,9 @@ In this case, since the correction was made on the `wof:placetype` field and oth
 
 ### Changes to the geometry, where more than 50% (area or length) is added or removed
 
-The Yugoslavia example, above, is a perfect example of a real-world geometry change causing a new `wof:id` to be minted. In this case, Yugoslavia was dissolved and split into several different countries (and a disputed area). The record for Yugoslavia would receive a date (the date of it's dissolution) in the `edtf:cessation` field, an updated `mz:is_current` field, and the `wof:id`s of the newly created countries in it's `wof:superseded_by` field.
+The case of Yugoslavia is a perfect example of a real-world geometry change causing a new `wof:id` to be minted. In this case, Yugoslavia was dissolved and split into several different countries (and a disputed area). The record for Yugoslavia would receive a date (the date of it's dissolution) in the `edtf:cessation` field, an updated `mz:is_current` field, and the `wof:id`s of the newly created countries in it's `wof:superseded_by` field.
 
-The new countries, Slovenia, Croatia, Bosnia and Herzegovina, the Republic of Macedonia, Montenegro and Serbia which includes (Vojvodina and Kosovo), would each receive new `wof:id`s, and would have their `wof:supersedes` field updated to  include the `wof:id` of Yugoslavia. These would be our superseding features.
+The new countries, [Slovenia](https://whosonfirst.mapzen.com/spelunker/id/85633779/#8/46.154/14.993), [Croatia](https://whosonfirst.mapzen.com/spelunker/id/85633229/#6/44.518/16.455), [Bosnia and Herzegovina](https://whosonfirst.mapzen.com/spelunker/id/85632609/#7/43.941/17.661), the [Republic of Macedonia](https://whosonfirst.mapzen.com/spelunker/id/85632373/#8/41.622/21.739), [Montenegro](https://whosonfirst.mapzen.com/spelunker/id/85632667/#7/42.711/19.385) and [Serbia](https://whosonfirst.mapzen.com/spelunker/id/85633755/#6/44.244/20.927) which includes ([Vojvodina](https://whosonfirst.mapzen.com/spelunker/id/404227537/#7/45.418/20.198) and [Kosovo](https://whosonfirst.mapzen.com/spelunker/id/85633259/#8/42.567/20.899)), would each receive a new `wof:id`, and would have their `wof:supersedes` field updated to  include the `wof:id` of Yugoslavia. These would be our superseding features.
 
 This superseding work would allow someone looking at, say, Montenegro, to see when it was created and what superseded feature it came from.
 
