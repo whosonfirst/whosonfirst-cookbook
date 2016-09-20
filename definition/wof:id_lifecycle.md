@@ -20,7 +20,7 @@ Who's On First is not in the business of removing features from history, but rat
 
 While minor edits require an update to the attribute field and the `wof:lastmodified` field, major edits or updates to a feature in Who's on First are called "Significant Events". 
 
-Updates and edits that qualify as absolute Significant Events_*_ :
+Updates and edits that qualify as absolute Significant Events* :
 
 - Replacing or superseding a record (cessation event; see below)
 - Changes to the `wof:placetype` 
