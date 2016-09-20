@@ -14,7 +14,7 @@ That's not to say that features never change; often times a feature is updated (
 
 By linking features through the `supersedes` and `superseded_by` values (see below), it allows a downstream consumers of Who's On First data to link together the history of any given feature at any given time and to understand which features are no longer valid (and which features _are_ valid). This history is not inherent to the linked feature list, but rather the linked feature list _and_ GitHub log.
 
-Who's On First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what _was_ and what _is_. The `wof:id` field allows Who's On First to provide an accurate description of the present, while also retaining historical records of a place.
+Who's On First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what **_was_** and what **_is_**. The `wof:id` field allows Who's On First to provide an accurate description of the present, while also retaining historical records of a place.
 
 ### What is Significant Event?
 
