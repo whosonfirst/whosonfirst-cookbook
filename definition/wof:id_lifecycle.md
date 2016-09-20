@@ -46,7 +46,7 @@ We'll refer to the non-valid feature as the **superseded** version and the new f
 ## Lifecycle Flowchart
 
 ![flowchart_final](https://cloud.githubusercontent.com/assets/18567700/18650617/db069f3e-7e7a-11e6-9b22-e9272613a480.png)
- _Image 1: A flowchart to describe possible work to a new or existing Who's On First feature_
+ _The above flowchart outlines potential updates to a new or existing Who's On First feature._
  
 ### Birth
 
