@@ -8,7 +8,7 @@ It is important to understand that Who's On First's rules may differ when compar
 
 ### What is a `wof:id`?
 
-A Who's On First ID (`wof:id`) is a unique 64-bit identifier that represents a single point or polygon feature in the Who's On First database. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though alternative methods of retrieving a `wof:id` are available. Unlike OpenStreetMap (OSM) or the United Kingdom's Local Ordnance Survey (OS) a `wof:id` is stable to an individual feature and will not update when minor updates to a feature occur. Once a feature is given a `wof:id`, that feature will maintain that `wof:id` for it's entire lifecycle, unless that feature experiences a Significant Event (explained below).
+A Who's On First ID (`wof:id`) is a unique 64-bit identifier that represents a single point or polygon feature in the Who's On First database. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though alternative methods of retrieving a `wof:id` are available. Unlike OpenStreetMap (OSM) or the United Kingdom's Local Ordnance Survey (OS) a `wof:id` is stable to an individual feature and will not update when minor updates to a feature occur. Once a feature is given a `wof:id`, that feature will maintain that `wof:id` for it's entire lifecycle, unless that feature experiences a Significant Event (see below).
 
 That's not to say that features never change; often times a feature is updated (significant change in size, changes placetype, is given additional properties, etc.) which may require a new feature to be created with a new `wof:id`. 
 
@@ -31,7 +31,7 @@ _* This list, as written today, may be incomplete or unable to capture the subtl
 
 When a Significant Event occurs, a new `wof:id` is minted for a new feature; this new feature supersedes the old feature that required edits. 
 
-Significant Events are detailed below in the _"Life"_ section.
+Significant Events are detailed below in the **Life** section.
 
 ### What are `supersedes` and `superseded_by` values?
 
