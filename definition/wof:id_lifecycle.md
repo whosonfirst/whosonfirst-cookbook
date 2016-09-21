@@ -2,9 +2,9 @@
 
 ## Feature Life Cycle Rules
 
-Feature life cycle rules are necessary in understanding changes to a `wof:id`, what constitutes a change, and how [Who's On First](https://whosonfirst.mapzen.com/) tracks new, existing, and outdated features. By following the steps below, a standard is set in Who's On First to ensure that all users and mapping services are able to follow along with changes to a feature and the history of a given feature. 
+This document sets to establish guidelines and rules around the `wof:id`; a unique ID used to track features in [Who's On First](https://whosonfirst.mapzen.com/). These rules are meant to help a data consumer understand changes to a `wof:id`, what constitutes a change, and how Who's On First tracks new, existing, and outdated features through the use of a `wof:id`. The steps below set a standard to ensure that all users and mapping services are able to track the  history and life cycle of a given feature. 
 
-It is important to understand that Who's On First's rules may differ when compared to what a data user would assume. This could mean that while a feature in Who's On First was given a new record and `wof:id`, a specific user may not agree with that change - therefore, it is important for us to outline the rules and guidelines around Who's On First features and the `wof:id` field so users and their mapping services can optimize their data usage.
+Documenting these rules is important, as Who's On First's rules may differ from the assumptions of a data consumer or application. While these life cycle rules are subject to change, it is essential for Who's On First to outline the rules and guidelines around features; this allows users and mapping services to optimize data usage and understand the assumptions in the data structure.
 
 ### What is a `wof:id`?
 
