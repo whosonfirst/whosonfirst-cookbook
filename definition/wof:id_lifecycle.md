@@ -2,36 +2,33 @@
 
 ## Feature Life Cycle Rules
 
-This document sets to establish guidelines and rules around the `wof:id`; a unique ID used to track features in [Who's On First](https://whosonfirst.mapzen.com/). These rules are meant to help a data consumer understand changes to a `wof:id`, what constitutes a change, and how Who's On First tracks new, existing, and outdated features through the use of a `wof:id`. The steps below set a standard to ensure that all users and mapping services are able to track the  history and life cycle of a given feature. 
+This document sets to establish guidelines and rules around the Who's On First ID (`wof:id`); a unique ID used to track features in [Who's On First](https://whosonfirst.mapzen.com/). These rules are meant to help a data consumer understand changes to a `wof:id`, what constitutes a change, and how Who's On First tracks new, existing, and outdated features through the use of a `wof:id`. The steps below set a standard to ensure that all users and mapping services are able to track the  history and life cycle of a given feature. 
 
 Documenting these rules is important, as Who's On First's rules may differ from the assumptions of a data consumer or application. While these life cycle rules are subject to change, it is essential for Who's On First to outline the rules and guidelines around features; this allows users and mapping services to optimize data usage and understand the assumptions in the data structure.
 
 ### What is a `wof:id`?
 
-A Who's On First ID (`wof:id`) is a [unique 64-bit identifier](https://en.wikipedia.org/wiki/Organizationally_unique_identifier#64-bit_Extended_Unique_Identifier_.28EUI-64.29) that represents a single point or polygon feature in the Who's On First database. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though, technically any _unique_ 64-bit identifier can be used if Who's On First does not already know about it. Unlike [OpenStreetMap](http://wiki.openstreetmap.org/wiki/Elements) (OSM) or the [United Kingdom's Local Ordnance Survey](https://www.europa.uk.com/resources/os/os-mastermap-topography-layer-user-guide.pdf) (OS), a `wof:id` is stable to an individual feature and will not update when minor updates to a feature occur. Once a feature is given a `wof:id`, that feature will maintain that `wof:id` for it's entire lifecycle, unless that feature experiences a Significant Event (explained below).
+A `wof:id` is a [unique 64-bit identifier](https://en.wikipedia.org/wiki/Organizationally_unique_identifier#64-bit_Extended_Unique_Identifier_.28EUI-64.29) that represents a single point or polygon feature in the Who's On First database. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though, technically any _unique_ 64-bit identifier can be used if Who's On First has not already used it. Unlike [OpenStreetMap](http://wiki.openstreetmap.org/wiki/Elements) (OSM) or the [United Kingdom's Local Ordnance Survey](https://www.europa.uk.com/resources/os/os-mastermap-topography-layer-user-guide.pdf) (OS), a `wof:id` is stable to an individual feature and will not update when minor updates to a feature occur. Once a feature is given a `wof:id`, that feature will maintain that `wof:id` for it's entire lifecycle, unless that feature experiences a Significant Event (explained below).
 
-That's not to say that features never change; often times a feature is updated (significant change in size, changes placetype, is given additional properties, etc.) which may require a new feature to be created with a new `wof:id`. 
-
-By linking features through the `supersedes` and `superseded_by` values (see below), it allows a downstream consumers of Who's On First data to link together the history of any given feature at any given time and to understand which features are no longer valid (and which features _are_ valid). This history is not inherent to the linked feature list, but rather the linked feature list _and_ GitHub log.
-
-Who's On First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what **_was_** and what **_is_**. The `wof:id` field allows Who's On First to provide an accurate description of the present, while also retaining historical records of a place.
 
 ### What is Significant Event?
 
-While minor edits require an update to the attribute field and the `wof:lastmodified` field, major edits or updates to a feature in Who's on First are called "Significant Events". 
+While minor edits allow for a feature to be edited in place and maintain the same `wof:id` it had prior to the edit, major edits to a feature are designated as **Significant Events**. 
 
 Updates and edits that qualify as absolute Significant Events* :
 
-- Replacing or superseding a record (cessation event; see below)
-- Changes to the `wof:placetype` 
-- Changes to the geometry, where more than 50% (area or length) is added or removed
-- Moving a feature's location more than ten kilometers from it's original location
+- _Changing a point feature's location more than 10km_
+- _Changing a polygon feature's area more than 50%_
+- _Changing a feature's `wof:name` without storing the original `wof:name` as an alt-name_
+- _Changing a feature's `wof:name` due to the original `wof:name` being wrong to being with_
+- _Giving a feature a new `wof:parent_id` when the parent's `wof:placetype` is a country or region_
+- _Changing a feature's `wof:placetype`_
+- _Updating a feature's `wof:hierarchy` to include an updated `wof:id`_
+- _Replacing or superseding a record (cessation event; see below)_
 
 _* This list, as written today, may be incomplete or unable to capture the subtleties and demands of real-life._
 
-When a Significant Event occurs, a new `wof:id` is minted for a new feature; this new feature supersedes the old feature that required edits. 
-
-Significant Events are detailed below in the **Life** section.
+When a Significant Event occurs, a new `wof:id` is minted for a new feature and superseding work needs to occur (explained below).
 
 ### What are `supersedes` and `superseded_by` values?
 
@@ -42,6 +39,10 @@ Below, the life cycle and tracking rules are outlined to help you understand wha
 Keeping up with `wof:id` changes and new features taking the place of old, outdated features can be tricky business. Who's On First has a built-in series of attributes that can be used to track the changes and updates to a feature, even if a Significant Event has taken place and replaced a `wof:id`. 
 
 We'll refer to the non-valid feature as the **superseded** version and the new feature as the **superseding** version.
+
+By linking features through the `supersedes` and `superseded_by` values (see below), it allows a downstream consumers of Who's On First data to link together the history of any given feature at any given time and to understand which features are no longer valid (and which features _are_ valid). This history is not inherent to the linked feature list, but rather the linked feature list _and_ GitHub log.
+
+Who's On First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what **_was_** and what **_is_**. The `wof:id` field allows Who's On First to provide an accurate description of the present, while also retaining historical records of a place.
 
 ## Lifecycle Flowchart
 
