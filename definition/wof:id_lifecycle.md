@@ -17,14 +17,14 @@ While minor edits allow for a feature to be edited in place and maintain the sam
 
 Updates and edits that qualify as absolute Significant Events* :
 
-- _Changing a point feature's location more than 10km_
-- _Changing a polygon feature's area more than 50%_
-- _Changing a feature's `wof:name` without storing the original `wof:name` as an alt-name_
-- _Changing a feature's `wof:name` due to the original `wof:name` being wrong to being with_
-- _Giving a feature a new `wof:parent_id` when the parent's `wof:placetype` is a country or region_
-- _Changing a feature's `wof:placetype`_
-- _Updating a feature's `wof:hierarchy` to include an updated `wof:id`_
-- _Replacing or superseding a record (cessation event; see below)_
+- Changing a point feature's location more than **10km**
+- Changing a polygon feature's area more than **50%**
+- Changing a feature's `wof:name` **without** storing the original `wof:name` as an **alt-name**
+- Changing a feature's `wof:name` due to the original `wof:name` being **wrong to being with**
+- Giving a feature a new `wof:parent_id` when the parent's `wof:placetype` is a **country or region**
+- Changing a feature's **`wof:placetype`**
+- Updating a feature's `wof:hierarchy` to include an **updated `wof:id`**
+- Replacing or superseding a record (**cessation event**; see below)
 
 _* This list, as written today, may be incomplete or unable to capture the subtleties and demands of real-life._
 
