@@ -32,17 +32,20 @@ When a Significant Event occurs, a new `wof:id` is minted for a new feature and 
 
 ### What are `supersedes` and `superseded_by` values?
 
-If an existing feature experiences a Significant Event, the old feature should be duplicated but receive a new `wof:id` and given a `wof:supersedes` value equal to that of the existing feature, and the existing feature should be given a `wof:superseded_by` value equal to that of the new feature's `wof:id`. The `supersedes` and `superseded_by` values are updated in the respective records which allows a user to track the life of a given record in Who's on First.
+If an existing feature experiences a Significant Event, the following needs to occur:
 
-Below, the life cycle and tracking rules are outlined to help you understand what changes require a new `wof:id` and what changes allow the `wof:id` to be kept as-is.
+- The feature's raw data (geojson) should be duplicated into a new feature with a new `wof:id`
+- The duplicate feature (new) receives a `wof:supersedes` value equal to that of the existing feature's `wof:id`
+- The existing feature (old) receives a `wof:superseded_by` value equal to that of the new feature's `wof:id`
+- **Information about cessation, deprecation, is_current fields**
 
-Keeping up with `wof:id` changes and new features taking the place of old, outdated features can be tricky business. Who's On First has a built-in series of attributes that can be used to track the changes and updates to a feature, even if a Significant Event has taken place and replaced a `wof:id`. 
+We'll refer to the existing feature (old) feature as the **superseded** version and the duplicate feature (new) as the **superseding** version.
 
-We'll refer to the non-valid feature as the **superseded** version and the new feature as the **superseding** version.
-
-By linking features through the `supersedes` and `superseded_by` values (see below), it allows a downstream consumers of Who's On First data to link together the history of any given feature at any given time and to understand which features are no longer valid (and which features _are_ valid). This history is not inherent to the linked feature list, but rather the linked feature list _and_ GitHub log.
+Keeping up with `wof:id` changes and new features taking the place of old, outdated features can be tricky business. Who's On First has a built-in series of attributes that can be used to track the changes and updates to a feature, even if a Significant Event has taken place and replaced a `wof:id`. The updating of the `wof:supersedes` and `wof:superseded_by` values in the respective records are what allows a data consumer or application to track the history of a given feature by linking together the history of any given feature at any given time. This superseding work also tracks which features are no longer valid (and which features _are_ valid). This history is not inherent to the linked feature list, but rather the linked feature list _and_ GitHub log.
 
 Who's On First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what **_was_** and what **_is_**. The `wof:id` field allows Who's On First to provide an accurate description of the present, while also retaining historical records of a place.
+
+Below, the life cycle and tracking rules are outlined to help you understand what changes require a new `wof:id` and what changes allow the `wof:id` to be kept as-is.
 
 ## Lifecycle Flowchart
 
