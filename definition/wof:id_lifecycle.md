@@ -33,7 +33,8 @@ If an existing feature experiences a Significant Event, the following needs to o
 - The feature's raw data (geojson) should be duplicated into a new feature with a new `wof:id`
 - The duplicate feature (new) receives a `wof:supersedes` value equal to that of the existing feature's `wof:id`
 - The existing feature (old) receives a `wof:superseded_by` value equal to that of the new feature's `wof:id`
-- **Information about cessation, deprecation, is_current fields**
+- The existing feature (old) recieves a `mz:is_current` value equal to `0`.
+- Depending on whether or not the existing feature (old) was ever correct to begin with, it will recieve either a new date (YYYY-MM-DD) in the `edtf:cessation` field or the `edtf:deprecated` field (explained below)
 
 When a Significant Event occurs, a new `wof:id` is minted for a new feature and superseding work needs to occur (explained below).
 
@@ -60,41 +61,13 @@ Creating a new feature that was previously unknown to Who's On First is the most
 
 ### Life
 
-These rules pertain to features that are already known to Who's On First. A wide-variety of changes can occur to such features, which fall into one of two categories: Minor Events or Signicant Events. Minor Events require edits to be made to the features and _do not_ require additional work (like superseding, deprecating, etc.). Significant Events, however, _do_ require additional work to be completed, as outlined in the "Significant Events" section above. Significant Events fall into one of two categories: **real-world changes** or **error corrections**, which can either be **geometry edits** or **attribute edits**. 
+These rules pertain to features that are already known to Who's On First. A wide-variety of changes can occur to such features, which fall into one of two categories: Minor Events or Significant Events. Minor Events require edits to be made to the features and _do not_ require additional work (like superseding, deprecating, etc.). Significant Events, however, _do_ require additional work to be completed, as outlined in the "Significant Events" section above. Significant Events fall into one of two categories: **real-world changes** or **error corrections**, which can either be **geometry edits** or **attribute edits**. 
 
-See the "Examples" section below for more in-depth descriptions of update possiblities for existing features. 
+See the "Examples" section below for more in-depth descriptions of update possibilities for existing features. 
 
 ### Death
 
-When an existing feature in Who's On First ceases to exist in the real-world or is removed due to an error-correction, it is replaced and inception events occur. If the feature being updated was _never_ correct to begin with, the following work needs to occur:
-
-* `edtf:deprecated` - This **string** attribute field will be added to the feature. It is equal to the date (YYY-MM-DD) that the feature was invalidated. Example below:
-
-````
- "edtf:deprecated":"2016-10-01",
-````
-
-* `mz:is_current` - This **integer** attribute field will be added to the feature. It is equal to `0` to indicate that the feature is deprecated. Example below:
-
-````
- "mz:is_current":0,
-````
-
-If the feature _was_ correct at one point in time but no longer exists in the real-world, the following work needs to occur if it _was not_ replaced by another feature*:
-
-* `edtf:cessation` - This **string** attribute field will be updated to the feature. It is equal to the date (YYY-MM-DD) that the feature was invalidated. Example below:
-
-````
- "edtf:cessation":"2016-10-01",
-````
-
-* `mz:is_current` - This **integer** attribute field will be added to the feature. It is equal to `0` to indicate that the feature is deprecated. Example below:
-
-````
- "mz:is_current":0,
-````
-
-*_If the feature was replaced by another feature, a new `wof:id` should also be minted and superseding work should take place, as outlined above_
+When an existing feature in Who's On First ceases to exist in the real-world or is removed due to an error-correction, it is replaced and inception events occur. 
 
 ## Examples
 
@@ -102,10 +75,39 @@ If the feature _was_ correct at one point in time but no longer exists in the re
 
 #### Adding a feature that does not have descendants
 
+If adding a new `venue` record to Who's On First, for example, a new `wof:id` should be minted and the feature (with appropriate venue properties) should be added to the database.
+
 
 #### Adding a feature that has descendants
 
-Example needed
+If adding a new `county` record to Who's On First that has descendant records, for example, a new `wof:id` should be minted and the feature (with appropriate county properties) should be added to the database. Additionally, the `wof:hierarchy` and `wof:belongsto` fields of all descendants needs to be updated to include that new `wof:id` of the new county. Example of `wof:hierarchy` field update below:
+
+Descendant's `wof:hierarchy` before import of parent:
+
+````
+"wof:hierarchy":[
+        {
+            "continent_id":102191575,
+            "country_id":85633793,
+            "locality_id":85922583,
+            "region_id":85688637
+        }
+    ],
+````
+
+Descendant's `wof:hierarchy` after import of parent:
+
+````
+"wof:hierarchy":[
+        {
+            "continent_id":102191575,
+            "country_id":85633793,
+            "county_id":102087579,
+            "locality_id":85922583,
+            "region_id":85688637
+        }
+    ],
+````
 
 ###Life
 
@@ -125,30 +127,12 @@ The new countries, [Slovenia](https://whosonfirst.mapzen.com/spelunker/id/856337
 
 This superseding work would allow someone looking at, say, Montenegro, to see when it was created and what superseded feature it came from.
 
-####Changing a feature's `wof:name` **without** storing the original `wof:name` as an **alt-name**
-
-Example needed
-
-####Changing a feature's `wof:name` due to the original `wof:name` being **wrong to being with**
-
-Example needed
-
-####Giving a feature a new `wof:parent_id` when the parent's `wof:placetype` is a **country or region**
-
-Example needed
-
 ####Changing a feature's **`wof:placetype`**
 
 If Who's on First incorrectly classified a set of localities as regions, said region records would become the superseded records, with new superseding locality records created in their place. The `mz:is_current` field, `wof:superseded_by`, and `edtf:cessation` date field would be updated for each of the superseded region records. Completely new features with new `wof:id`s, a corrected `wof:placetype` field, and updated `wof:supersedes` field would be created for the superseding locality records. 
 
 In this case, since the correction was made on the `wof:placetype` field and other attribute field values were correct, all other correct attributes would be transferred to the superseding feature (zoom levels, geometries, concordances, hierarchies, etc).
-####Updating a feature's `wof:hierarchy` to include an **updated `wof:id`**
 
-Example needed
-
-####Replacing or superseding a record (**cessation event**; see below)
-
-Example needed
 
 #### Adding a new feature to Who's On First
 
@@ -160,9 +144,34 @@ Another example could be a new military facility on a Pacific Island. Similar to
 
 #### Adding a `edtf:deprecated` date to a feature
 
-Example needed
+If the feature being updated was _never_ correct to begin with, the following work needs to occur:
+
+* `edtf:deprecated` - This **string** attribute field will be added to the feature. It is equal to the date (YYY-MM-DD) that the feature was invalidated. Example below:
+
+````
+ "edtf:deprecated":"2016-10-01",
+````
+
+* `mz:is_current` - This **integer** attribute field will be added to the feature. It is equal to `0` to indicate that the feature is deprecated. Example below:
+
+````
+ "mz:is_current":0,
+````
 
 #### Adding a `edtf:cessation` date to a feature
 
-Example needed
+If an existing Who's On First feature _was_ correct at one point in time but no longer exists in the real-world, the following work needs to occur if it _was not_ replaced by another feature*:
 
+* `edtf:cessation` - This **string** attribute field will be updated to the feature. It is equal to the date (YYY-MM-DD) that the feature was invalidated. Example below:
+
+````
+ "edtf:cessation":"2016-10-01",
+````
+
+* `mz:is_current` - This **integer** attribute field will be added to the feature. It is equal to `0` to indicate that the feature is deprecated. Example below:
+
+````
+ "mz:is_current":0,
+````
+
+*_If the feature was replaced by another feature, a new `wof:id` should also be minted and superseding work should take place, as outlined above_
