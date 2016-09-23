@@ -13,7 +13,7 @@ A `wof:id` is a [unique 64-bit identifier](https://en.wikipedia.org/wiki/Organiz
 
 ### What is Significant Event?
 
-While minor edits allow for a feature to be edited in place and maintain the same `wof:id` it had prior to the edit, major edits to a feature are designated as **Significant Events**. 
+While minor edits (we'll call these Minor Events)allow for a feature to be edited in place and maintain the same `wof:id` it had prior to the edit, major edits to a feature are designated as **Significant Events**. 
 
 Updates and edits that qualify as absolute Significant Events* :
 
@@ -28,16 +28,16 @@ Updates and edits that qualify as absolute Significant Events* :
 
 _* This list, as written today, may be incomplete or unable to capture the subtleties and demands of real-life._
 
-When a Significant Event occurs, a new `wof:id` is minted for a new feature and superseding work needs to occur (explained below).
-
-### What are `supersedes` and `superseded_by` values?
-
 If an existing feature experiences a Significant Event, the following needs to occur:
 
 - The feature's raw data (geojson) should be duplicated into a new feature with a new `wof:id`
 - The duplicate feature (new) receives a `wof:supersedes` value equal to that of the existing feature's `wof:id`
 - The existing feature (old) receives a `wof:superseded_by` value equal to that of the new feature's `wof:id`
 - **Information about cessation, deprecation, is_current fields**
+
+When a Significant Event occurs, a new `wof:id` is minted for a new feature and superseding work needs to occur (explained below).
+
+### What are `supersedes` and `superseded_by` values?
 
 We'll refer to the existing feature (old) feature as the **superseded** version and the duplicate feature (new) as the **superseding** version.
 
@@ -54,31 +54,47 @@ Below, the life cycle and tracking rules are outlined to help you understand wha
  
 ### Birth
 
-If a feature unknown to Who's on First is added to the database, a new unique 64-bit identifier is minted and used for that feature's `wof:id`.
+If a feature unknown to Who's On First is added to the database, a new unique 64-bit identifier is minted and used for that feature's `wof:id`.
 
 Creating a new feature that was previously unknown to Who's On First is the most straightforward workflow. If the new feature will not have any descendants, the feature can be imported directly into Who's On First without modifications to existing features. However, if the new feature parents any existing Who's On First records, this feature will need to be placed in the hierarchy of all of its descendants.
 
 ### Life
 
-Significant modifications fall into one of two categories: _real-world changes_ or _error corrections_. Both of these categories can have **geometry edits** or **attribute edits** made. The following changes, what Who's On First calls a Significant Event, would require a new `wof:id` to be minted for a superseding feature and updates to a superseded feature.
+These rules pertain to features that are already known to Who's On First. A wide-variety of changes can occur to such features, which fall into one of two categories: Minor Events or Signicant Events. Minor Events require edits to be made to the features and _do not_ require additional work (like superseding, deprecating, etc.). Significant Events, however, _do_ require additional work to be completed, as outlined in the "Significant Events" section above. Significant Events fall into one of two categories: **real-world changes** or **error corrections**, which can either be **geometry edits** or **attribute edits**. 
 
->#### If any of the above are true:
-
->We are required to do the following:
-
->* Mint a new `wof:id`
->* Link up supersedes values
->* `is_current` field updates
->* Mark the `edtf:cessation` field with the edit date
+See the "Examples" section below for more in-depth descriptions of update possiblities for existing features. 
 
 ### Death
 
-When one feature ceases and other feature(s), it is replaced with inception events.
-A **superseded** feature will either need a `edtf:deprecated` or `edtf:cessation` date field update. This date is an essential attribute, as it identifies the specific date at which that feature was superseded (and when the superseding feature took over as the valid feature). When one of these field updates occurs, the superseding feature will always get a new `wof:id`.
+When an existing feature in Who's On First ceases to exist in the real-world or is removed due to an error-correction, it is replaced and inception events occur. If the feature being updated was _never_ correct to begin with, the following work needs to occur:
 
-* `edtf:deprecated` - Used when a feature was **never** correct to begin with. _Typically_ the field to update when dealing with an error correction.
- 
-* `edtf:cessation` - Used when a feature was correct at a point in time, but for one or more reasons is no longer correct.
+* `edtf:deprecated` - This **string** attribute field will be added to the feature. It is equal to the date (YYY-MM-DD) that the feature was invalidated. Example below:
+
+````
+ "edtf:deprecated":"2016-10-01",
+````
+
+* `mz:is_current` - This **integer** attribute field will be added to the feature. It is equal to `0` to indicate that the feature is deprecated. Example below:
+
+````
+ "mz:is_current":0,
+````
+
+If the feature _was_ correct at one point in time but no longer exists in the real-world, the following work needs to occur if it _was not_ replaced by another feature*:
+
+* `edtf:cessation` - This **string** attribute field will be updated to the feature. It is equal to the date (YYY-MM-DD) that the feature was invalidated. Example below:
+
+````
+ "edtf:cessation":"2016-10-01",
+````
+
+* `mz:is_current` - This **integer** attribute field will be added to the feature. It is equal to `0` to indicate that the feature is deprecated. Example below:
+
+````
+ "mz:is_current":0,
+````
+
+*_If the feature was replaced by another feature, a new `wof:id` should also be minted and superseding work should take place, as outlined above_
 
 ## Examples
 
@@ -86,7 +102,6 @@ A **superseded** feature will either need a `edtf:deprecated` or `edtf:cessation
 
 #### Adding a feature that does not have descendants
 
-Example needed
 
 #### Adding a feature that has descendants
 
