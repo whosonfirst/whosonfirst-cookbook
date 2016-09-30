@@ -48,7 +48,7 @@ Who's On First is not in the business of removing features from history, but rat
 
 ## Life Cycle Flowchart
 
-![flowchart_final](https://cloud.githubusercontent.com/assets/18567700/18650617/db069f3e-7e7a-11e6-9b22-e9272613a480.png)
+![wofid_flowchart](https://cloud.githubusercontent.com/assets/18567700/18999429/8a2f9342-870b-11e6-981c-ed731375cc02.png)
  _The above flowchart outlines potential updates to a new or existing Who's On First feature._
  
 ### Birth
