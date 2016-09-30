@@ -33,8 +33,8 @@ If an existing feature experiences a Significant Event, the following needs to o
 - The feature's raw data (geojson) should be duplicated into a new feature with a new `wof:id`
 - The duplicate (new) feature receives a `wof:supersedes` value equal to that of the existing (old) feature's `wof:id`
 - The existing feature receives a `wof:superseded_by` value equal to that of the new feature's `wof:id`
-- The existing (old) feature recieves a `mz:is_current` value equal to `0`
-- If the existing (old) feature was never correct to begin with, it will recieve a new date _(YYYY-MM-DD)_ in the `edtf:deprecated` field. Otherwise,  the `edtf:cessation` field will be given a new date _(YYYY-MM-DD)_.
+- The existing (old) feature receives a `mz:is_current` value equal to `0`
+- If the existing (old) feature was never correct to begin with, it will receive a new date _(YYYY-MM-DD)_ in the `edtf:deprecated` field. Otherwise,  the `edtf:cessation` field will be given a new date _(YYYY-MM-DD)_.
 
 When a Significant Event occurs, a new `wof:id` is minted for a new feature and superseding work needs to occur.
 
