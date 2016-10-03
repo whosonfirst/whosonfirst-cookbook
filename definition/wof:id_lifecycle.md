@@ -4,11 +4,13 @@
 
 This document sets to establish guidelines and rules around the Who's On First ID (`wof:id`); a unique ID used to track features in [Who's On First](https://whosonfirst.mapzen.com/). These rules are meant to help a data user understand changes to a `wof:id`, what constitutes a change, and how Who's On First tracks new, existing, and outdated features through the use of a `wof:id`. The steps below set a standard to ensure that all users and mapping services are able to track the  history and life cycle of a given feature. 
 
-Documenting these rules is important, as Who's On First's rules may differ from the assumptions of a data consumer or application. While these life cycle rules are subject to change, it is essential for Who's On First to outline the rules and guidelines around features; this allows users and mapping services to optimize data usage and understand the assumptions in the data structure.
+Documenting these rules is important, as Who's On First's rules may differ from the assumptions of a data consumer or application. While these life cycle rules are subject to change, it is essential for Who's On First to outline the rules and guidelines around features; this allows users and mapping services to optimize data usage and understand the assumptions in the data structure. 
+
+It is also important to note that while we strive to provide the most accurate and up-to-date `wof:id` life cycle rules, this document, as written today, is a working document. We expect churn in the Who's On First database, which means we will not be able to capture every possible scenario or rule at the moment, but we are working towards being able to do just that.
 
 ### What is a `wof:id`?
 
-A `wof:id` is a [unique 64-bit identifier](https://en.wikipedia.org/wiki/Organizationally_unique_identifier#64-bit_Extended_Unique_Identifier_.28EUI-64.29) that represents a single point or polygon feature in the Who's On First database. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though, technically any _unique_ 64-bit identifier can be used if Who's On First has not already maintained that ID for a known record. Unlike [OpenStreetMap](http://wiki.openstreetmap.org/wiki/Elements) (OSM) or the [United Kingdom's Local Ordnance Survey](https://www.europa.uk.com/resources/os/os-mastermap-topography-layer-user-guide.pdf) (OS), a `wof:id` is stable to an individual feature and will not update when minor updates to a feature occur. Once a feature is given a `wof:id`, that feature will maintain that `wof:id` for it's entire life cycle, unless that feature experiences a Significant Event.
+A `wof:id` is a unique 64-bit identifier that represents a single point or polygon feature in the Who's On First database. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though, technically any _unique_ 64-bit identifier can be used if Who's On First has not already maintained that ID for a known record. Unlike [OpenStreetMap](http://wiki.openstreetmap.org/wiki/Elements) (OSM) or the [United Kingdom's Local Ordnance Survey](https://www.europa.uk.com/resources/os/os-mastermap-topography-layer-user-guide.pdf) (OS), a `wof:id` is stable to an individual record and will not update when minor updates to a feature occur. Once a record is given a `wof:id`, that record will maintain that `wof:id` for it's entire life cycle, unless that record's feature experiences a Significant Event. The record's `wof:id` allows Who's On First to preserve that feature in history.
 
 
 ### What is Significant Event?
@@ -19,19 +21,19 @@ Updates and edits that qualify as Significant Events* :
 
 - Changing a point feature's location more than **10km**
 - Changing a polygon feature's area more than **50%**
-- Changing a feature's `wof:name` **without** storing the original `wof:name` as an **alt-name**
-- Changing a feature's `wof:name` due to the original `wof:name` being **wrong to being with**
-- Giving a feature a new `wof:parent_id` when the parent's `wof:placetype` is a **country** or **region**
+- Changing a feature's `wof:name` **without** storing the original `wof:name` as an **alternative name**
+- Changing a feature's `wof:name` due to the original `wof:name` being **wrong to begin with**
+- Giving a feature a **new `wof:parent_id`**
 - Changing a feature's **`wof:placetype`**
 - Updating a feature's `wof:hierarchy` to include an **updated `wof:id`**
-- Replacing or superseding a record (**cessation event**; see below)
+- Replacing or superseding a record (**end of life event**; see below)
 
 _* This list, as written today, may be incomplete or unable to capture the subtleties and demands of real-life._
 
 If an existing feature experiences a Significant Event, the following needs to occur:
 
-- The feature's raw data (geojson) should be duplicated into a new feature with a new `wof:id`
-- The duplicate (new) feature receives a `wof:supersedes` value equal to that of the existing (old) feature's `wof:id`
+- The feature's raw data (GeoJSON) should be duplicated into a new feature with a new `wof:id`
+- The newly duplicated feature receives a `wof:supersedes` value equal to that of the existing (old) feature's `wof:id`
 - The existing feature receives a `wof:superseded_by` value equal to that of the new feature's `wof:id`
 - The existing (old) feature receives a `mz:is_current` value equal to `0`
 - If the existing (old) feature was never correct to begin with, it will receive a new date _(YYYY-MM-DD)_ in the `edtf:deprecated` field. Otherwise,  the `edtf:cessation` field will be given a new date _(YYYY-MM-DD)_.
@@ -40,36 +42,40 @@ When a Significant Event occurs, a new `wof:id` is minted for a new feature and 
 
 ### What are `supersedes` and `superseded_by` values?
 
-We'll refer to the existing (old) feature feature as the **superseded** version and the duplicate (new) feature as the **superseding** version.
+We'll refer to the existing (old) feature as the **superseded** version and the newly duplicated feature as the **superseding** version.
 
-Keeping up with `wof:id` changes and new features taking the place of old, outdated features can be tricky. Who's On First has a built-in series of attributes that can be used to track the changes and updates to a feature, even if a Significant Event has taken place and replaced a `wof:id`. The updating of the `wof:supersedes` and `wof:superseded_by` values in the respective records are what allows a data consumer or application to track the history of a given feature by linking together the history of any given feature at any given time. This superseding work also tracks which features are no longer valid (and which features _are_ valid). This history is not inherent to the linked feature list, but rather the linked feature list _and_ GitHub log.
+Keeping up with `wof:id` changes and new features taking the place of old, outdated features can be tricky. Who's On First has a built-in series of attributes that can be used to track the changes and updates to a feature, even if a Significant Event has taken place and replaced a `wof:id`. The updating of the `wof:supersedes` and `wof:superseded_by` values in the respective records are what allows a data consumer or application to track the history of a given feature by linking together the history of any given feature at any given time. This superseding work also tracks which features are no longer valid (and which features _are_ valid). This history is not inherent to the chain of superseded features, but rather the chain of superseded features _and_ the GitHub log for said feature.
+
+While Who's On First does not currently have an audit trail for each feature, the GitHub change log for each feature is the closest approximation to such a trail. This idealized audit log is a future goal for Who's On First, but for now, the use of GitHub and the supersede fields allow a user to track the history of a given feature.
 
 Who's On First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what **_was_** and what **_is_**. The `wof:id` field allows Who's On First to provide an accurate description of the present, while also retaining historical records of a place.
 
 ## Life Cycle Flowchart
 
-![wofid_flowchart](https://cloud.githubusercontent.com/assets/18567700/18999429/8a2f9342-870b-11e6-981c-ed731375cc02.png)
+![wofid_flowchart](https://cloud.githubusercontent.com/assets/18567700/19054726/a678def2-898e-11e6-9c3c-f994f4363fa2.png)
  _The above flowchart outlines potential updates to a new or existing Who's On First feature._
  
-### Birth
+### Create
 
 If a feature unknown to Who's On First is added to the database, a new unique 64-bit identifier is minted (typically through [Brooklyn Integers](https://www.brooklynintegers.com)) and used for that feature's `wof:id`.
 
-If the new feature will not have any descendants, the feature can be imported directly into Who's On First without modifications to existing features. However, if the new feature parents any existing Who's On First records, this feature will need to be placed in the hierarchy of all of its descendants.
+If the new feature does not have any descendants, the feature can be imported directly into Who's On First without modifications to existing features. However, if the new feature parents any existing Who's On First records, this feature will need to be placed in the hierarchy of all of its descendants. 
 
-### Life
+If the new feature has descendants _and_ the new feature's descendant records already have a record with a `wof:placetype` equal to that of the new feature, all descendants will be superseded into new records. If not, the new features can be imported directly without any superseding work done to the descendant records.
+
+### Alter
 
 These rules pertain to features that are already known to Who's On First. A wide-variety of changes can occur to such features, which fall into one of two categories: Minor Events or Significant Events. Minor Events require edits to be made to the features and _do not_ require additional work (like superseding, deprecating, etc.). Significant Events, however, _do_ require additional work to be completed, as outlined in the "Significant Events" section above. Significant Events fall into one of two categories: **real-world changes** or **error corrections**, which can either be **geometry edits** or **attribute edits**. 
 
 See the "Examples" section below for more in-depth descriptions of update possibilities for existing features. 
 
-### Death
+### End of Life
 
-When an existing feature in Who's On First ceases to exist in the real-world or is removed due to an error-correction, inception events occur and it may be replaced with a new feature that takes it's place. 
+When an existing feature in Who's On First ceases to exist in the real-world or is removed due to an error-correction, inception events occur and it may be replaced with a new feature that takes it's place. Again, this will affect all descendant features, which will need to be superseded to new records.
 
 ## Examples
 
-###Birth
+### Create
 
 #### Adding a feature that does not have descendants
 
@@ -81,9 +87,11 @@ Another example could be a new military facility on a Pacific Island. Similar to
 
 #### Adding a feature that has descendants
 
-If adding a new `county` record to Who's On First that has descendant records, a new `wof:id` should be minted and the feature (with appropriate properties) should be added to the database. Additionally, the `wof:hierarchy` and `wof:belongsto` fields of all descendants needs to be updated to include that new `wof:id` of the new county. Example of `wof:hierarchy` field update below:
+If adding a previously unknown `county` record to Who's On First that has descendant records, a new `wof:id` should be minted and the feature (with appropriate properties) should be added to the database. Occasionally, this type of feature addition to Who's On First occurs. In the example below, let's envision a feature that _should_ have had a county record in it's hierarchy, but for some unknown reason, Who's On First never had that data to begin with. 
 
-Descendant's `wof:hierarchy` before import of parent:
+With this example, the `wof:hierarchy` and `wof:belongsto` fields of all descendants needs to be updated to include that new `wof:id` of the new county. An example of the `wof:hierarchy` field update is shown below.
+
+Descendant's `wof:hierarchy` before import of parent; notice the `wof:hierarchy` does not contain a "county_id":
 
 ````
 "wof:hierarchy":[
@@ -96,7 +104,7 @@ Descendant's `wof:hierarchy` before import of parent:
     ],
 ````
 
-Descendant's `wof:hierarchy` after import of parent:
+Descendant's `wof:hierarchy` after import of parent; the hierarchy now contains a "county_id":
 
 ````
 "wof:hierarchy":[
@@ -110,7 +118,7 @@ Descendant's `wof:hierarchy` after import of parent:
     ],
 ````
 
-###Life
+### Alter
 
 #### Moving a feature's location more than ten kilometers from it's original location
 
@@ -121,6 +129,8 @@ If an error correction needed to occur to move Iceland, for example, fifty kilom
 The new Iceland record would receive a new `wof:id`, and would have it's `wof:supersedes` field updated to include the `wof:id` of the original Iceland record. This new record would be our superseding features.
 
 ####Changing a polygon feature's area more than **50%**
+
+Who's On First uses 50% as a measure of whether or not a change in a feature's geometry is a "Significant Event". Simply put, a change of over half of a feature's geometry means the majority of that feature has changed; Who's On First uses this 50% as a trigger to supersede features and qualify an edit as significant.
 
 The case of Yugoslavia is a perfect example of a real-world geometry change causing a new `wof:id` to be minted. In this case, Yugoslavia was dissolved and split into several different countries (and a disputed area). The record for Yugoslavia would receive a date (the date of it's dissolution) in the `edtf:cessation` field, an updated `mz:is_current` field, and the `wof:id` values of the newly created countries in it's `wof:superseded_by` field.
 
@@ -134,7 +144,7 @@ If Who's on First incorrectly classified a set of localities as regions, said re
 
 In this case, since the correction was made on the `wof:placetype` field and other attribute field values were correct, all other correct attributes would be transferred to the superseding feature (zoom levels, geometries, concordances, hierarchies, etc).
 
-###Death
+### End of Life
 
 #### Adding a `edtf:deprecated` date to a feature
 
