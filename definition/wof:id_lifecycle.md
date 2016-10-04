@@ -25,7 +25,7 @@ Updates and edits that qualify as Significant Events* :
 - Changing a feature's `wof:name` due to the original `wof:name` being **wrong to begin with**
 - Giving a feature a **new** `wof:parent_id`
 - Giving a feature a **new** `wof:placetype`
-- Updating a feature's `wof:hierarchy` to include an **updated `wof:id`**
+- Updating a feature's `wof:hierarchy` to include an **updated** `wof:id`
 - Replacing or superseding a record (**end of life event**; see below)
 
 _* This list, as written today, may be incomplete or unable to capture the subtleties and demands of real-life._
@@ -40,7 +40,9 @@ When a Significant Event occurs, a new `wof:id` is minted for a new feature and 
 - The existing feature receives a `mz:is_current` value equal to `0`
 - If the existing feature was never correct to begin with, it will receive a new date _(YYYY-MM-DD)_ in the `edtf:deprecated` property. Otherwise, the `edtf:cessation` property will be given a date _(YYYY-MM-DD)_. This `edtf` date should equal the date when the feature was edited.
 
-In the flowchart below, we'll refer to these steps a the "rebirth" of a feature.
+The EDTF (Extended Date/Time Format) fields, the rules of which are outline [here](https://www.loc.gov/standards/datetime/pre-submission.html), are used to call out the date of cessation or deprecating a record in Who's On First. An important tradeoff with EDTF is that there are no adequate tools for querying these complex date strings, though there is also nothing as good at encoding these "fuzzy" dates. For now, Who's On First uses the syntax; we are betting on a future where such tools are available.
+
+In the flowchart below, we'll refer to these steps a the "renewal" of a feature.
 
 ### Tracking change history with supersedes and superseded_by properties
 
