@@ -34,10 +34,10 @@ _* This list, as written today, may be incomplete or unable to capture the subtl
 
 When a Significant Event occurs, a new `wof:id` is minted for a new feature and superseding work needs to occur. If an existing feature experiences a Significant Event, the following needs to occur:
 
-- The feature's raw data (GeoJSON) should be duplicated into a new feature with a new `wof:id`
-- The newly duplicated feature receives a `wof:supersedes` value equal to that of the existing feature's `wof:id`
-- The existing feature receives a `wof:superseded_by` value equal to that of the new feature's `wof:id`
-- The existing feature receives a `mz:is_current` value equal to `0`
+- The feature's raw data (GeoJSON) should be duplicated into a new feature with a new `wof:id`.
+- The newly duplicated feature receives a `wof:supersedes` value equal to that of the existing feature's `wof:id`.
+- The existing feature receives a `wof:superseded_by` value equal to that of the new feature's `wof:id`.
+- The existing feature receives a `mz:is_current` value equal to `0`.
 - If the existing feature was never correct to begin with, it will receive a new date _(YYYY-MM-DD)_ in the `edtf:deprecated` property. Otherwise, the `edtf:cessation` property will be given a date _(YYYY-MM-DD)_. This `edtf` date should equal the date when the feature was edited.
 
 The EDTF (Extended Date/Time Format) fields, the rules of which are outline [here](https://www.loc.gov/standards/datetime/pre-submission.html), are used to call out the date of cessation or deprecating a record in Who's On First. An important tradeoff with EDTF is that there are no adequate tools for querying these complex date strings, though there is also nothing as good at encoding these "fuzzy" dates. For now, Who's On First uses the syntax; we are betting on a future where such tools are available.
@@ -126,7 +126,7 @@ Descendant's `wof:hierarchy` before import of parent; notice the `wof:hierarchy`
     ],
 ```
 
-Descendant's `wof:hierarchy` after import of parent; the hierarchy now contains a "county_id":
+Descendant's `wof:hierarchy` after import of parent; the hierarchy now contains a `"county_id"`:
 
 ```
 "wof:hierarchy":[
@@ -178,7 +178,7 @@ If the feature being updated was _never_ correct to begin with, the following wo
  "edtf:deprecated":"2016-10-01",
 ```
 
-* `mz:is_current` - This **boolean** attribute field will be added to the feature. It is equal to `0` (represented as an integer) to indicate that the feature is deprecated. Example below:
+* `mz:is_current` - This **boolean** attribute field will be added to the feature. It is equal to `0` (represented as an **integer**) to indicate that the feature is deprecated. Example below:
 
 ```
  "mz:is_current":0,
@@ -194,7 +194,7 @@ If an existing Who's On First feature _was_ correct at one point in time but no 
  "edtf:cessation":"2016-10-01",
 ```
 
-* `mz:is_current` - This **boolean** attribute field will be added to the feature. It is equal to `0` (represented as an integer) to indicate that the feature is deprecated. Example below:
+* `mz:is_current` - This **boolean** attribute field will be added to the feature. It is equal to `0` (represented as an **integer**) to indicate that the feature is deprecated. Example below:
 
 ```
  "mz:is_current":0,
