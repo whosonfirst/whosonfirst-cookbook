@@ -6,11 +6,11 @@ This document sets to establish guidelines and rules around the Who's On First I
 
 Documenting these rules is important, as Who's On First's rules may differ from the assumptions of a data consumer or application. While these life cycle rules are subject to change, it is essential for Who's On First to outline the rules and guidelines around features; this allows users and mapping services to optimize data usage and understand the assumptions in the data structure. 
 
-It is also important to note that while we strive to provide the most accurate and up-to-date `wof:id` life cycle rules, this document, as written today, is a working document. We expect churn in the Who's On First database, which means we will not be able to capture every possible scenario or rule at the moment, but we are working towards being able to do just that.
+It is also important to note that while we strive to provide the most accurate and up-to-date `wof:id` life cycle rules, this document, as written today, is a working document. We expect churn in the Who's On First database, which means we will not be able to capture every possible scenario or rule at the moment, but we are working towards being able to do just that. While we do expect churn in the early days of Who's On First as we clean things up, we do expect things to normalize going forward.
 
 ### What is a `wof:id`?
 
-A `wof:id` is a unique 64-bit identifier that represents a single point or polygon feature in the Who's On First database. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though, technically any _unique_ 64-bit identifier can be used if Who's On First has not already maintained that ID for a known record. Unlike other databases that track features, for example the [United Kingdom's Local Ordnance Survey](https://www.europa.uk.com/resources/os/os-mastermap-topography-layer-user-guide.pdf) (OS), a `wof:id` is stable to an individual record and will not update when minor updates to a feature occur. Once a record is given a `wof:id`, that record will maintain that `wof:id` for it's entire life cycle, unless that record's feature experiences a Significant Event. The record's `wof:id` allows Who's On First to preserve that feature in history.
+A `wof:id` is a unique 64-bit identifier that represents a single point or polygon feature in the Who's On First database. This identifier is commonly produced by the [Brooklyn Integers](https://www.brooklynintegers.com) service, though, technically any _unique_ 64-bit identifier can be used if Who's On First has not already issued that ID for a known record. Unlike other databases that track features, for example the [United Kingdom's Local Ordnance Survey](https://www.europa.uk.com/resources/os/os-mastermap-topography-layer-user-guide.pdf) (OS), a `wof:id` is stable to an individual record and will not update when minor updates to a feature occur. Once a record is given a `wof:id`, that record will maintain that `wof:id` for it's entire life cycle, unless that record's feature experiences a Significant Event. The record's `wof:id` allows Who's On First to preserve that feature in history.
 
 
 ### What is Significant Event?
@@ -46,15 +46,15 @@ In the flowchart below, we'll refer to these steps a the "rebirth" of a feature.
 
 We'll refer to the existing feature as the **superseded** version and the newly duplicated feature as the **superseding** version.
 
-Keeping up with `wof:id` changes and new features taking the place of old, outdated features can be tricky. Who's On First has a built-in series of properties that can be used to track the changes and updates to a feature, even if a Significant Event has taken place and replaced a `wof:id`. The updating of the `wof:supersedes` and `wof:superseded_by` values in the respective records are what allows a data consumer or application to track the history of a given feature by linking together the history of any given feature at any given time. This superseding work also tracks which features are no longer valid (and which features _are_ valid). This history is not inherent to the chain of superseded features, but rather the chain of superseded features _and_ the Git changelog for said feature.
+Keeping up with `wof:id` changes and new features taking the place of old, outdated features can be tricky. Who's On First has a built-in series of properties that can be used to track the changes and updates to a feature, even if a Significant Event has taken place and replaced a `wof:id`. The updating of the `wof:supersedes` and `wof:superseded_by` values in the respective records are what allows a data consumer or application to track the history of a given feature by linking together the history of any given feature at any given time. This superseding work also tracks which features are no longer current in the real-world (and which features _are_ current). This history is not inherent to the chain of superseded features, but rather the chain of superseded features _and_ the Git history for said feature.
 
-While Who's On First does not currently have an audit trail for each feature, the Git changelog for each feature is the closest approximation to such a trail. This idealized audit log is a future goal for Who's On First, but for now, the use of Git and the supersede properties allow a user to track the history of a given feature.
+While Who's On First does not currently have an audit trail for each feature that lists the linked history of a given feature, the Git history for each feature is the closest approximation to such a trail; this idealized audit trail is a future goal for Who's On First, but for now, the use of Git and the supersede properties allow a user to track the history of a given feature.
 
 Who's On First is not in the business of removing features from history, but rather looks to take a snapshot in time and preserve features based on what **_was_** and what **_is_**. The `wof:id` field allows Who's On First to provide an accurate description of the present, while also retaining historical records of a place.
 
 ## Life Cycle Flowchart
 
-![final_flowchart](https://cloud.githubusercontent.com/assets/18567700/19081530/9bb20ea4-8a28-11e6-82e9-c3a1e85da9f2.png)
+![flowchart](https://cloud.githubusercontent.com/assets/18567700/19088465/3f6ec8dc-8a44-11e6-8602-2e22c38e73c9.png)
  _The above flowchart outlines potential updates to a new or existing Who's On First feature._
  
 ### Create
@@ -63,7 +63,7 @@ If a feature unknown to Who's On First is added to the database, a new unique 64
 
 If the new feature does not have any descendants, the feature can be imported directly into Who's On First without modifications to existing features. However, if the new feature parents any existing Who's On First records, this feature will need to be placed in the hierarchy of all of its descendants. 
 
-If the new feature has descendants _and_ the new feature's descendant records already have a record with a `wof:placetype` equal to that of the new feature, all descendants will be superseded into new records. If not, the new features can be imported directly without any superseding work done to the descendant records.
+If the new feature has descendants _and_ the new feature's descendant records already have a record with a `wof:placetype` equal to that of the new feature, all descendants will be superseded into new records. If not, the new features can be imported directly without any superseding work done to the descendant records. We know Who's On First has gaps in administrative and venue coverage; this rule is in place to lessen the burden of superseding when importing features that Who's On First does not already have records for. At this time, we should not concern ourselves with superseding records when importing new features to Who's On First - of course, this could change once churn settles down.
 
 ### Alter
 
