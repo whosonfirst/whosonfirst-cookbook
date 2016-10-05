@@ -56,7 +56,7 @@ Who's On First is not in the business of removing features from history, but rat
 
 ## Life Cycle Flowchart
 
-![flowchart](https://cloud.githubusercontent.com/assets/18567700/19088465/3f6ec8dc-8a44-11e6-8602-2e22c38e73c9.png)
+![flowchart](https://cloud.githubusercontent.com/assets/18567700/19118178/9c636426-8ae9-11e6-908f-0a4389828baf.png)
  _The above flowchart outlines potential updates to a new or existing Who's On First feature._
  
 ### Create
@@ -172,13 +172,13 @@ In this case, since the correction was made on the `wof:placetype` property and 
 
 If the feature being updated was _never_ correct to begin with, the following work needs to occur:
 
-* `edtf:deprecated` - This **string** attribute field will be added to the feature. It is equal to the date _(YYY-MM-DD)_ that the feature was edited as no longer current. Example below:
+* `edtf:deprecated` - This **string** property field will be added to the feature. It is equal to the date _(YYY-MM-DD)_ that the feature was edited as no longer current. Example below:
 
 ```
  "edtf:deprecated":"2016-10-01",
 ```
 
-* `mz:is_current` - This **boolean** attribute field will be added to the feature. It is equal to `0` (represented as an **integer**) to indicate that the feature is deprecated. Example below:
+* `mz:is_current` - This **boolean** property field will be added to the feature. It is equal to `0` (represented as an **integer**) to indicate that the feature is deprecated. Example below:
 
 ```
  "mz:is_current":0,
@@ -188,13 +188,13 @@ If the feature being updated was _never_ correct to begin with, the following wo
 
 If an existing Who's On First feature _was_ correct at one point in time but no longer exists in the real-world, the following work needs to occur if it _was not_ replaced by another feature*:
 
-* `edtf:cessation` - This **string** attribute field will be updated to the feature. It is equal to the date _(YYY-MM-DD)_ that the feature was edited as no longer current. Example below:
+* `edtf:cessation` - This **string** property field will be updated to the feature. It is equal to the date _(YYY-MM-DD)_ that the feature was edited as no longer current. Example below:
 
 ```
  "edtf:cessation":"2016-10-01",
 ```
 
-* `mz:is_current` - This **boolean** attribute field will be added to the feature. It is equal to `0` (represented as an **integer**) to indicate that the feature is deprecated. Example below:
+* `mz:is_current` - This **boolean** property field will be added to the feature. It is equal to `0` (represented as an **integer**) to indicate that the feature is deprecated. Example below:
 
 ```
  "mz:is_current":0,
