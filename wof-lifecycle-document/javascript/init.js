@@ -6,7 +6,7 @@ function load_tiles(){
 	var map = L.map('map', {
 		center: [0, 0],
 		crs: L.CRS.Simple,
-		zoom: 2,
+		zoom: 1,
 		minZoom: 1,
 	});
 
