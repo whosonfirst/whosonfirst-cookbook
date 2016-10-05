@@ -6,7 +6,7 @@ function load_tiles(){
 	var map = L.map('map', {
 		center: [0, 0],
 		crs: L.CRS.Simple,
-		zoom: 1,
+		zoom: 2,
 		minZoom: 1,
 	});
 
@@ -14,8 +14,7 @@ function load_tiles(){
 	
 	var opts = {
 		'quality': 'color',
-		'tileFormat': 'png',
-		'fitBounds': false,
+		'tileFormat': 'png'
 	};
 
 	var layer = L.tileLayer.iiif(info, opts);
