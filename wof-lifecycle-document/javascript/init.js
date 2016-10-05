@@ -11,9 +11,11 @@ function load_tiles(){
 	});
 
 	var info = image + '/info.json';
+	
 	var opts = {
 		'quality': 'color',
 		'tileFormat': 'png',
+		'fitBounds': false,
 	};
 
 	var layer = L.tileLayer.iiif(info, opts);
