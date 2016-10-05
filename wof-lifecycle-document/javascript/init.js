@@ -12,9 +12,10 @@ function load_tiles(){
 	});
 
 	var info = image + '/info.json';
+	var opts = { 'quality': 'color' };
 	console.log(info);
 
-	var layer = L.tileLayer.iiif(info);
+	var layer = L.tileLayer.iiif(info, opts);
 	
 	map.addLayer(layer);    
 
