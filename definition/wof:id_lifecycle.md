@@ -57,7 +57,7 @@ Who's On First is not in the business of removing features from history, but rat
 
 ## Life Cycle Flowchart
 
-![flowchart](https://cloud.githubusercontent.com/assets/18567700/19118178/9c636426-8ae9-11e6-908f-0a4389828baf.png)
+![flowchart](https://raw.githubusercontent.com/whosonfirst/whosonfirst-cookbook/master/_images/lifecycle_flowchart.png)
  _The above flowchart outlines potential updates to a new or existing Who's On First feature._
  
 ### Create
