@@ -4,6 +4,7 @@ function load_tiles(){
 	var image = container.getAttribute("data-image-src");
 	
 	var map = L.map('map', {
+		scrollWheelZoom:false,
 		center: [0, 0],
 		crs: L.CRS.Simple,
 		zoom: 1,
