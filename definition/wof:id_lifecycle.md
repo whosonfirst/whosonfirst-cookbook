@@ -65,7 +65,9 @@ If a feature unknown to Who's On First is added to the database, a new unique 64
 
 If the new feature does not have any descendants, the feature can be imported directly into Who's On First without modifications to existing features. However, if the new feature parents any existing Who's On First records, this feature will need to be placed in the hierarchy of all of its descendants. 
 
-If the new feature has descendants _and_ the new feature's descendant records already have a record with a `wof:placetype` equal to that of the new feature, all descendants will be superseded into new records. If not, the new features can be imported directly without any superseding work done to the descendant records. We know Who's On First has gaps in administrative and venue coverage; this rule is in place to lessen the burden of superseding when importing features that Who's On First does not already have records for. At this time, we should not concern ourselves with superseding records when importing new features to Who's On First - of course, this could change once churn settles down.
+If the new feature has descendants _and_ the new feature's descendant records already have a record with a `wof:placetype` equal to that of the new feature, all descendants will be superseded into new records. If not, the new features can be imported directly without any superseding work done to the descendant records.
+
+We know Who's On First has gaps in administrative and venue coverage; this rule is in place to lessen the burden of superseding when importing features that Who's On First does not already have records for. As of this writing, we _may_ choose to exempt certain records from being superseded when importing new features, as a matter of expediency. This should be considered an exception to the rule while Who's On First is still more "pre 1.0" than not. Once things settle down the rules for triggering supersedes events should be interpretted as written.
 
 ### Alter
 
@@ -120,8 +122,8 @@ Descendant's `wof:hierarchy` before import of parent; notice the `wof:hierarchy`
         {
             "continent_id":102191575,
             "country_id":85633793,
-            "locality_id":85922583,
-            "region_id":85688637
+            "region_id":85688637,
+            "locality_id":85922583
         }
     ],
 ```
@@ -133,9 +135,9 @@ Descendant's `wof:hierarchy` after import of parent; the hierarchy now contains 
         {
             "continent_id":102191575,
             "country_id":85633793,
+            "region_id":85688637,	    
             "county_id":102087579,
-            "locality_id":85922583,
-            "region_id":85688637
+            "locality_id":85922583
         }
     ],
 ```
