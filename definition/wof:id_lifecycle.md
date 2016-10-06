@@ -22,7 +22,7 @@ Updates and edits that qualify as Significant Events* :
 
 - Changing a point feature's location more than **10km**
 - Changing a polygon feature's area more than **50%**
-- Changing a feature's `wof:name` **without** storing the original `wof:name` as an **alternative name**
+- Changing a feature's `wof:name` **without** storing the original `wof:name` as an **alternative name** (see: [`whosonfirst-names`](https://github.com/whosonfirst/whosonfirst-names/))
 - Changing a feature's `wof:name` due to the original `wof:name` being **wrong to begin with**
 - Giving a feature a **new** `wof:parent_id`
 - Giving a feature a **new** `wof:placetype`
