@@ -120,6 +120,10 @@ To better understand what we're requesting of our command, here is a breakdown o
 * **'region_id'** The `wof:id` of the feature's parent region.
 * **'locality_id'** The `wof:id` of the feature's parent locality.
 * **'wof_country'** Usually equal to the ISO code, this is a two-digit key representing the country your features are in. Required for all features.
+* **'iso_country'** Set by the [Internation Organization for Standardization](http://www.iso.org/iso/home.html), This is a two-digit key (listed [here](https://en.wikipedia.org/wiki/ISO_3166-1)) representing the country your features are in. Required for all features.
+* **'src_geom'** Optional. Contains the source name of the feature's geometry. Given for research purposes.
+* **'mz_note'** Optional. Contains information about that given feature, if available.
+
 
 From the WoF repository for San Francisco, a total of **165** (157 polygon geometries, 8 point geometries) records for neighbourhoods were collected using our `external_editor` option. QGIS was used to preview Who’s On First neighbourhood shapes (below). 
 
