@@ -54,15 +54,19 @@ While specifics listed in this tutorial may reference San Francisco, our hope is
 
 ##1: Review Who's on First records for your locality
 
-In this section, you will:
+In this section, you will either:
+
+* Use the handy [WOF-Descender Tool](https://burritojustice.github.io/wof-descender/) to gather a collection of neighbourhood features in your given locality
+
+**OR**
 
 * Use the `git checkout` command in your terminal to **clone necessary repositories**
 * **Collect** a .geojson file for all neighbourhoods in your locality (city)
 * Add your .geojson file to a QGIS document for **review**
 
-_Note: If you'd like to bypass this step, Mapzen is happy to send you a "starter kit" with a .geojson file that includes WoF neighbourhoods records for your locality (please [email us](mailto:stephen.epps@mapzen.com))._ 
+The [WOF-Descender Tool](https://burritojustice.github.io/wof-descender/) is a tool that can quickly gather a collection of neighbourhood records in GeoJSON format given your the parent record's ID. Simply enter your locality ID in the `WOF ID` field and select `neighbourhood` from the `Descendant Type` drop-down menu. 
 
-However, if you do want to build from source...
+This is the "quick and easy" method to gathering neighbourhood records, however, this tool only gathers up to 500 WOF records. For larger queries or markets, you will need to clone necessary repositories and collect a .geojson file. Instructions below:
 
 * Ensure that you have the most recent software packages. Windows users should have Powershell 3.0 before beginning any GitHub work from the terminal. A Powershell 3.0 download can be found [here](https://www.microsoft.com/en-us/download/details.aspx?id=34595). Additionally, all users should ensure they have `setuptools` for Python by [downloading](https://pypi.python.org/pypi/setuptools) Python 2.7 (or a more current version) and `GDAL 2.1` by [downloading](http://www.qgis.org/en/site/) QGIS 2.14 (or a more current version).
 * Run `git checkout` on the [WoF Data repository](https://github.com/whosonfirst/whosonfirst-data), [WoF Properties repository](https://github.com/whosonfirst/whosonfirst-properties), and [WoF Utils repository](https://github.com/whosonfirst/py-mapzen-whosonfirst-utils).
