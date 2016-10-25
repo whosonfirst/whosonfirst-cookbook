@@ -152,6 +152,13 @@ For existing features, probably don't modify the existing `min_zoom` and `max_zo
 - `microhood`: 
   - Default: `min_zoom`:`16`, rarely modify.
   - Default: `max_zoom`:`18`, rarely modify.
+
+Now we need to create (or update) the `lbl:latitude` and `lbl:longitude` attribute properties for all updated or new geometries in your geojson files: visit [MapShaper](http://www.mapshaper.org) and do the following, one file at a time: 
+
+- Click the box next to snap verticles
+- Paste `each 'lbl_longitude=$.innerX , lbl_latitude=$.innerY'` into command line option
+- Export the file as a geojson
+- Repeat this process for each file
   
 ##Let's Recap
 
