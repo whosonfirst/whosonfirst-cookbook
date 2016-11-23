@@ -7,7 +7,7 @@ This polygon geometry is the **default** geometry of San Francisco. A record's *
 
 _Example: 85922583.geojson_
 
-However, Who's On First also stores **alt-geometries** (alternate geometries) for administrative records. These alt-geometries fall into one of two categories: **source** or **display**.
+However, Who's On First also stores **alt-geometries** (alternate geometries) records. These alt-geometries fall into one of two categories: **source** or **display**.
 
 ##What rules must alt-geometries follow?
 
