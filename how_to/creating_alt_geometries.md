@@ -23,7 +23,7 @@ Alt-geometry records must include the following minimum set of properties:
 
 * **id** - The unique `wof:id` of the feature that this alt-geometry represents
 * **type** - Should always equal `"feature"`
-* **properties`**
+* **properties**
   * **src:geom** - The source of this alt-geometry. This source must be listed in the [`whosonfirst-sources`](https://github.com/whosonfirst/whosonfirst-sources) repo
   * **wof:geomhash** - The alpha-numeric geomhash code (more info [here](https://en.wikipedia.org/wiki/Geohash))
   * **wof:id** - The unique `wof:id` of the feature that this alt-geometry represents
