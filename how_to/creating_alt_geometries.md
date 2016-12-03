@@ -36,7 +36,7 @@ An alt-geometry filename should always include the associated feature's `wof:id`
 
 In addition to the above rules, an alt-geometry can also include "use", "scope", and "detail". A filepath with such information would follow this convention:
 
-`id-alt-source-use-scope-detail.geojson`
+`id-alt-source-function-scope-detail.geojson`
 
 Where properties include:
 
