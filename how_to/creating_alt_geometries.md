@@ -41,7 +41,7 @@ In addition to the above rules, an alt-geometry can also include "use", "scope",
 Where properties include:
 
 * **source** (eg: `uscensus`) – The source of this geometry, which should match a file in the `whosonfirst-sources` repository
-* **use** that is intended (e.g.: `display`) – This could include:
+* **function** that is intended (e.g.: `display`) – This could include:
   * **search** - For place by text (free or structured, e.g. forward geocoding) and getting back a (label) latitude/longitude, (label) bounding box, full geometry, and hints about "hierarchy label" generation. 
   * **reverse geocode**  - For use of latitude/longitude to a place (preferring the "biggest" shape inclusive of territorial waters)
   * **data visualization** (map **display**) - Based on polygon features (e.g. choropleth, with some sophistication around water and land parts, preferring the land parts)
