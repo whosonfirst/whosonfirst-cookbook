@@ -89,6 +89,13 @@ Like most of Who's On First, this guideline is a work in progress and allows for
 
 Ideally, every feature in Who's On First will have at least two geometries; a default geometry that is some combination of simplification and file size and an alt-geometry that is either a source or display geometry.
 
+## Implementations
+
+* [Go](https://github.com/whosonfirst/go-whosonfirst-uri)
+* [Javascript](https://github.com/whosonfirst/js-mapzen-whosonfirst/blob/master/src/mapzen.whosonfirst.uri.js)
+* [PHP](https://github.com/whosonfirst/flamework-whosonfirst/blob/master/www/include/lib_whosonfirst_uri.php)
+* [Python](https://github.com/whosonfirst/py-mapzen-whosonfirst-uri)
+
 ##See also:
 
 https://github.com/whosonfirst/whosonfirst-geometries
