@@ -1,4 +1,4 @@
-##Data Licenses
+## Data Licenses
 ### Acceptable data licenses
 
 Who's On First is an "open" project. Because Who’s On First is liberally licensed open data, we must be selective about adding new data. We either need to find a new source that is open data with a [CC-BY](https://creativecommons.org/licenses/by/4.0/)] or [CC-0](https://creativecommons.org/share-your-work/public-domain/cc0/) license that allows commercial and derivative works or create new shapes based on local knowledge and by cross-referencing multiple sources. Ideally, this new source should be an improvement over what Who’s On First already knows about the place.
