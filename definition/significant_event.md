@@ -1,4 +1,4 @@
-##What is a Significant Event?
+## What is a Significant Event?
 
 As the world is in a state of constant change, Who's On First (WOF) records are constantly changing, too. With most record changes, a simple property update and update to the`wof:lastmodified` property field is sufficient. However, if a **Significant Event** takes place, additional work is needed. 
 

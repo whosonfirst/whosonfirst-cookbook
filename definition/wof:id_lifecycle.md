@@ -153,7 +153,7 @@ If an error correction needed to occur to move Iceland, for example, fifty kilom
 
 The new Iceland record would receive a new `wof:id`, and would have it's `wof:supersedes` property updated to include the `wof:id` of the original Iceland record. This new record would be our superseding features.
 
-####Changing a polygon feature's area more than **50%**
+#### Changing a polygon feature's area more than **50%**
 
 Who's On First uses 50% as a measure of whether or not a change in a feature's geometry is a "Significant Event". Simply put, a change of over half of a feature's geometry means the majority of that feature has changed; Who's On First uses this 50% as a trigger to supersede features and qualify an edit as significant.
 
@@ -163,7 +163,7 @@ The new countries, [Slovenia](https://whosonfirst.mapzen.com/spelunker/id/856337
 
 This superseding work would allow someone looking at, say, Montenegro, to see when it was created and what superseded feature it came from.
 
-####Changing a feature's **`wof:placetype`**
+#### Changing a feature's **`wof:placetype`**
 
 If Who's on First incorrectly classified a set of localities as regions, the region records would become the **superseded** records and the locality records would be the **superseding** records. The `mz:is_current` property, `wof:superseded_by`, and `edtf:cessation` date property would be updated for each of the superseded region records. Completely new features with new `wof:id` values, a corrected `wof:placetype` property, and updated `wof:supersedes` property would be created for the superseding locality records. 
 

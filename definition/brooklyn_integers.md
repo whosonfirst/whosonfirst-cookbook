@@ -1,4 +1,4 @@
-##What Is Brooklyn Integers?
+## What Is Brooklyn Integers?
 
 Brooklyn Integers is an independently owned and operated integer-as-a-service provider. All integers are hand-crafted and guaranteed to be unique and hella-beautiful. For example: _[85688637](https://whosonfirst.mapzen.com/spelunker/id/85688637)_.
 

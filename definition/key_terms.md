@@ -1,4 +1,4 @@
-##**Key terms:**
+## **Key terms:**
 
 - **Significant Event** _Defined [here](https://github.com/whosonfirst/whosonfirst-docs/wiki/What-is-a-Significant-Event%3F)._
 - **Concordance** _Identifying equivalence between features in two dataset, useful for data joins._
