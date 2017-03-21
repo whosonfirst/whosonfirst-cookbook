@@ -32,7 +32,7 @@ To make things a little more helpful (or complicated! (your choice)), Wikipedia 
 To concentrate all the information from the different Wikipedia's on a single Who's on First entry, the `Wikidata ID` number is required. This value would point to the Wikidata web page which for the Spain example would be [Spain](http://www.wikidata.org/wiki/Q29) and would have entries for both of the articles mentioned above. As you can imagine, in the map making world, where it involves information from many different countries and in many different languages having a uniquely identifiable number for each entry is highly valuable.
 
 
-###Wikipedia Titles
+### Wikipedia Titles
 The ultimate goal of this work was to find a way to connect our data with Wikipedia and extract useful information from Wikipedia for each of our entries. We wanted to get the original Wikipedia titles of our places (for example the borough that is called “Bronx” in our database is named “The Bronx” in Wikipedia or “Queenstown” locality is named “Queenstown, New Zealand” in Wikipedia etc), the Wikidata ID of each entry, the Wikipedia url and all the localized language translations of each place. In addition, we wanted to get population data for the administrative places, elevation from the sea level, area and latitude and longitude coordinates. The entire code structure can be found in this [Repository](https://github.com/mapzen-data/wikipedia-notebooks).
 
 The first step of making the concordance with Wikipedia data was to identify a connection point. Wikipedia allows you to search its database for a place name and returns the closest Wikipedia page title. We used this API query to identify the potential original Wikipedia page title for all the administrative places in our database using the Who's on First name as the key input argument. 
@@ -76,7 +76,7 @@ The final technique was to manually classify the entries as correct or not by go
 
 After cleaning up the data gathered from Wikipedia we ended up with about 155,000 of entries with Wikipedia titles classified as correct, 24,000 were uncertain and 81,000 were classified as wrong.
 
-###Wikidata IDs
+### Wikidata IDs
 Having identified the correct Wikipedia page title for most of our entries we then requested the Wikidata ID for each page in our dataset. This returned a unique identifier for each entry that had an original Wikipedia title. These values are extremely useful as they provide a point of connection between all the different Wikipedias in the 282 different languages where the data is stored in a structured way. A sample python request using the <code>requests</code> python package for the Wikidata IDs (`wd:id`) is shown below:
 
     request_API = ("https://en.wikipedia.org/w/api.php?action=query&prop=pageprops&titles=%s&format=json" %name)
@@ -91,7 +91,7 @@ A subset of our Who's on First data with the corresponding Wikidata IDs is shown
 
 <img width="620" alt="Wikipedia concordances with Wikidata IDs" src="https://mapzen-assets.s3.amazonaws.com/images/Wikipedia-data-blog/wd_ids.png">
 
-###Wikipedia languages 
+### Wikipedia languages 
 Another important feature we were interested in getting from Wikipedia was different names in many languages  for each WHo's on First place. Wikipedia has been designed in many different languages and also gives aliases to names for localized languages. This information would be valuable on a map and a search engine. Some entries would have many Wikipedia aliases which would mean that consecutive API calls had to be made to get all the aliases for each place as each return only gave us a certain number of aliases at a time. 
 
 The average number of language aliases that each place would have was 15 but some places could have up to 266. A sample python request using the <code>requests</code> python package for the languages is shown below:
@@ -103,7 +103,7 @@ The average number of language aliases that each place would have was 15 but som
 
 <img width="200" alt="Wikipedia languages" src="https://mapzen-assets.s3.amazonaws.com/images/Wikipedia-data-blog/language.png">
 
-###Wikipedia demographics and location data
+### Wikipedia demographics and location data
 For the administrative places, it would be great if we could add more information on population, elevation from sea level and location coordinates. Since this data cannot be directly accessed from the MediaWiki API requests, we used the Wikidata query service through [SPARQL API](https://query.wikidata.org/). By using SPARQL we were able to get population, elevation and location data for some administrative places in Wikipedia.
 
 The bottleneck of this process is that Wikipedia categories are not well defined so it is hard to search for all administrative places as they can be under many different categories. We searched for the most prominent ones like countries, regions, counties, cities, towns, villages, neighborhoods, airports and archaeological sites and then by using the Wikidata IDs joined them to our administrative places in the Who's on First. 
@@ -113,5 +113,5 @@ We were able to add population data to about 5,500 of our places, elevation to 1
 <img width="960" alt="Wikipedia concordances with population data" src="https://mapzen-assets.s3.amazonaws.com/images/Wikipedia-data-blog/populations.png">
 
 
-###We love our data! (but it can always be improved...) 
+### We love our data! (but it can always be improved...) 
 Wikipedia is a huge source of information and we are proud to have our Who's on First gazetteer "holding hands" with more of it. It is still a work in progress and as new data is coming in we need to update our concordances to stay up to date. You can get a glimpse of the connection with Wikipedia by using our [Spelunker](https://mapzen.com/blog/spelunker-jumping-into-who-s-on-first/). Lists of all the Who's on First places with [concordances](https://whosonfirst.mapzen.com/spelunker/concordances/) for many of the open data projects, with [Wikidata concordances](https://whosonfirst.mapzen.com/spelunker/concordances/wikidata/#6/48.953/26.622) and with [Wikipedia concordances](https://whosonfirst.mapzen.com/spelunker/concordances/wikipedia/#3/63.78/23.49). By using our Wikipedia connection we were able to add additional properties to Who's on First such as preferred names, wikidata ID and links to the Wikipedia url. See [Italy](https://whosonfirst.mapzen.com/spelunker/id/85633253/#5/41.546/12.560), were all the local names are under the tab `names` and the Wikipedia concordances under `wof` - `concordances`. We wish to use this data for other types of analyses as well, such as a ranking method of feature importance to help mapping and search. We will keep you posted!
