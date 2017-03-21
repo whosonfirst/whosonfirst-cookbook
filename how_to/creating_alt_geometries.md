@@ -1,4 +1,4 @@
-#What is an alt-geometry and how are they defined and catalogued in Who's On First?
+# What is an alt-geometry and how are they defined and catalogued in Who's On First?
 
 Each record in Who's On First has a point and/or a polygon geometry. San Francisco, for example, has a polygon geometry, stored in the 85922583.geojson file ([here](https://whosonfirst.mapzen.com/spelunker/id/85922583/)). 
 This polygon geometry is the default geometry of San Francisco; a record's default geometry is in any geojson file that follows the following convention:
@@ -9,7 +9,7 @@ _Example: 85922583.geojson_
 
 However, Who's On First also stores alt-geometry (alternate geometry) records. This not only allows Who's On First to maintain flexibility in record keeping, but also allows Who's On First to house geometries from a wide variety of sources. It also allows users and services to specify which geometry to use.
 
-##What rules must alt-geometries follow?
+## What rules must alt-geometries follow?
 
 At a minimum, alt-geometry filenames must conform to the following convention:
 
@@ -32,7 +32,7 @@ Alt-geometry records must include the following minimum set of properties:
 
 An alt-geometry filename should always include the associated feature's `wof:id`, "alt", and the source name (with dashes in between each value).
 
-##What optional rules apply to alt-geometries?
+## What optional rules apply to alt-geometries?
 
 In addition to the above rules, an alt-geometry can also include "use", "scope", and "detail". A filepath with such information would follow this convention:
 
@@ -68,7 +68,7 @@ Permutations include:
 * `85668127-alt-uscensus-display-terrestrial-zoom-10.geojson` _(optional)_
 * `85668127-alt-uscensus-display-terrestrial-1024-px.geojson` _(optional)_
 
-##Affects to the default geometry
+## Affects to the default geometry
 
 If a default record in Who's On First has an alt-geometry record associated to it, the default record will have properties that point to it's associated alt-geometries. A snippet of these properties for the San Francisco example are shown below:
 
@@ -83,7 +83,7 @@ If a default record in Who's On First has an alt-geometry record associated to i
     ],
 ```
 
-##Goals
+## Goals
 
 Like most of Who's On First, this guideline is a work in progress and allows for future flexibility. We do not know every possible future use case for alt-geometries, but we can prepare for a variety of use cases by allowing flexibility and additions to the above rules.
 
@@ -96,6 +96,6 @@ Ideally, every feature in Who's On First will have at least two geometries; a de
 * [PHP](https://github.com/whosonfirst/flamework-whosonfirst/blob/master/www/include/lib_whosonfirst_uri.php)
 * [Python](https://github.com/whosonfirst/py-mapzen-whosonfirst-uri)
 
-##See also:
+## See also:
 
 https://github.com/whosonfirst/whosonfirst-geometries
