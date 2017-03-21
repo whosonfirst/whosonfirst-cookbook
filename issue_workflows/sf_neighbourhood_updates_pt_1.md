@@ -34,7 +34,7 @@ This tutorial addresses the issues we found with San Francisco's neighbourhoods 
 
 Check out [these key terms](https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/definition/key_terms.md) if you have any questions about the vocabulary used in this guide.
 
-##The Issue
+## The Issue
 
 We received a [report](https://github.com/whosonfirst/whosonfirst-data/issues/125) in the [whosonfirst-data repository](https://github.com/whosonfirst/whosonfirst-data) that the shape of San Francisco’s Golden Gate Park neighbourhood was both too small and extended into adjacent neighbourhoods. While researching online sources for a better shape, we noticed that most adjacent neighbourhood shapes in WOF could also be improved to align better with the road network and local expectations. After researching neighbourhood shapes online, we downloaded neighbourhood shapes for San Francisco from [SF OpenData](https://data.sfgov.org/), a city data website, to compare with the neighbourhood records in our WOF repository. We then filed a [new issue](https://github.com/whosonfirst/whosonfirst-data/issues/316) to handle all neighbourhood updates for San Francisco.
 
@@ -52,7 +52,7 @@ Drawing neighbourhood shapes is a tricky business. Strangers generally agree on 
 
 While specifics listed in this tutorial may reference San Francisco, our hope is that you will be able to follow along with these steps to update the neighbourhood records in your locality.
 
-##1: Review Who's On First records for your locality
+## 1: Review Who's On First records for your locality
 
 In this section, you will either:
 
@@ -101,13 +101,13 @@ To better understand what we're requesting of our command, here is a breakdown o
 **About the `external_editor` option:**
 * This option was created for our neighbourhood editors and exports only relevant and required record attributes for WOF neighbourhood records. All required attributes (and applicable optional attributes) should be included when filing your PR of updated neighbourhood records. The `external_editor` attribute fields include:
 
-* **'name'** The attribute that will be used for the `WOF:name` field. Required for all files.
-* **'id'** The attribute that will be used for the `WOF:id` field. Required for all files.
-* **'placetype'** The attribute that will be used for the `WOF:placetype` field. Required for all files.
-* **'parent_id'** The attribute that will be used for the `WOF:parent_id` field. Should equal the `WOF:id` of the next placetype up in the feature's hierarchy. Required for all files.
-* **'is_landuse_aoi'** Used to signify an "area of interest" land use, different than the `WOF:placetype` would suggest.
-* **'supersedes'** The attribute that will be used for the `WOF:supersedes` field. Required for all files that supersede another WOF record.
-* **'superseded_by'** The attribute that will be used for the `WOF:superseded_by` field. Required for all files that are superseded by another WOF record.
+* **'name'** The attribute that will be used for the `wof:name` field. Required for all files.
+* **'id'** The attribute that will be used for the `wof:id` field. Required for all files.
+* **'placetype'** The attribute that will be used for the `wof:placetype` field. Required for all files.
+* **'parent_id'** The attribute that will be used for the `wof:parent_id` field. Should equal the `wof:id` of the next placetype up in the feature's hierarchy. Required for all files.
+* **'is_landuse_aoi'** Used to signify an "area of interest" land use, different than the `wof:placetype` would suggest.
+* **'supersedes'** The attribute that will be used for the `wof:supersedes` field. Required for all files that supersede another WOF record.
+* **'superseded_by'** The attribute that will be used for the `wof:superseded_by` field. Required for all files that are superseded by another WOF record.
 * **'deprecated'** The attribute that will be used for the `edtf:deprecated` field. A date field _(YYYY-MM-DD)_ used to signify when we determined this record was "junk" and incorrect since inclusion in Who's On First. Required for all files that are deprecated.
 * **'cessation'**The attribute that will be used for the `edtf:cessation` field. A date field _(YYYY-MM-DD)_ used to signify when we determined this record was no longer valid in Who's On First (usually when it has been replaced by another record). Also requires a new field called `mz:is_current` to be created. The `mz:is_current` field value is '0' if the record has a `edtf:cessation` date.
 * **'eng_preferred_name'** Preferred alternative names for a feature. 
@@ -122,14 +122,13 @@ To better understand what we're requesting of our command, here is a breakdown o
 * **'is_hard_boundary'** Optional.
 * **'is_official'** Optional.
 * **'tier_locality'** Optional.
-* **'country_id'** The `WOF:id` of the feature's parent country.
-* **'region_id'** The `WOF:id` of the feature's parent region.
-* **'locality_id'** The `WOF:id` of the feature's parent locality.
+* **'country_id'** The `wof:id` of the feature's parent country.
+* **'region_id'** The `wof:id` of the feature's parent region.
+* **'locality_id'** The `wof:id` of the feature's parent locality.
 * **'WOF_country'** Usually equal to the ISO code, this is a two-digit key representing the country your features are in. Required for all features.
 * **'iso_country'** Set by the [Internation Organization for Standardization](http://www.iso.org/iso/home.html), This is a two-digit key (listed [here](https://en.wikipedia.org/wiki/ISO_3166-1)) representing the country your features are in. Required for all features.
 * **'src_geom'** Optional. Contains the source name of the feature's geometry. Given for research purposes.
 * **'mz_note'** Optional. Contains information about that given feature, if available.
-
 
 From the WOF repository for San Francisco, a total of **165** (157 polygon geometries, 8 point geometries) records for neighbourhoods were collected using our `external_editor` option. QGIS was used to preview Who’s On First neighbourhood shapes (below). 
 
@@ -145,7 +144,7 @@ _Image: San Francisco neighbourhood records from Who's On First projected in QGI
 
 In some cities, we have detailed polygon shapes for most, but not all neighbourhoods. Occassionally, we only know the name and the approximate point representing the label centroid. We need to establish a concordance between all WOF records, points and polygons. We'll need to add a polygon shape to replace these points; this is covered below in step four.
 
-##2: Research other neighbourhood sources
+## 2: Research other neighbourhood sources
 
 In this section, you will:
 
@@ -166,7 +165,7 @@ Once we verified the data was provided through an [open license](https://data.sf
 
 Lastly, we need to add any properties that are retained from the source data file to our [properties_alias.json file](https://github.com/whosonfirst/whosonfirst-properties/blob/master/aliases/property_aliases.json). In San Francisco, for example, we have a `sfgov:name` field. In order to bring this property in, we will need to add it to the property_alias.json file (see file for formatting examples).
 
-##3: Download authoritative neighbourhood geometries
+## 3: Download authoritative neighbourhood geometries
 
 In this section, you will:
 
@@ -184,13 +183,13 @@ Once the data source was added to our source repository, the data was downloaded
 
 _Image: WOF records projected in QGIS._
 
-Now that we have WOF records and data provided by the City of San Francisco, we can begin reconciling the two datasets. We will join the two datasets based on a common attribute; in this case the `WOF:name` field from the WOF data was joined to the SF OpenData's `name` field. The join tool in QGIS can be found by navigating to the properties of the WOF .geojson layer and clicking the "Join" option (below).
+Now that we have WOF records and data provided by the City of San Francisco, we can begin reconciling the two datasets. We will join the two datasets based on a common attribute; in this case the `wof:name` field from the WOF data was joined to the SF OpenData's `name` field. The join tool in QGIS can be found by navigating to the properties of the WOF .geojson layer and clicking the "Join" option (below).
 
 <img width="600" alt="Join Properties tab in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/5.png">
 
 _Image: Join Properties tool in QGIS._
 
-In an ideal world, all WOF records would join cleanly to SF OpenData records, but that is typically not the case. This join method worked for the most part, but because the spellings are not identical between each of the attribute tables, this join needs to be verified and improved by hand. For example, QGIS's join tool did not join a value of `Haight Ashbury` to a value of `Haight-Ashbury` or a value of `Mission District` to a value of `Mission`. As described below, it's not a matter of which name field is "more correct", but a matter of importing additional names from your authoritative source while preserving the existing `WOF:name` in a `eng_x_variant` name field.
+In an ideal world, all WOF records would join cleanly to SF OpenData records, but that is typically not the case. This join method worked for the most part, but because the spellings are not identical between each of the attribute tables, this join needs to be verified and improved by hand. For example, QGIS's join tool did not join a value of `Haight Ashbury` to a value of `Haight-Ashbury` or a value of `Mission District` to a value of `Mission`. As described below, it's not a matter of which name field is "more correct", but a matter of importing additional names from your authoritative source while preserving the existing `wof:name` in a `eng_x_variant` name field.
 
 Alternately, we could perform this join based on location, instead of an attribute field. QGIS has functionality to perform a spatial join ([some documentation here](http://www.qgistutorials.com/en/docs/performing_spatial_joins.html)), which would be helpful if our WOF geometries were geographically similar to our administrative data. However, because our geometries in San Francisco overlap substantially with the SF OpenData geometries, an attribute join is more likely to give us matching records between the two datasets (generally, neighbourhood names are unique in city). If you are unsure of which join is best for your locality, give them both a try and compare the results.
 
@@ -205,7 +204,7 @@ Cathedral Hill | Cathedral Hill | _in both, great!_
 
 _Image: Comparison of WOF and SF OpenData name attributes._
 
-This method assigned `WOF:id` values to each SF OpenData record that joined to a WOF record. After comparing, **96** of **117** SF OpenData records were assigned a `WOF:id`. With the records that did not join based on the `name` field join, we will have to reconcile, adding the `WOF:id` manually whenever possible. This is done easiest by reviewing each name in your WOF attributes table with  each name of your source data.
+This method assigned `wof:id` values to each SF OpenData record that joined to a WOF record. After comparing, **96** of **117** SF OpenData records were assigned a `wof:id`. With the records that did not join based on the `name` field join, we will have to reconcile, adding the `wof:id` manually whenever possible. This is done easiest by reviewing each name in your WOF attributes table with  each name of your source data.
 
 <img width="300" alt="Attributes table after joining datasets" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/joined_attributes.png">
 
@@ -213,7 +212,7 @@ _Image: SF OpenData attribute table after joining datasets. Records with NULL va
 
 Examples of neighbourhoods that WOF did not have at the time of import are `Appearel City` and `Buena Vista` (meaning these records will need a new WOF ID). Since these neighbourhoods were not in the WOF database, we should consider importing them as new neighbourhood records.
 
-##4: Reconciling our data sources
+## 4: Reconciling our data sources
 
 In this section, you will:
 
@@ -228,13 +227,13 @@ There are three options for the 69 leftover records:
 * **Downgrade** the record as a microhood and give it a `parented_by` value for the neighbourhood it falls within. People still use this name, but only the residents of those few city blocks.
 * **Upgrade** the neighbourhood records to a macrohood (see: *Sunset, Richmond, Downtown*).
 
-###Modifying SF OpenData
+### Modifying SF OpenData
 
 Before importing the city-provided geometries, it is important to ensure the new neighbourhood boundaries will work in Who’s On First. While we can easily import the new neighbourhood geometries raw from our source (SF OpenData), we should "trust but verify" our data before the  import.
 
 The majority of geometries in the SF OpenData source were imported as-is, though four neighbourhood records in our San Francisco example were edited prior to import. Using our local knowledge and opinions, we adjusted these neighbourhood boundaries slightly. 
 
-###Modifying WOF Data
+### Modifying WOF Data
 
 After our WOF shapes were added to a QGIS document (below), they were given a new integer attribute field titled "status" based on concordance with our administrative source data. The status values were color-coded to display the following options for each of WOF neighbourhood records:
 
