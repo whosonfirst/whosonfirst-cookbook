@@ -193,6 +193,8 @@ In an ideal world, all WOF records would join cleanly to SF OpenData records, bu
 
 Alternately, we could perform this join based on location, instead of an attribute field. QGIS has functionality to perform a spatial join ([some documentation here](http://www.qgistutorials.com/en/docs/performing_spatial_joins.html)), which would be helpful if our WOF geometries were geographically similar to our administrative data. However, because our geometries in San Francisco overlap substantially with the SF OpenData geometries, an attribute join is more likely to give us matching records between the two datasets (generally, neighbourhood names are unique in city). If you are unsure of which join is best for your locality, give them both a try and compare the results.
 
+Occasionally, Who's On First has duplicate records. Duplicate records _should_ be noted in the `mz:note` property (with a "duplicate", "dupe" or "dup" value) or with a `1` value in the `mz:is_funky` or `mz:is_current` property. If you come across duplicate features when comparing and joining records, prefer the current record over the record with a `mz:note` of "duplicate", "dupe" or "dup" or a `1` value in the `mz:is_funky` or `mz:is_current` property.
+
 Who's On First | SF OpenData | Note 
 ---|---|---
 Alamo Square | Alamo Square | _in both, great! Let's import the new geometry!_
