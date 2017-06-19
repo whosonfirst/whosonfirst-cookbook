@@ -109,7 +109,7 @@ To better understand what we're requesting of our command, here is a breakdown o
 * **'supersedes'** The attribute that will be used for the `wof:supersedes` field. Required for all files that supersede another WOF record.
 * **'superseded_by'** The attribute that will be used for the `wof:superseded_by` field. Required for all files that are superseded by another WOF record.
 * **'deprecated'** The attribute that will be used for the `edtf:deprecated` field. A date field _(YYYY-MM-DD)_ used to signify when we determined this record was "junk" and incorrect since inclusion in Who's On First. Required for all files that are deprecated.
-* **'cessation'**The attribute that will be used for the `edtf:cessation` field. A date field _(YYYY-MM-DD)_ used to signify when we determined this record was no longer valid in Who's On First (usually when it has been replaced by another record). Also requires a new field called `mz:is_current` to be created. The `mz:is_current` field value is '0' if the record has a `edtf:cessation` date.
+* **'cessation'** The attribute that will be used for the `edtf:cessation` field. A date field _(YYYY-MM-DD)_ used to signify when we determined this record was no longer valid in Who's On First (usually when it has been replaced by another record). Also requires a new field called `mz:is_current` to be created. The `mz:is_current` field value is '0' if the record has a `edtf:cessation` date.
 * **'eng_preferred_name'** Preferred alternative names for a feature. 
 * **'eng_variant_name'** Variant alternative names for a feature. 
 * **'max_zoom'** Maximum zoom level at which feature labels appear on a map. Required for all new features to Who's On First.
