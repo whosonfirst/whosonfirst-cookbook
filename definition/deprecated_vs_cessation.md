@@ -24,6 +24,10 @@ Just because Who's On First decides a record belongs at a different placetype or
 
 **Remember**: cessation dates have a specific meaning; it represents the date that a place ceased to exist or was replaced by something else. Deprecated dates should be used when it has been decided that a place was never represented correctly to begin with.
 
+## Simply put...
+
+The `edtf:deprecated` property should be used as a default when updating a record that is no longer current. Use the `edtf:cessation` property only if the record has a "hard" end date.
+
 ## See also
 
 - https://github.com/whosonfirst/whosonfirst-dates
