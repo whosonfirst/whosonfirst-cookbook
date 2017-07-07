@@ -135,7 +135,7 @@ While the above steps took care of the majority of our issues, there were a few 
 
 * The Who's On First record for the **Ft. Winfield Scott** neighbourhood in Marin County needed to be updated with a new geometry and correct parenting; it was also given a new name, `Fort Baker`. This qualifies as a **Significant Event**, so the record was deprecated and superseded to a new record for this neighbourhood.
 
-### min_zoom and max_zoom
+### Setting min_zoom and max_zoom
 
 We also have to ensure that all microhood, neighbourhood, and macrohood records are given appropriate `mz:min_zoom` and `mz:max_zoom` values.  These values should be consistent across place types, as they are used to determine at what zoom level the name label will appear (and when it will disappear). 
 
