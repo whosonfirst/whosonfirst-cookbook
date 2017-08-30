@@ -1,4 +1,4 @@
-# Licensing
+# Data licenses
 
 ## Acceptable data licenses
 
