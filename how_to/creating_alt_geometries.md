@@ -19,7 +19,7 @@ _Example: 85922583-alt-mapzen.geojson_
 
 The `source` must be listed in the [`whosonfirst-sources`](https://github.com/whosonfirst/whosonfirst-sources) repository. This is required record-keeping that allows any user or application to trace the origin of that geometry.
 
-Alt-geometry records must include the following minimum set of properties:
+Alt-geometry records **must** include the following minimum set of properties:
 
 * **id** - The unique `wof:id` of the feature that this alt-geometry represents
 * **type** - Should always equal `"feature"`
@@ -29,6 +29,16 @@ Alt-geometry records must include the following minimum set of properties:
   * **wof:id** - The unique `wof:id` of the feature that this alt-geometry represents
 * **bbox** - The bounding box coordinates of the alt-geometry feature
 * **geometry** - The geometric coordinates of the alt-geometry feature
+
+Alt-geometry records **may** include the following additional properties:
+
+* **properties**
+  * **wof:placetype** - A string value representing the record's placetype. See: the [`whosonfirst-placetypes`](https://github.com/whosonfirst/whosonfirst-placetypes) repo.
+  * **wof:repo** - The GitHub repository name where the record can be found.
+  * **lbl:latitude** - The coordinate that specifies a label's north–south position. Latitude is a decimal number between _-90.0_ and _90.0_.
+  * **lbl:longitude** - The coordinate that specifies a label's east-west position. Longitude is a decimal number between _-180.0_ and _180.0_.
+  * **reversegeo:latitude** - Represents the latitude value to use when reverse geocoding a record.
+  * **reversegeo:longitude** - Represents the longitude value to use when reverse geocoding a record.
 
 An alt-geometry filename should always include the associated feature's `wof:id`, "alt", and the source name (with dashes in between each value).
 
