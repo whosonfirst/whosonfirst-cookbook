@@ -1,4 +1,4 @@
-#Instructions and Documentation for Who's on First
+## Instructions and Documentation for Who's on First
 
 This repository contains instructions, how-to guides, and definitions for Mapzen's Who's on First project. The `whosonfirst-cookbook` repository is a collection of these documents, broken into three directories. 
 
