@@ -71,11 +71,11 @@ This is the "quick and easy" method to gathering neighbourhood records, however,
 * Ensure that you have the most recent software packages. Windows users should have Powershell 3.0 before beginning any GitHub work from the terminal. A Powershell 3.0 download can be found [here](https://www.microsoft.com/en-us/download/details.aspx?id=34595). Additionally, all users should ensure they have `setuptools` for Python by [downloading](https://pypi.python.org/pypi/setuptools) Python 2.7 (or a more current version) and `GDAL 2.1` by [downloading](http://www.qgis.org/en/site/) QGIS 2.14 (or a more current version).
 * Run `git checkout` on the [WOF Data repository](https://github.com/whosonfirst/whosonfirst-data), [WOF Properties repository](https://github.com/whosonfirst/whosonfirst-properties), and [WOF Utils repository](https://github.com/whosonfirst/py-mapzen-whosonfirst-utils).
 * Run the `install` script in whosonfirst-utils repository.
-* Open the `WOF-csv-to-feature-collection.py` script in your `Utils` repo. Update line 63 with your local filepath.
+* Open the `wof-csv-to-feature-collection.py` script in your `Utils` repo. Update line 63 with your local filepath.
 
 Once complete, entering the following string in the terminal from the whosonfirst-utils repository's `scripts` folder allows us to collect San Francisco's neighbourhoods as a single .geojson file (updating filepaths of your local machine accordingly):
 
->_python WOF-csv-to-feature-collection -p /usr/local/mapzen/whosonfirst-data/data -c /usr/local/mapzen/whosonfirst-data/meta/WOF-neighbourhood-latest.csv --aliases /usr/local/mapzen/whosonfirst-properties/aliases/property_aliases.json -o ~/Desktop/SF_Neighbourhoods.geojson --slim --slim-template external_editor -f 85922583_
+>_python wof-csv-to-feature-collection -p /usr/local/mapzen/whosonfirst-data/data -c /usr/local/mapzen/whosonfirst-data/meta/wof-neighbourhood-latest.csv --aliases /usr/local/mapzen/whosonfirst-properties/aliases/property_aliases.json -o ~/Desktop/SF_Neighbourhoods.geojson --slim --slim-template external_editor -f 85922583_
 
 <img width="600" alt="San Francisco neighbourhood records in WOF" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/terminal_command.png">
 
