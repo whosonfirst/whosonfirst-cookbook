@@ -26,7 +26,7 @@ This tutorial addresses the issues we found with San Francisco's neighbourhoods 
 **What are your options when updating neighbourhoods?**
 
 * Notice just one neighbourhood that needs cleaning up? File a [Github issue](https://github.com/whosonfirst/whosonfirst-data/issues/new), or [email us](mailto:stephen.epps@mapzen.com). _[See something, say something.]_
-* Notice an open dataset of administrative data? Open an [issue](https://github.com/whosonfirst/whosonfirst-data/issues/new) in our WOF repository. 
+* Notice an open dataset of administrative data? Open an [issue](https://github.com/whosonfirst/whosonfirst-data/issues/new) in our `whosonfirst-data` repository. 
 * Still interested but confused about all this Github and WOF-isms? We can send you a "starter kit" that includes your requested neighbourhoods. [Email us](mailto:stephen.epps@mapzen.com).
 * Follow the instructions below and send us a [pull request](https://github.com/whosonfirst/whosonfirst-data/pulls).
 
@@ -64,16 +64,16 @@ In this section, you will either:
 * **Collect** a .geojson file for all neighbourhoods in your locality (city)
 * Add your .geojson file to a QGIS document for **review**
 
-The Bundler Tool quickly gathers a collection of descendant records in GeoJSON format given your the parent record's ID. Simply click the "Download Descendants" link on any record's page in the Spelunker.
+The Bundler Tool quickly gathers a collection of descendant records in GeoJSON format given your the parent record's ID. Simply click the "Download Descendants" link on any record's page in the Spelunker. This is the "quick and easy" method to gathering neighbourhood records. 
 
-This is the "quick and easy" method to gathering neighbourhood records, however, this tool only gathers up to 500 WOF records. For larger queries or markets, you will need to clone necessary repositories and collect a .geojson file. Instructions below:
+If you would like to collect descendant records using a local clone of the `whosonfirst-data` repository, instructions are as follows:
 
 * Ensure that you have the most recent software packages. Windows users should have Powershell 3.0 before beginning any GitHub work from the terminal. A Powershell 3.0 download can be found [here](https://www.microsoft.com/en-us/download/details.aspx?id=34595). Additionally, all users should ensure they have `setuptools` for Python by [downloading](https://pypi.python.org/pypi/setuptools) Python 2.7 (or a more current version) and `GDAL 2.1` by [downloading](http://www.qgis.org/en/site/) QGIS 2.14 (or a more current version).
-* Run `git checkout` on the [WOF Data repository](https://github.com/whosonfirst/whosonfirst-data), [WOF Properties repository](https://github.com/whosonfirst/whosonfirst-properties), and [WOF Utils repository](https://github.com/whosonfirst/py-mapzen-whosonfirst-utils).
+* Run `git checkout` on the [whosonfirst-data repository](https://github.com/whosonfirst/whosonfirst-data), [whosonfirst-properties repository](https://github.com/whosonfirst/whosonfirst-properties), and [py-mapzen-whosonfirst-utils repository](https://github.com/whosonfirst/py-mapzen-whosonfirst-utils).
 * Run the `install` script in whosonfirst-utils repository.
-* Open the `wof-csv-to-feature-collection.py` script in your `Utils` repo. Update line 63 with your local filepath.
+* Open the `wof-csv-to-feature-collection.py` script in your `py-mapzen-whosonfirst-utils` repo. Update line 63 with your local filepath.
 
-Once complete, entering the following string in the terminal from the whosonfirst-utils repository's `scripts` folder allows us to collect San Francisco's neighbourhoods as a single .geojson file (updating filepaths of your local machine accordingly):
+Once complete, entering the following string in the terminal from the `whosonfirst-utils` repository's `scripts` folder allows us to collect San Francisco's neighbourhoods as a single .geojson file (updating filepaths of your local machine accordingly):
 
 >_python wof-csv-to-feature-collection -p /usr/local/mapzen/whosonfirst-data/data -c /usr/local/mapzen/whosonfirst-data/meta/wof-neighbourhood-latest.csv --aliases /usr/local/mapzen/whosonfirst-properties/aliases/property_aliases.json -o ~/Desktop/SF_Neighbourhoods.geojson --slim --slim-template external_editor -f 85922583_
 
@@ -81,22 +81,22 @@ Once complete, entering the following string in the terminal from the whosonfirs
 
 _Image: Data collection script in the terminal._
 
-_Note: The trailing number `85922583` at the end of this script is the WOF ID for [San Francisco](https://whosonfirst.mapzen.com/spelunker/id/85922583/#10/37.7850/-122.7278). When running this script, make sure to update that ID with whatever record you need neighbourhood geometries for. An ID is a unique identifier for records in WOF. Each record in WOF has an ID. To find the ID for your city, search the [Spelunker](https://whosonfirst.mapzen.com/spelunker) and copy the ID._
+_Note: The trailing number `85922583` at the end of this script is the `wof:id` for [San Francisco](https://whosonfirst.mapzen.com/spelunker/id/85922583/#10/37.7850/-122.7278). When running this script, make sure to update that ID with whatever record you need neighbourhood geometries for. A `wof:id` is a unique identifier for records in WOF. Each record in WOF has a `wof:id`. To find the `wof:id` for your city, search the [Spelunker](https://whosonfirst.mapzen.com/spelunker) and copy the `wof:id`._
 
-**Voilà!** We have a .geojson of WOF neighbourhood records in San Francisco! By changing the trailing ID (explained below), you can collect neighbourhood records for your own locality (city).
+**Voilà!** We have a .geojson of WOF neighbourhood records in San Francisco! By changing the trailing `wof:id` (explained below), you can collect neighbourhood records for your own locality (city).
 
 To better understand what we're requesting of our command, here is a breakdown of exactly what is included:
 
 * **`python`**  Used to invoke python
-* **`WOF-csv-to-feature-collection`**  The python script that collects WOF records.
-* **`-p /PATH/whosonfirst-data/data`** sets the path to the local copy of all the WOF data. You will need to update this PATH depending on where you checked the file out.
-* **`-c /PATH/whosonfirst-data/meta/WOF-neighbourhood-latest.csv`** The metafile for the placetype you are interested in - neighbourhood. You will need to update this PATH depending on where you checked the file out.
+* **`wof-csv-to-feature-collection`**  The python script that collects WOF records.
+* **`-p /PATH/whosonfirst-data/data`** sets the path to the local copy of your `whosonfirst-data` repository. You will need to update this PATH depending on where you checked the file out.
+* **`-c /PATH/whosonfirst-data/meta/wof-neighbourhood-latest.csv`** The metafile for the placetype you are interested in - neighbourhood. You will need to update this PATH depending on where you checked the file out.
 * **`--aliases /usr/local/mapzen/whosonfirst-properties/aliases/property_aliases.json`** Pulling in various aliases for attribute fields for your output file.
 * **`-o ~/Desktop/SFNeighbourhoods.geojson`** Your output file.
 * **`--slim`** Option parser to limit property export to subset (roughly those in the CSV file) and reduce file size.
-* **`--slim-template`** Option parser to trim key names to fit Esri Shapefile format (10 charachter length limit).
+* **`--slim-template`** Option parser to trim key names to fit ESRI Shapefile format (10 charachter length limit).
 * **`external_editor`** Return only necessary attribute fields for neighbourhood edits. 
-* **`-f 85922583`** ID of the locality you need neighbourhood records for, found by searching our [Spelunker](https://whosonfirst.mapzen.com/spelunker).
+* **`-f 85922583`** `wof:id` of the locality you need neighbourhood records for, found by searching our [Spelunker](https://whosonfirst.mapzen.com/spelunker).
 
 **About the `external_editor` option:**
 * This option was created for our neighbourhood editors and exports only relevant and required record attributes for WOF neighbourhood records. All required attributes (and applicable optional attributes) should be included when filing your PR of updated neighbourhood records. The `external_editor` attribute fields include:
@@ -151,7 +151,7 @@ In this section, you will:
 - **Find** new data to import
 - **Verify** open license
 
-Because Who’s On First is liberally licensed open data, we must be selective about adding new data. We either need to find a new source that is open data with a CC-BY or CC-0 license that allows commercial and derivative works or create new shapes based on local knowledge and by cross-referencing multiple sources. Ideally, this new source should be an improvement over what Who’s On First already knows about the place.
+Because Who’s On First is liberally licensed open data, we must be selective about adding new data. We either need to find a new source that is open data with a "CC-BY" or "CC-0" license that allows commercial and derivative works or create new shapes based on local knowledge and by cross-referencing multiple sources. Ideally, this new source should be an improvement over what Who’s On First already knows about the place.
 
 In our example, the City and County of San Francisco hosts various [neighbourhood-related shapefiles](https://data.sfgov.org/browse?q=neighborhoods) through it's OpenData portal, so we had a few options to choose from. 
 
@@ -163,7 +163,7 @@ In San Francisco, we did not choose the planning department shapes, as those wer
 
 Once we verified the data was provided through an [open license](https://data.sfgov.org/terms-of-use), we created a [new source](https://github.com/whosonfirst/whosonfirst-sources/blob/master/sources/sfgov.json), `sfgov`, in our [sources repository](https://github.com/whosonfirst/whosonfirst-sources/tree/master/sources) to give credit to the original author. This dataset was then downloaded to our desktop and added to a new QGIS document to compare with the existing shapes in WOF. Lucky for us, the SF OpenData is already in the WGS84 projection and does not need to be reprojected.
 
-Lastly, we need to add any properties that are retained from the source data file to our [properties_alias.json file](https://github.com/whosonfirst/whosonfirst-properties/blob/master/aliases/property_aliases.json). In San Francisco, for example, we have a `sfgov:name` field. In order to bring this property in, we will need to add it to the property_alias.json file (see file for formatting examples).
+Lastly, we need to add any properties that are retained from the source data file to our [properties_alias.json file](https://github.com/whosonfirst/whosonfirst-properties/blob/master/aliases/property_aliases.json). In San Francisco, for example, we have a `sfgov:name` field. In order to bring this property in, we will need to add it to the `property_alias.json` file (see file for formatting examples).
 
 ## 3: Download authoritative neighbourhood geometries
 
@@ -212,7 +212,7 @@ This method assigned `wof:id` values to each SF OpenData record that joined to a
 
 _Image: SF OpenData attribute table after joining datasets. Records with NULL values need to be imported by hand._
 
-Examples of neighbourhoods that WOF did not have at the time of import are `Appearel City` and `Buena Vista` (meaning these records will need a new WOF ID). Since these neighbourhoods were not in the WOF database, we should consider importing them as new neighbourhood records.
+Examples of neighbourhoods that WOF did not have at the time of import are `Appearel City` and `Buena Vista` (meaning these records will need a new `wof:id`). Since these neighbourhoods were not in the WOF database, we should consider importing them as new neighbourhood records.
 
 ## 4: Reconciling our data sources
 
