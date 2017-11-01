@@ -48,10 +48,14 @@ These neighbourhoods need to be split into separate parts because WOF records sh
 
 For cases where neighbourhood names were not an exact match between SF OpenData and Who's On First (remember `Haight Ashbury` vs. `Haight-Ashbury`), make sure we preserve the old WOF name name as a `variant` name (below) and set the SF OpenData name as the feature's `wof:name`.
 
- _"name:eng_x_variant":[_     
-  _"Haight-Ashbury"_    
-  _],_
+```
+"name:eng_x_variant":[
+  "Haight-Ashbury"
+],
+```
   
+ #### SF Neighbourhood source data
+
 <img width="600" alt="SF OpenData updated and new neighbourhood data projected in QGIS" src="https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/updated_hoods.png">
 
 _Image: SF OpenData neighbourhoods projected in QGIS that mapped cleanly to an existing WOF ID._
