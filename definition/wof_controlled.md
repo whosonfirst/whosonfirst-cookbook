@@ -1,6 +1,6 @@
 ## What is the wof:controlled property used for?
 
-Many Who’s On First records have a `wof:controlled` property, a top-level property used to "freeze" other property values in a given Who’s On First record. The `wof:controlled` property is a list that can contain any other existing property keys in a Who’s On First record. The most common use of this property is to "freeze" the `wof:hierarchy` and `wof:parent_id` properties, as follows:
+Many Who’s On First records have a `wof:controlled` property that is used to maintain curated property values in a given Who’s On First record during automatic updates and other editing tasks. Extreme caution should be exercised when changing values in properties that are marked controlled. The most common use of this property is to maintain the `wof:hierarchy` and `wof:parent_id` properties, as follows:
 
 ```
 "wof:controlled":[
@@ -9,7 +9,7 @@ Many Who’s On First records have a `wof:controlled` property, a top-level prop
 ]
 ```
 
-In the case above, the `wof:controlled` property includes `wof:hierarchy` and `wof:parent_id`; this results in no future updates to this record's `wof:hierarchy` or `wof:parent_id` values.
+In the case above, the `wof:controlled` property includes `wof:hierarchy` and `wof:parent_id`; because Who's On First tools respect controlled properties during automatic updates any potential changes to the records `wof:hierarchy` or `wof:parent_id` values would be skipped.
 
 This is an incredibly useful tool for records with dual-hierarchies, or for records that have hand-crafted hierarchies that we have specifically set (and would prefer not to reset). The record for [the City of New York](https://whosonfirst.mapzen.com/spelunker/id/85977539/), for example, has the following `wof:controlled` property:
 
