@@ -1,21 +1,14 @@
 ## What is a remarks file?
 
-To capture special cases, unique administrative hierarchies, and intricacies of various records in Who's On First, we have introduced "remarks" files. Think of remarks files as a unique change log for a given record.
+To document special cases, unique administrative hierarchies, and intricacies of various records in Who's On First, we have introduced "remarks" files. Think of remarks files as a unique change log for a given record.
 
-As of writing this, Who's On First maintains just one remarks file, the `1158857531-remarks.md` file for [St. Petersburg, Russia](https://whosonfirst.mapzen.com/spelunker/id/1158857531), though there will inevitably be more remarks files in the future.
+For example, Who's On First maintains just one remarks file, the `1158857531-remarks.md` file for [St. Petersburg, Russia](https://whosonfirst.mapzen.com/spelunker/id/1158857531), though there will inevitably be more remarks files in the future.
 
-The following is needed to add a remarks file to a record:
+The following is needed to indicate that remarks file(s) are present for a record:
 
-1. A new [`mz:remarks`](https://github.com/whosonfirst/whosonfirst-properties/blob/master/properties/mz/remarks.json) property in the record's properties. The convention is as follows (where `{id}` is the record's `wof:id`):
+1. 1. A new [`mz:remarks`](https://github.com/whosonfirst/whosonfirst-properties/blob/master/properties/mz/remarks.json) property in the record's properties list.
 
-```
-"mz:remarks":[
-  "{id}-remarks.md"
-],
-
-```
-
-2. Create a `{id}-remarks.md` file that contains human-readable markdown-formatted notes, as well as the following header:
+2. Create a `{id}-remarks.md` file next to the {id}.geojson file that contains human-readable markdown-formatted notes, with the following header:
 
 ```
 ## {id}
