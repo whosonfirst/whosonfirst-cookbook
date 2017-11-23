@@ -11,7 +11,7 @@ Many Who’s On First records have a `wof:controlled` property that is used to m
 
 In the case above, the `wof:controlled` property includes `wof:hierarchy` and `wof:parent_id`; because Who's On First tools respect controlled properties during automatic updates any potential changes to the records `wof:hierarchy` or `wof:parent_id` values would be skipped.
 
-This is an incredibly useful tool for records with dual-hierarchies, or for records that have hand-crafted hierarchies that we have specifically set (and would prefer not to reset). The record for [the City of New York](https://whosonfirst.mapzen.com/spelunker/id/85977539/), for example, has the following `wof:controlled` property:
+This is a useful tool for records with dual-hierarchies, or for records that have hand-crafted hierarchies that we have specifically set (and would prefer not to reset). The record for [the City of New York](https://whosonfirst.mapzen.com/spelunker/id/85977539/), for example, has the following `wof:controlled` property:
 
 ```
 "wof:controlled":[
