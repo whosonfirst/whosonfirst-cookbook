@@ -24,5 +24,3 @@ If a WOF record is updated due to a **Significant Event**, the following work is
 It is important to note that this list, as written today, may be incomplete or unable to capture the subtleties and demands of real-life. Additionally, we expect a decent amount of churn in Who's On First during the early days of the project which may require us to bend the rules in certain cases. However, this churn should settle as the database grows in size and allow us to possibly refine these rules.
 
 Our [Who's On First Life Cylce Document](https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/definition/wof:id_lifecycle.md) has more detailed information about **Significant Events** in relation to the `wof:id`.
-
-Questions? Drop us an [email](stephen.epps@mapzen.com).
