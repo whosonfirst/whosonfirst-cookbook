@@ -9,4 +9,4 @@ Contents of this repository include the following:
 * **how_to**: Non issue-related guides to completing a process in (or related to) Who's On First.
 * **issue_workflows**: Workflow documents guides for specific Who's On First issues.
 
-For more information on Who's on First, visit: [Mapzen's Who's on First page](https://whosonfirst.mapzen.com/).
+For more information on Who's on First, visit: [whosonfirst.org](https://www.whosonfirst.org/).
