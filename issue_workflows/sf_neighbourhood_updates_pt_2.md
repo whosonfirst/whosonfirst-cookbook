@@ -162,9 +162,15 @@ For existing features, probably don't modify the existing `min_zoom` and `max_zo
 Now we need to create (or update) the `lbl:latitude` and `lbl:longitude` attribute properties for all updated or new geometries in your geojson files: visit [MapShaper](http://www.mapshaper.org) and do the following, one file at a time: 
 
 - Click the box next to snap verticles
-- Paste `each 'lbl_longitude=$.innerX , lbl_latitude=$.innerY'` into command line option
+- Paste `-each 'lbl_longitude=$.innerX , lbl_latitude=$.innerY'` into command line option
 - Export the file as a geojson
 - Repeat this process for each file
+
+Or, if you're using the Mapshaper command line tool, simply use the following command to create these values:
+
+```
+mapshaper /path/to/input/file.geojson -each 'lbl_longitude=$.innerX , lbl_latitude=$.innerY' -o /path/to/output/file.geojson
+```
   
 ## Let's Recap
 
