@@ -178,7 +178,7 @@ We've found a new administrative source, compared it to our Who's on First recor
 * **D.** "Upgraded" the neighbourhood feature to a microhood. This required minting a new Brooklyn Integer for our microhood record, updating the `edtf:deprecated`, `mz:is_current`, `mz:min_zoom`, `mz:max_zoom`, `lbl:latitude`, `lbl:longitude` attribute fields accordingly, and superseding our old neighbourhood record to our new macrohood record.
 * **E.** Deprecated our neighbourhood record, as it was never valid to begin with.
 
-Now, we should have a collection of .geojson files that we have use to create a pull request (if this step is too difficult or not possible for some reason, [email us](mailto:stephen.epps@mapzen.com), as we may be able to import your .geojson files independently of a pull request). While you may have updated several other attribute fields(`lbl` fields, `zoom` fields, etc.), the following required attributes should _always_ be in your .geojson files:
+Now, we should have a collection of .geojson files that we have use to create a pull request in the [whosonfirst-data](https://github.com/whosonfirst/whosonfirst-data) repository. While you may have updated several other attribute fields(`lbl` fields, `zoom` fields, etc.), the following required attributes should _always_ be in your .geojson files:
 
 * `wof:name`
 * `wof:id`
@@ -201,13 +201,13 @@ The Point-In-Polygon server is a tool that update parent IDs for descendent reco
 
 Now that you've completed all the necessary steps, file a [pull request in our whosonfirst-data repository](https://github.com/whosonfirst/whosonfirst-data/pulls)! We'll review the pull request and let you know if we have any questions.
 
-This was an exercise in data curation and data management that will undoubtedly be replicated in other cities around the world. Taking a look at cities like [New York City](https://whosonfirst.mapzen.com/spelunker/id/85977539/descendants/?&placetype=neighbourhood#9/40.6805/-74.0656), [Buenos Aires](https://whosonfirst.mapzen.com/spelunker/id/85668081/descendants/?&placetype=neighbourhood#11/-34.5939/-58.4518), [Helsinki](https://whosonfirst.mapzen.com/spelunker/id/101748417/descendants/?&placetype=neighbourhood#11/60.2107/24.9411), and [Cape Town](https://whosonfirst.mapzen.com/spelunker/id/101928027/descendants/?&placetype=neighbourhood#10/-34.0028/18.4627), for example, you'll notice that we still have work to do to improve our neighbourhood records. A few take-aways:
+This was an exercise in data curation and data management that will undoubtedly be replicated in other cities around the world. Taking a look at cities like [New York City](https://spelunker.whosonfirst.org/id/85977539/descendants/?&placetype=neighbourhood#9/40.6805/-74.0656), [Buenos Aires](https://spelunker.whosonfirst.org/id/85668081/descendants/?&placetype=neighbourhood#11/-34.5939/-58.4518), [Helsinki](https://spelunker.whosonfirst.org/id/101748417/descendants/?&placetype=neighbourhood#11/60.2107/24.9411), and [Cape Town](https://spelunker.whosonfirst.org/id/101928027/descendants/?&placetype=neighbourhood#10/-34.0028/18.4627), for example, you'll notice that we still have work to do to improve our neighbourhood records. A few take-aways:
 
 * Anyone has the ability to contribute to neighbourhood updates for their locality.
 * There will always be an argument for and against a change to a neighbourhood boundary.
 * When it comes to neighbourhood boundaries, there is no right answer, but we care about your opinion. Please share!
 * Neighbourhoods, macrohoods, and microhoods are ever-changing. Make the shapes better today!
 
-Please remember - some of this work is automated and some of this work is not. Please contact us via an [issue](https://github.com/whosonfirst/whosonfirst-data/issues/new) or an [email](mailto:stephen.epps@mapzen.com) to work through the best approach for your city.
+Please remember - some of this work is automated and some of this work is not. Please contact us via an [issue](https://github.com/whosonfirst/whosonfirst-data/issues/new) to work through the best approach for your city.
 
 **Thanks for reading and happy mapping!**

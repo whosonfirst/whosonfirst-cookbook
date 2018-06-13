@@ -1,6 +1,6 @@
 # Updating Who's On First Neighbourhood Records (part one)
 
-The [Who's On First](https://whosonfirst.mapzen.com/) (WOF) project is not pretending to be the authority of truth, but rather a home for data from various sources and a project that we hope generates discussion. The WOF gazetteer houses data for many geographies, including counties (which parent cities) and cities (which parent microhoods, neighbourhoods, and macrohoods). Neighbourhoods are the places where we live and work in cities; _the more neighbourhood data, the better._
+The [Who's On First](https://whosonfirst.org/) (WOF) project is not pretending to be the authority of truth, but rather a home for data from various sources and a project that we hope generates discussion. The WOF gazetteer houses data for many geographies, including counties (which parent cities) and cities (which parent microhoods, neighbourhoods, and macrohoods). Neighbourhoods are the places where we live and work in cities; _the more neighbourhood data, the better._
 
 ![San Francisco, CA](https://mapzen-assets.s3.amazonaws.com/images/sf-neighbourhood-updates/1.jpg)
 _Photo Credit: [Travis Wise, Flickr](https://www.flickr.com/photos/photographingtravis/15876578760/in/photolist-qbXBJy-wS7pFF-2XzRnL-HbtCbX-rbmAJj-7dPz43-9Py6me-hEkAuS-8gihrC-8BCzsr-uVZPsT-92LBPi-Ecaiho-HDBW9C-7dPw9s-exakrT-dNzgiu-aJaiTz-nK4F3y-FtbMW-bywi7N-hzeCpW-8HXuPC-jeVkWQ-uiA2S7-pzMxbL-bjH5AC-bsyv8U-keLDPc-gWDhS-xadSek-nQz7At-brj2fe-wuPTK4-4856y6-pdYCPT-wSCsAz-FtesM-7j84Hs-dqBe97-5RT97n-fzhNSx-4heGvv-fKii4T-nqgSDG-xpnL1d-dHcAn7-pQYC72-9wduZD-wuF3bm_)_
@@ -25,9 +25,8 @@ This tutorial addresses the issues we found with San Francisco's neighbourhoods 
 
 **What are your options when updating neighbourhoods?**
 
-* Notice just one neighbourhood that needs cleaning up? File a [Github issue](https://github.com/whosonfirst/whosonfirst-data/issues/new), or [email us](mailto:stephen.epps@mapzen.com). _[See something, say something.]_
+* Notice just one neighbourhood that needs cleaning up? File a [Github issue](https://github.com/whosonfirst/whosonfirst-data/issues/new). _[See something, say something.]_
 * Notice an open dataset of administrative data? Open an [issue](https://github.com/whosonfirst/whosonfirst-data/issues/new) in our `whosonfirst-data` repository. 
-* Still interested but confused about all this Github and WOF-isms? We can send you a "starter kit" that includes your requested neighbourhoods. [Email us](mailto:stephen.epps@mapzen.com).
 * Follow the instructions below and send us a [pull request](https://github.com/whosonfirst/whosonfirst-data/pulls).
 
 **Key terms:**
@@ -54,12 +53,6 @@ While specifics listed in this tutorial may reference San Francisco, our hope is
 
 ## 1: Review Who's On First records for your locality
 
-In this section, you will either:
-
-* Use the handy [Bundler Tool](https://whosonfirst.mapzen.com/spelunker/download/85688637/?exclude=nullisland#5/37.419/-119.307) (this example link points to descendants of California) to gather a collection of neighbourhood features in your given locality
-
-**OR**
-
 * Use the `git checkout` command in your terminal to **clone necessary repositories**
 * **Collect** a .geojson file for all neighbourhoods in your locality (city)
 * Add your .geojson file to a QGIS document for **review**
@@ -81,7 +74,7 @@ Once complete, entering the following string in the terminal from the `whosonfir
 
 _Image: Data collection script in the terminal._
 
-_Note: The trailing number `85922583` at the end of this script is the `wof:id` for [San Francisco](https://whosonfirst.mapzen.com/spelunker/id/85922583/#10/37.7850/-122.7278). When running this script, make sure to update that ID with whatever record you need neighbourhood geometries for. A `wof:id` is a unique identifier for records in WOF. Each record in WOF has a `wof:id`. To find the `wof:id` for your city, search the [Spelunker](https://whosonfirst.mapzen.com/spelunker) and copy the `wof:id`._
+_Note: The trailing number `85922583` at the end of this script is the `wof:id` for [San Francisco](https://spelunker.whosonfirst.org/id/85922583/#10/37.7850/-122.7278). When running this script, make sure to update that ID with whatever record you need neighbourhood geometries for. A `wof:id` is a unique identifier for records in WOF. Each record in WOF has a `wof:id`. To find the `wof:id` for your city, search the [Spelunker](https://spelunker.whosonfirst.org/) and copy the `wof:id`._
 
 **Voilà!** We have a .geojson of WOF neighbourhood records in San Francisco! By changing the trailing `wof:id` (explained below), you can collect neighbourhood records for your own locality (city).
 
@@ -96,7 +89,7 @@ To better understand what we're requesting of our command, here is a breakdown o
 * **`--slim`** Option parser to limit property export to subset (roughly those in the CSV file) and reduce file size.
 * **`--slim-template`** Option parser to trim key names to fit ESRI Shapefile format (10 charachter length limit).
 * **`external_editor`** Return only necessary attribute fields for neighbourhood edits. 
-* **`-f 85922583`** `wof:id` of the locality you need neighbourhood records for, found by searching our [Spelunker](https://whosonfirst.mapzen.com/spelunker).
+* **`-f 85922583`** `wof:id` of the locality you need neighbourhood records for, found by searching our [Spelunker](https://spelunker.whosonfirst.org/).
 
 **About the `external_editor` option:**
 * This option was created for our neighbourhood editors and exports only relevant and required record attributes for WOF neighbourhood records. All required attributes (and applicable optional attributes) should be included when filing your PR of updated neighbourhood records. The `external_editor` attribute fields include:
