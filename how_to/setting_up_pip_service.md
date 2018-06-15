@@ -1,6 +1,6 @@
 # Setting up a point-in-polygon service
 
-When updating admin records in the [whosonfirst-data](https://www.github.com/whosonfirst-data/whosonfirst-data) repository, it is often necessary to update [hierarchies]() of new and existing geojson records.
+When updating records in the [whosonfirst-data](https://www.github.com/whosonfirst-data/whosonfirst-data) repository, it is often necessary to update [hierarchies](https://github.com/whosonfirst/whosonfirst-properties/blob/master/properties/wof/hierarchy.json) of new and existing geojson records.
 
 This document is not meant to be a replacement for documentation in the repositories below, but rather a general outline for spinning up a point-in-polygon (PIP) service to update whosonfirst-data records.
 
