@@ -2,6 +2,7 @@
 
 The chart below outlines which whosonfirst [placetypes](https://www.github.com/whosonfirst/whosonfirst-placetypes) above the `locality` placetype are appropriate for each country, based on that country's administrative divisions.
 
+An `x` indicates an appropriate placetype.
 
 id | country | macroregion | region | macrocounty | county | localadmin | locality
 --- | --- | --- | --- | --- | --- | --- | ---
