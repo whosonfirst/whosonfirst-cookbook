@@ -10,13 +10,13 @@ This document is not meant to be a replacement for documentation in the reposito
 
 Assuming you already have the [whosonfirst-data](https://www.github.com/whosonfirst-data/whosonfirst-data) repository (and supplemental repositories) cloned, follow the steps below:
 
-* clone repositories 
+**clone repositories** 
   
-  * [go-whosonfirst-pgis](https://github.com/whosonfirst/go-whosonfirst-pgis)
-  * [py-mapzen-whosonfirst-spatial](https://github.com/whosonfirst/py-mapzen-whosonfirst-spatial/)
-  * [py-mapzen-whosonfirst-hierarchy](https://github.com/whosonfirst/py-mapzen-whosonfirst-hierarchy/)
+ * [go-whosonfirst-pgis](https://github.com/whosonfirst/go-whosonfirst-pgis)
+ * [py-mapzen-whosonfirst-spatial](https://github.com/whosonfirst/py-mapzen-whosonfirst-spatial/)
+ * [py-mapzen-whosonfirst-hierarchy](https://github.com/whosonfirst/py-mapzen-whosonfirst-hierarchy/)
 
-* index whosonfirst-data in postgres
+**index whosonfirst-data in postgres**
 
 After navigating to the `go-whosonfirst-pgis` repository, follow the README file to index all of the whosonfirst-data record into postgres.
 
