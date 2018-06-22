@@ -20,9 +20,11 @@ Assuming you already have the [whosonfirst-data](https://www.github.com/whosonfi
 
 After navigating to the `go-whosonfirst-pgis` repository, follow the README file to index all of the whosonfirst-data record into postgres.
 
-This will create the database that we will load the whosonfirst-data into:
+This will setup postgis and create the database that we will load the whosonfirst-data into:
 
 ```
+createuser -P whosonfirst
+createdb -O whosonfirst whosonfirst
 psql -c "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;" whosonfirst
 psql -c "CREATE TABLE whosonfirst (id BIGINT PRIMARY KEY,parent_id BIGINT,placetype_id BIGINT,is_superseded SMALLINT,is_deprecated SMALLINT,meta JSON, geom_hash CHAR(32), lastmod CHAR(25), geom GEOGRAPHY(MULTIPOLYGON, 4326), centroid GEOGRAPHY(POINT, 4326))" whosonfirst
 psql -c "GRANT ALL ON TABLE whosonfirst TO whosonfirst" whosonfirst
@@ -36,8 +38,6 @@ Run the wof-pgis-index tool, via:
 ```
 ./bin/wof-pgis-index -verbose -mode directory /path/to/whosonfirst-data
 ```
-
-
 
 ## Updating a Who's On First record
 
