@@ -24,8 +24,8 @@ This will create the database that we will load the whosonfirst-data into:
 
 ```
 psql -c "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;" whosonfirst
-psql -c "GRANT ALL ON TABLE whosonfirst TO whosonfirst" whosonfirst
 psql -c "CREATE TABLE whosonfirst (id BIGINT PRIMARY KEY,parent_id BIGINT,placetype_id BIGINT,is_superseded SMALLINT,is_deprecated SMALLINT,meta JSON, geom_hash CHAR(32), lastmod CHAR(25), geom GEOGRAPHY(MULTIPOLYGON, 4326), centroid GEOGRAPHY(POINT, 4326))" whosonfirst
+psql -c "GRANT ALL ON TABLE whosonfirst TO whosonfirst" whosonfirst
 psql -c "CREATE INDEX by_geom ON whosonfirst USING GIST(geom);" whosonfirst
 psql -c "CREATE INDEX by_centroid ON whosonfirst USING GIST(centroid);" whosonfirst
 psql -c "CREATE INDEX by_placetype ON whosonfirst (placetype_id);" whosonfirst
