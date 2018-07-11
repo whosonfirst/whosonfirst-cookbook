@@ -18,10 +18,10 @@ In the `scripts` directory in the `py-mapzen-whosonfirst-utils` repository, run 
 
 A breakdown of what we're passing:
 
-**wof-csv-to-feature-collection**: calls the `wof-csv-to-feature-collection` python script
-**-p /path/to/whosonfirst-data/data**: passes the `data` endpoint as an option
-**-c /path/to/meta/wof-borough-latest.csv**:  passes the placetype-specific metafile as an option
-**-o ~/Desktop/wof_boroughs.geojson**: passes the given output file as an option
+* **wof-csv-to-feature-collection**: calls the `wof-csv-to-feature-collection` python script
+* **-p /path/to/whosonfirst-data/data**: passes the `data` endpoint as an option
+* **-c /path/to/meta/wof-borough-latest.csv**:  passes the placetype-specific metafile as an option
+* **-o ~/Desktop/wof_boroughs.geojson**: passes the given output file as an option
 
 Passing this command will result in a `wof_boroughs.geojson` file that contains all `borough` records in Who's On First.
 
@@ -33,13 +33,13 @@ In the `scripts` directory in the `py-mapzen-whosonfirst-utils` repository, run 
 
 A breakdown of what we're passing:
 
-**wof-csv-to-feature-collection**: calls the `wof-csv-to-feature-collection` python script
-**-p /path/to/whosonfirst-data/data**: passes the `data` endpoint as an option
-**-c /path/to/meta/wof-borough-latest.csv**:  passes the placetype-specific metafile as an option
-**-o ~/Desktop/nyc_boroughs.geojson**: passes the given output file as an option
-**-a /path/to/property_aliases.json**: pulls from [property alias file](https://github.com/whosonfirst/whosonfirst-properties/blob/master/aliases/property_aliases.json) to build attribute names
-**--slim**: exports a GeoJSON bundle with minimal properties
-**-f 85977539**: passes a valid `wof:id` (in this case [New York](https://spelunker.whosonfirst.org/id/85977539/))
+* **wof-csv-to-feature-collection**: calls the `wof-csv-to-feature-collection` python script
+* **-p /path/to/whosonfirst-data/data**: passes the `data` endpoint as an option
+* **-c /path/to/meta/wof-borough-latest.csv**:  passes the placetype-specific metafile as an option
+* **-o ~/Desktop/nyc_boroughs.geojson**: passes the given output file as an option
+* **-a /path/to/property_aliases.json**: pulls from [property alias file](https://github.com/whosonfirst/whosonfirst-properties/blob/master/aliases/property_aliases.json) to build attribute names
+* **--slim**: exports a GeoJSON bundle with minimal properties
+* **-f 85977539**: passes a valid `wof:id` (in this case [New York](https://spelunker.whosonfirst.org/id/85977539/))
 
 Passing this command will result in a `nyc_boroughs.geojson` file that contains all `borough` records in New York.
 
@@ -51,13 +51,13 @@ In the `scripts` directory in the `py-mapzen-whosonfirst-utils` repository, run 
 
 A breakdown of what we're passing:
 
-**wof-csv-to-feature-collection**: calls the `wof-csv-to-feature-collection` python script
-**-p /path/to/whosonfirst-data/data**: passes the `data` endpoint as an option
-**-c /path/to/list_of_ids.csv**: passes a list of valid wof:id values to bundle
-**-o ~/Desktop/nyc_boroughs.geojson**: passes the given output file as an option
-**-a /path/to/property_aliases.json**: pulls from [property alias file](https://github.com/whosonfirst/whosonfirst-properties/blob/master/aliases/property_aliases.json) to build attribute names
-**--slim**: exports a GeoJSON bundle with minimal properties
-**-i**: infers filepaths
+* **wof-csv-to-feature-collection**: calls the `wof-csv-to-feature-collection` python script
+* **-p /path/to/whosonfirst-data/data**: passes the `data` endpoint as an option
+* **-c /path/to/list_of_ids.csv**: passes a list of valid wof:id values to bundle
+* **-o ~/Desktop/nyc_boroughs.geojson**: passes the given output file as an option
+* **-a /path/to/property_aliases.json**: pulls from [property alias file](https://github.com/whosonfirst/whosonfirst-properties/blob/master/aliases/property_aliases.json) to build attribute names
+* **--slim**: exports a GeoJSON bundle with minimal properties
+* **-i**: infers filepaths
 
 Passing this command will result in a `nyc_boroughs.geojson` file that contains all `borough` records in New York.
 
