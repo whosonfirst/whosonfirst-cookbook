@@ -47,7 +47,7 @@ Passing this command will result in a `nyc_boroughs.geojson` file that contains 
 
 In the `scripts` directory in the `py-mapzen-whosonfirst-utils` repository, run the following in your command line:
 
-> python wof-csv-to-feature-collection -p /path/to/whosonfirst-data/data -o ~/Desktop/nyc_boroughs.geojson -a /path/to/whosonfirst-properties/aliases/property_aliases.json --slim -f 85977539
+> python wof-csv-to-feature-collection -p /path/to/whosonfirst-data/data -c /path/to/list_of_ids.csv -o ~/Desktop/nyc_boroughs.geojson -a /path/to/whosonfirst-properties/aliases/property_aliases.json --slim -i
 
 A breakdown of what we're passing:
 
