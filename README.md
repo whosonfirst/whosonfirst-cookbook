@@ -8,6 +8,7 @@ This repository includes the following:
 * **definition**: A collection of files that define Who's On First related terms, processes, and services.
 * **how_to**: Non issue-related guides to completing a process in (or related to) Who's On First.
 * **issue_workflows**: Workflow documents guides for specific Who's On First issues.
+* **tools**: General, miscellaneous tools used for Who's On First issues.
 
 ## See also:
 - https://www.github.com/whosonfirst
