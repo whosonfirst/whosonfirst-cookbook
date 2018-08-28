@@ -8,7 +8,7 @@ This document is not meant to be a replacement for documentation in the reposito
 
 ## Steps
 
-Assuming you already have the [whosonfirst-data](https://www.github.com/whosonfirst-data/whosonfirst-data) repository (and supplemental repositories) cloned, follow the steps below:
+Assuming you already have cloned the [whosonfirst-data](https://www.github.com/whosonfirst-data/whosonfirst-data) repository, supplemental repositories, and the most recent versions of [PostGIS](https://postgis.net/), follow the steps below:
 
 **clone repositories** 
   
