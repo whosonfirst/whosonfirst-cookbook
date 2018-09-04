@@ -63,3 +63,6 @@ to
 
 will invoke the [rebuild_and_export_feature](https://github.com/whosonfirst/py-mapzen-whosonfirst-hierarchy/blob/master/mapzen/whosonfirst/hierarchy/__init__.py#L582) function which trickles down updates to descendant records and exports.
 
+## See also:
+
+- https://gist.github.com/ibraheem4/ce5ccd3e4d7a65589ce84f2a3b7c23a3
