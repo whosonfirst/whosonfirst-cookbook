@@ -66,3 +66,4 @@ will invoke the [rebuild_and_export_feature](https://github.com/whosonfirst/py-m
 ## See also:
 
 - https://gist.github.com/ibraheem4/ce5ccd3e4d7a65589ce84f2a3b7c23a3
+- https://github.com/whosonfirst/go-whosonfirst-pip-v2/issues/15
