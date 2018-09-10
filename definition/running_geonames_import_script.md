@@ -23,5 +23,3 @@ python  ../geonames_import_script_local.py -i ../alternateNames.csv -m ../whoson
 ```
 
 And that's it. Following these steps will add any missing name or abbreviation from the GeoNames file.
-
-**Caveat**: The Who's On First record for New Zealand is _large_. The `alternateNames.csv` file contains additional names for New Zealand. By removing any names for New Zealand, the processing time for this script will be substantially less.
