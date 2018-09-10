@@ -1,6 +1,6 @@
 ## How To: Running the GeoNames Import Script
 
-**The GeoNames import script**: https://github.com/mapzen/whosonfirst-toolbox/blob/master/scripts/geonames_import_script_local.py.
+**The GeoNames import script**: https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/scripts/108_gn_alt_names_import.py.
 
 [GeoNames](http://www.geonames.org) is a "geographical database [that] covers all countries and contains over eleven million placenames that are available for download free of charge". The data is provided under a [Creative Commons Attribution 4.0 License](https://creativecommons.org/licenses/by/4.0/).
 
@@ -19,7 +19,7 @@ alternateNameId	geonameid	isolanguage	alternate_name	isPreferredName	isShortName
 3. Run the following command:
 
 ```
-python  ../geonames_import_script_local.py -i ../alternateNames.csv -m ../whosonfirst-data/meta/wof-concordances-latest.csv -d 1000
+python  ../geonames_import_script_local.py -i ../alternateNames.csv -m ../path/to/wof-concordances-latest.csv -d 1000
 ```
 
 And that's it. Following these steps will add any missing name or abbreviation from the GeoNames file.
