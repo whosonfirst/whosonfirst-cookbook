@@ -13,7 +13,7 @@ Below is a step-by-step guide to run the GeoNames name import script. Before sta
 2. Open the `alternateNames.csv` file and add the following to the first line of the file:
   
 ```
-alternateNameId	geonameid	isolanguage	alternate_name	isPreferredName	isShortName	isColloquial	isHistoric  
+alternateNameId	geonameid	isolanguage	alternate_name	isPreferredName	isShortName	isColloquial	isHistoric
 ```
   
 3. Run the following command:
