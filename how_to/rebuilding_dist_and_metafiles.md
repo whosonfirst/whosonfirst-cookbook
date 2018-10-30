@@ -27,5 +27,5 @@ This process **will not** create a SQLite distribution file that contains a geom
 
 ### See also:
 
-https://dist.whosonfirst.org/
-https://whosonfirst.org/
+- https://dist.whosonfirst.org/
+- https://whosonfirst.org/
