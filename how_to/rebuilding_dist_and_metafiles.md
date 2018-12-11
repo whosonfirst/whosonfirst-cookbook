@@ -15,7 +15,7 @@ Once you've navigated to the repository directory, the following command will tr
 
 More specifically, the tool will:
 
-1. Trigger a clone of the whosonfirst-data` repository.
+1. Trigger a clone of the `whosonfirst-data` repository.
 2. Bundle all records from the `master` branch in the `whosonfirst-data` repository into a single `whosonfirst-data-latest.db` file.
 3. Create csv "metafiles", per placetype
 
