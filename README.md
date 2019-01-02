@@ -1,6 +1,6 @@
 ## The Who's on First Cookbook
 
-This repository contains instructions, how-to guides, and definitions for the [Who's on First](https://whosonfirst.org)  project. The `whosonfirst-cookbook` repository is a collection of these documents, broken into four directories. 
+This repository contains instructions, how-to guides, and definitions for the [Who's on First](https://whosonfirst.org)  project. The `whosonfirst-cookbook` repository is a collection of these documents. 
 
 This repository includes the following:
 
