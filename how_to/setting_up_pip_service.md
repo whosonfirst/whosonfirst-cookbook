@@ -33,6 +33,12 @@ psql -c "CREATE INDEX by_centroid ON whosonfirst USING GIST(centroid);" whosonfi
 psql -c "CREATE INDEX by_placetype ON whosonfirst (placetype_id);" whosonfirst
 ```
 
+Note: If a `whosonfirst` database already exists and you'd like to re-index a new database from scratch, simply type the following command before the commands above:
+
+```
+dropdb whosonfirst
+```
+
 Run the wof-pgis-index tool, via:
 
 ```
