@@ -1,6 +1,6 @@
 ## How To: Running the GeoNames Import Script
 
-**The GeoNames import script**: https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/scripts/108_gn_alt_names_import.py.
+**The GeoNames import script**: _https://github.com/whosonfirst/whosonfirst-cookbook/blob/master/scripts/108_gn_alt_names_import.py_
 
 [GeoNames](http://www.geonames.org) is a "geographical database [that] covers all countries and contains over eleven million placenames that are available for download free of charge". The data is provided under a [Creative Commons Attribution 4.0 License](https://creativecommons.org/licenses/by/4.0/).
 

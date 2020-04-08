@@ -1,6 +1,6 @@
 # What is an alt-geometry and how are they defined and catalogued in Who's On First?
 
-Each record in Who's On First has a point and/or a polygon geometry. San Francisco, for example, has a polygon geometry, stored in the 85922583.geojson file ([here](https://whosonfirst.mapzen.com/spelunker/id/85922583/)). 
+Each record in Who's On First has a point and/or a polygon geometry. San Francisco, for example, has a polygon geometry, stored in the 85922583.geojson file ([here](https://spelunker.whosonfirst.org/id/85922583/)). 
 This polygon geometry is the default geometry of San Francisco; a record's default geometry is in any geojson file that follows the following convention:
 
 `id.geojson`

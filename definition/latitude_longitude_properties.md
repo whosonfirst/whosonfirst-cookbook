@@ -34,7 +34,7 @@ The `local:latitude` and `local:longitude` represent where a local resident woul
 
 For a neighbourhood this could be a subway stop, large park, or major street intersection.
 
-Take the [Mission](https://whosonfirst.mapzen.com/spelunker/id/1108830809/) in [San Francisco](https://whosonfirst.mapzen.com/spelunker/id/85922583/), for example;; locals in San Francisco would likely say the center of the "Mission" somewhere close to the 16th and Mission St BART Station.
+Take the [Mission](https://spelunker.whosonfirst.org/id/1108830809/) in [San Francisco](https://spelunker.whosonfirst.org/id/85922583/), for example;; locals in San Francisco would likely say the center of the "Mission" somewhere close to the 16th and Mission St BART Station.
 
 ### nav
 
@@ -64,7 +64,7 @@ Find out more about the `tourist` property [here](https://github.com/whosonfirst
 
 The `tourist:latitude` and `tourist:longitude` represent what the "tourist" centroid for a place is.
 
-Take the [Mission](https://whosonfirst.mapzen.com/spelunker/id/1108830809/) in [San Francisco](https://whosonfirst.mapzen.com/spelunker/id/85922583/), for example; tourists visiting San Francisco would likely say the center of the "Mission" is Mission Dolores Park.
+Take the [Mission](https://spelunker.whosonfirst.org/id/1108830809/) in [San Francisco](https://spelunker.whosonfirst.org/id/85922583/), for example; tourists visiting San Francisco would likely say the center of the "Mission" is Mission Dolores Park.
 
 **See also**: 
 

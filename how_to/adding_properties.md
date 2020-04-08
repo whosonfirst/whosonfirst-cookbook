@@ -10,7 +10,7 @@
 1. [Validate _all_ the property definitions](#validate-properties), including the new one.
 1. Clone or fork the [`whosonfirst-json-schema`](https://github.com/whosonfirst/whosonfirst-json-schema) repo.
 1. [Regenerate](#update-schema) the WOF `properties` JSON schema.
-1. Clone or fork the [`whosonfirst-data`](https://github.com/whosonfirst-data/whosonfirst-data) repo, or wherever the new properties will actually live (see the caveat below), and add them, in some way, to the WOF documents.
+1. Clone or fork the `whosonfirst-data-admin-*` repo you're working with, or wherever the new properties will actually live (see the caveat below), and add them, in some way, to the WOF documents.
 1. [Validate _all_ the WOF documents](#validate-docs) potentially affected by the new property
 1. Add your changes, commit, push and issue a Pull Request for `whosonfirst-data`.
 1. Add your changes, commit, push and issue a Pull Request for `whosonfirst-properties`.
