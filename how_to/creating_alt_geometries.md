@@ -24,9 +24,11 @@ Alt-geometry records **must** include the following minimum set of properties:
 * **id** - The unique `wof:id` of the feature that this alt-geometry represents
 * **type** - Should always equal `"feature"`
 * **properties**
+  * **src:alt_label_** - The `{SOURCE}-{FUNCTION}-{EXTRAS}` portion of the alt geometry filename, not including the `ID-alt-` prefix of the `.geojson` suffix. See also: https://github.com/whosonfirst/go-whosonfirst-uri/blob/master/uri_test.go
   * **src:geom** - The source of this alt-geometry. This source must be listed in the [`whosonfirst-sources`](https://github.com/whosonfirst/whosonfirst-sources) repo
   * **wof:geomhash** - The alpha-numeric geomhash code (more info [here](https://en.wikipedia.org/wiki/Geohash))
   * **wof:id** - The unique `wof:id` of the feature that this alt-geometry represents
+  * **wof:repo** - The GitHub repository name where the record can be found
 * **bbox** - The bounding box coordinates of the alt-geometry feature
 * **geometry** - The geometric coordinates of the alt-geometry feature
 
@@ -34,7 +36,6 @@ Alt-geometry records **may** include the following additional properties:
 
 * **properties**
   * **wof:placetype** - A string value representing the record's placetype. See: the [`whosonfirst-placetypes`](https://github.com/whosonfirst/whosonfirst-placetypes) repo.
-  * **wof:repo** - The GitHub repository name where the record can be found.
   * **lbl:latitude** - The coordinate that specifies a label's north–south position. Latitude is a decimal number between _-90.0_ and _90.0_.
   * **lbl:longitude** - The coordinate that specifies a label's east-west position. Longitude is a decimal number between _-180.0_ and _180.0_.
   * **reversegeo:latitude** - Represents the latitude value to use when reverse geocoding a record.
