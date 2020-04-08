@@ -38,6 +38,7 @@ if __name__ == "__main__":
     for feature in crawl:
 
         name = ''
+        import_lang_code = ''
 
         #we need to check how many names were added per record
         add_count = 0
@@ -59,169 +60,151 @@ if __name__ == "__main__":
 
             #first, if we have an existing wikidata concordance, use it
             if props.has_key('wof:concordances'):
+
+                found_wd_id = False
+
                 for k,v in props['wof:concordances'].items():
                     if k == 'wd:id':
-                        will_pass = True
+                        wd_id = v
+                        found_wd_id = True
 
-            if will_pass == False:
-                #here, we want to set the search name variable to the wof:name,
-                #unless we have an existing wk:page concordance
-                existing_name = props['wof:name']
-                if props.has_key('wof:concordances'):
-                    for k,v in props['wof:concordances'].items():
-                        if k == 'wk:page':
-                            existing_name = v
+                        try:
+                            #using the found wd id, get the response
+                            r = ("https://www.wikidata.org/w/api.php?action=wbgetentities&ids=%s&format=json" %wd_id)
+                            result = requests.get(r)
 
-                #next, query the wikipedia API and parse response
-                #and again, try/except when calling the API...
-                try:
-                    r = ("https://en.wikipedia.org/w/api.php?action=query&titles=%s&prop=langlinks&format=json" %existing_name)
-                    result = requests.get(r)
-                    text_result = result.text
-                    json_result = json.loads(text_result)
+                            #now convert the result to something usable
+                            text_result = result.text
+                            json_result = json.loads(text_result)
+                            json_results.append(json_result)
 
-                    #now, lets append this to a new list
-                    #this is needed in case the response is split into many 'results'
-                    json_results.append(json_result)
+                            #now grab the useful name/lang combos
+                            wd_info = json_results[0]['entities'][wd_id]
+                            wd_labels = wd_info['labels']
 
-                    #now let's catch any more 'results'
-                    while json_result!='null' and json_result.keys()[0]!='batchcomplete':
-                        r = "https://en.wikipedia.org/w/api.php?action=query&titles=%s&prop=langlinks&format=json&llcontinue=%s" %(existing_name,json_result['continue']['llcontinue'])
-                        result = requests.get(r)
-                        text_result = result.text
-                        json_result = json.loads(text_result)
-                        json_results.append(json_result)
+                            #now grab all language/value pairs from the response
+                            for lang_set in wd_labels:
+                                if len(wd_labels[lang_set]['language']) == 2:
+                                    #by this point, we've got sets of language codes and names
+                                    for k,v in lookup_table_langs.items():
+                                        if wd_labels[lang_set]['language'] == k:
+                                            import_lang_code = v
+                                            name = wd_labels[lang_set]['value']
 
-                    #now, let's check all results and iterate as needed
-                    for i in json_results:
-                        page = i['query']['pages']
+                                #sometimes we get a 3 char lang code, treat accordingly
+                                if len(wd_labels[lang_set]['language']) == 3:
+                                    import_lang_code = wd_labels[lang_set]['language']
+                                    name = wd_labels[lang_set]['value']
 
-                        for item in page:
-                            for k,v in page[item].items():
-                                if k == 'langlinks':
-                                    for translation_pairs in v:
-                                        if len(translation_pairs['lang']) == 2:
-                                            #by this point, we've got sets of language codes and names
-                                            for k,v in lookup_table_langs.items():
-                                                if translation_pairs['lang'] == k:
-                                                    import_lang_code = v
-                                                    name = translation_pairs['*']
+                                #here, we're catching any strings that we've previously flagged as non-importable
+                                flagged = False
 
-                                        #sometimes we get a 3 char lang code, treat accordingly
-                                        if len(translation_pairs['lang']) == 3:
-                                            import_lang_code = translation_pairs['lang']
-                                            name = translation_pairs['*']
+                                #this probably needs work, but for now we'll strip out certain strings/chars from being added
+                                for string in ['Timeline','Birthday','Aircraft','_',' de ',' n ',' do ',' di ',' i ','Political','Environmental','International','music','History','1','2','3','4','5','6','7','8','9','0']:
+                                    if string in name:
+                                        flagged = True
 
-                                        #here, we're catching any strings that we've previously flagged as non-importable
-                                        flagged = False
+                                    #also flag when the name is one or two char in length
+                                    if len(name) < 3:
+                                        flagged = True
 
-                                        #this probably needs work, but for now we'll strip out certain strings/chars from being added
-                                        for string in ['Timeline','Birthday','Aircraft','_',' de ',' n ',' do ',' di ',' i ','Political','Environmental','International','music','History','1','2','3','4','5','6','7','8','9','0']:
-                                            if string in name:
-                                                flagged = True
+                                #also flag if admin place gets an airport code (campus check and ALL CAPS check)
+                                if props['wof:placetype'] == 'campus':
+                                    flagged = True
 
-                                            #also flag when the name is one or two char in length
-                                            if len(name) < 3:
-                                                flagged = True
+                                if name.isupper():
+                                    flagged = True
 
-                                        #also flag if admin place gets an airport code (campus check and ALL CAPS check)
-                                        if props['wof:placetype'] == 'campus':
-                                            flagged = True
+                                if flagged == False:
+                                    if not import_lang_code == "":
+                                        if not name == "":
+                                            #now we've got a name.. but sometimes it needs to be sanitized
+                                            if ' (' in name:
+                                                new_name = name.split(' (')
+                                                name = new_name[0]
 
-                                        if name.isupper():
-                                            flagged = True
-    
-                                        if flagged == False:
-                                            if not import_lang_code == "":
-                                                if not name == "":
-                                                    #now we've got a name.. but sometimes it needs to be sanitized
-                                                    if ' (' in name:
-                                                        new_name = name.split(' (')
-                                                        name = new_name[0]
+                                            if ', ' in name:
+                                                new_name = name.split(', ')
+                                                name = new_name[0]
 
-                                                    if ', ' in name:
-                                                        new_name = name.split(', ')
-                                                        name = new_name[0]
+                                            if '\xd8\x8c ' in name:
+                                                new_name = name.split('\xd8\x8c ')
+                                                name = new_name[0]
 
-                                                    if '\xd8\x8c ' in name:
-                                                        new_name = name.split('\xd8\x8c ')
-                                                        name = new_name[0]
+                                            #sometimes we get a funky country code appended to the name..
+                                            if ' ' in name:
+                                                name_split = name.split(' ')
 
-                                                    #sometimes we get a funky country code appended to the name..
-                                                    if ' ' in name:
-                                                        name_split = name.split(' ')
+                                                if len(name_split[-1]) == 1:
+                                                    if name_split[-1].isupper():
+                                                        name = name[:-2]
 
-                                                        if len(name_split[-1]) == 1:
-                                                            if name_split[-1].isupper():
-                                                                name = name[:-2]
+                                                if len(name_split[-1]) == 2:
+                                                    if name_split[-1].isupper():
+                                                        name = name[:-3]
 
-                                                        if len(name_split[-1]) == 2:
-                                                            if name_split[-1].isupper():
-                                                                name = name[:-3]
+                                                if len(name_split[-1]) == 3:
+                                                    if name_split[-1].isupper():
+                                                        name = name[:-4]
 
-                                                        if len(name_split[-1]) == 3:
-                                                            if name_split[-1].isupper():
-                                                                name = name[:-4]
+                                            #now check number of spaces in name and wof name
+                                            to_update = False
 
-                                                    #now check number of spaces in name and wof name
+                                            if not abs(int(props['wof:name'].count(' ')) - int(name.count(' '))) > 2:
+                                                to_update = True
+
+                                            if int(props['wof:name'].count(' ')) == 0:
+                                                if abs(int(props['wof:name'].count(' ')) - int(name.count(' '))) > 1:
                                                     to_update = False
 
-                                                    if not abs(int(props['wof:name'].count(' ')) - int(name.count(' '))) > 2:
-                                                        to_update = True
-
-                                                    if int(props['wof:name'].count(' ')) == 0:
-                                                        if abs(int(props['wof:name'].count(' ')) - int(name.count(' '))) > 1:
-                                                            to_update = False
-
-                                                    #at this point, we've ditched adding names with "too many" words compared to default name
-                                                    if not name == '':
-                                                        if to_update:
-                                                            #now that we've got a sanitized name, proceed with adding to name props
-                                                            if props.has_key('name:' + str(import_lang_code) + '_x_preferred'):
-                                                                #if we have a preferred name and variant already
-                                                                if props.has_key('name:' + str(import_lang_code) + '_x_variant'):
-                                                                    if not name in props['name:' + str(import_lang_code) + '_x_variant']:
-                                                                        props['name:' + str(import_lang_code) + '_x_variant'].append(name)
-                                                                        update = True
-                                                                        add_count +=1
-
-                                                                #if we have a preferred name but no variant
-                                                                if not props.has_key('name:' + str(import_lang_code) + '_x_variant'):
-                                                                    props['name:' + str(import_lang_code) + '_x_variant'] = [name]
-                                                                    update = True
-                                                                    add_count +=1
-
-                                                            #if there is no preferred
-                                                            if not props.has_key('name:' + str(import_lang_code) + '_x_preferred'):
-                                                                props['name:' + str(import_lang_code) + '_x_preferred'] = [name]
+                                            #at this point, we've ditched adding names with "too many" words compared to default name
+                                            if not name == '':
+                                                if to_update:
+                                                    #now that we've got a sanitized name, proceed with adding to name props
+                                                    if props.has_key('name:' + str(import_lang_code) + '_x_preferred'):
+                                                        #if we have a preferred name and variant already
+                                                        if props.has_key('name:' + str(import_lang_code) + '_x_variant'):
+                                                            if not name in props['name:' + str(import_lang_code) + '_x_variant']:
+                                                                props['name:' + str(import_lang_code) + '_x_variant'].append(name)
                                                                 update = True
                                                                 add_count +=1
 
-                                                                #anytime we're adding a completely new language code (not appending)
-                                                                #update the counter
-                                                                if lang_counts_added.has_key(import_lang_code):
-                                                                    lang_counts_added[import_lang_code] = lang_counts_added[import_lang_code] + 1
+                                                        #if we have a preferred name but no variant
+                                                        if not props.has_key('name:' + str(import_lang_code) + '_x_variant'):
+                                                            props['name:' + str(import_lang_code) + '_x_variant'] = [name]
+                                                            update = True
+                                                            add_count +=1
 
-                                                                if not lang_counts_added.has_key(import_lang_code):
-                                                                    lang_counts_added[import_lang_code] = 1
+                                                    #if there is no preferred
+                                                    if not props.has_key('name:' + str(import_lang_code) + '_x_preferred'):
+                                                        props['name:' + str(import_lang_code) + '_x_preferred'] = [name]
+                                                        update = True
+                                                        add_count +=1
 
-                                                            #now that we have added a name,
-                                                            #do some sanitizing to ensure we're not duplicating values                                        
-                                                            if props.has_key('name:' + str(import_lang_code) + '_x_preferred'):
-                                                                if props.has_key('name:' + str(import_lang_code) + '_x_variant'):
-                                                                    for item in props['name:' + str(import_lang_code) + '_x_variant']:
-                                                                        if item in props['name:' + str(import_lang_code) + '_x_preferred']:
-                                                                            props['name:' + str(import_lang_code) + '_x_variant'].remove(item)
-                                                                            update = True
-                                                                            add_count -=1
+                                                        #anytime we're adding a completely new language code (not appending)
+                                                        #update the counter
+                                                        if lang_counts_added.has_key(import_lang_code):
+                                                            lang_counts_added[import_lang_code] = lang_counts_added[import_lang_code] + 1
 
-                                                                    if len(props['name:' + str(import_lang_code) + '_x_variant']) == 0:
-                                                                        del props['name:' + str(import_lang_code) + '_x_variant']
-                                                                        update = True
+                                                        if not lang_counts_added.has_key(import_lang_code):
+                                                            lang_counts_added[import_lang_code] = 1
 
-                #print and append any failed id to a list for later use if failed
-                except:
-                    print 'FAILED: ' + str(props['wof:id'])
+                                                    #now that we have added a name,
+                                                    #do some sanitizing to ensure we're not duplicating values
+                                                    if props.has_key('name:' + str(import_lang_code) + '_x_preferred'):
+                                                        if props.has_key('name:' + str(import_lang_code) + '_x_variant'):
+                                                            for item in props['name:' + str(import_lang_code) + '_x_variant']:
+                                                                if item in props['name:' + str(import_lang_code) + '_x_preferred']:
+                                                                    props['name:' + str(import_lang_code) + '_x_variant'].remove(item)
+                                                                    update = True
+                                                                    add_count -=1
+
+                                                            if len(props['name:' + str(import_lang_code) + '_x_variant']) == 0:
+                                                                del props['name:' + str(import_lang_code) + '_x_variant']
+                                                                update = True
+
+                        except:
+                            print '\tFAILED: ' + str(props['wof:id'])
 
                 #write out
                 if update:
@@ -235,6 +218,184 @@ if __name__ == "__main__":
                         #and finally, export the file
                         exporter.export_feature(feature)
                         count+=1
+
+                #if we do not have a wikidata concordance, let's use the name
+                #and gain names from the wikipedia response instead
+                #
+                #alternately, this if statement could be removed to append 
+                #wikipedia names on top of the wikidata names
+                if found_wd_id == False:
+                    #here, we want to set the search name variable to the wof:name,
+                    #unless we have an existing wk:page concordance
+                    existing_name = props['wof:name']
+                    if props.has_key('wof:concordances'):
+                        for k,v in props['wof:concordances'].items():
+                            if k == 'wk:page':
+                                existing_name = v
+
+                    #next, query the wikipedia API and parse response
+                    #and again, try/except when calling the API...
+                    try:
+                        r = ("https://en.wikipedia.org/w/api.php?action=query&titles=%s&prop=langlinks&format=json" %existing_name)
+                        result = requests.get(r)
+                        text_result = result.text
+                        json_result = json.loads(text_result)
+
+                        #now, lets append this to a new list
+                        #this is needed in case the response is split into many 'results'
+                        json_results.append(json_result)
+
+                        #now let's catch any more 'results'
+                        while json_result!='null' and json_result.keys()[0]!='batchcomplete':
+                            r = "https://en.wikipedia.org/w/api.php?action=query&titles=%s&prop=langlinks&format=json&llcontinue=%s" %(existing_name,json_result['continue']['llcontinue'])
+                            result = requests.get(r)
+                            text_result = result.text
+                            json_result = json.loads(text_result)
+                            json_results.append(json_result)
+
+                        #now, let's check all results and iterate as needed
+                        for i in json_results:
+                            page = i['query']['pages']
+
+                            for item in page:
+                                for k,v in page[item].items():
+                                    if k == 'langlinks':
+                                        for translation_pairs in v:
+                                            if len(translation_pairs['lang']) == 2:
+                                                #by this point, we've got sets of language codes and names
+                                                for k,v in lookup_table_langs.items():
+                                                    if translation_pairs['lang'] == k:
+                                                        import_lang_code = v
+                                                        name = translation_pairs['*']
+
+                                            #sometimes we get a 3 char lang code, treat accordingly
+                                            if len(translation_pairs['lang']) == 3:
+                                                import_lang_code = translation_pairs['lang']
+                                                name = translation_pairs['*']
+
+                                            #here, we're catching any strings that we've previously flagged as non-importable
+                                            flagged = False
+
+                                            #this probably needs work, but for now we'll strip out certain strings/chars from being added
+                                            for string in ['Timeline','Birthday','Aircraft','_',' de ',' n ',' do ',' di ',' i ','Political','Environmental','International','music','History','1','2','3','4','5','6','7','8','9','0']:
+                                                if string in name:
+                                                    flagged = True
+
+                                                #also flag when the name is one or two char in length
+                                                if len(name) < 3:
+                                                    flagged = True
+
+                                            #also flag if admin place gets an airport code (campus check and ALL CAPS check)
+                                            if props['wof:placetype'] == 'campus':
+                                                flagged = True
+
+                                            if name.isupper():
+                                                flagged = True
+        
+                                            if flagged == False:
+                                                if not import_lang_code == "":
+                                                    if not name == "":
+                                                        #now we've got a name.. but sometimes it needs to be sanitized
+                                                        if ' (' in name:
+                                                            new_name = name.split(' (')
+                                                            name = new_name[0]
+
+                                                        if ', ' in name:
+                                                            new_name = name.split(', ')
+                                                            name = new_name[0]
+
+                                                        if '\xd8\x8c ' in name:
+                                                            new_name = name.split('\xd8\x8c ')
+                                                            name = new_name[0]
+
+                                                        #sometimes we get a funky country code appended to the name..
+                                                        if ' ' in name:
+                                                            name_split = name.split(' ')
+
+                                                            if len(name_split[-1]) == 1:
+                                                                if name_split[-1].isupper():
+                                                                    name = name[:-2]
+
+                                                            if len(name_split[-1]) == 2:
+                                                                if name_split[-1].isupper():
+                                                                    name = name[:-3]
+
+                                                            if len(name_split[-1]) == 3:
+                                                                if name_split[-1].isupper():
+                                                                    name = name[:-4]
+
+                                                        #now check number of spaces in name and wof name
+                                                        to_update = False
+
+                                                        if not abs(int(props['wof:name'].count(' ')) - int(name.count(' '))) > 2:
+                                                            to_update = True
+
+                                                        if int(props['wof:name'].count(' ')) == 0:
+                                                            if abs(int(props['wof:name'].count(' ')) - int(name.count(' '))) > 1:
+                                                                to_update = False
+
+                                                        #at this point, we've ditched adding names with "too many" words compared to default name
+                                                        if not name == '':
+                                                            if to_update:
+                                                                #now that we've got a sanitized name, proceed with adding to name props
+                                                                if props.has_key('name:' + str(import_lang_code) + '_x_preferred'):
+                                                                    #if we have a preferred name and variant already
+                                                                    if props.has_key('name:' + str(import_lang_code) + '_x_variant'):
+                                                                        if not name in props['name:' + str(import_lang_code) + '_x_variant']:
+                                                                            props['name:' + str(import_lang_code) + '_x_variant'].append(name)
+                                                                            update = True
+                                                                            add_count +=1
+
+                                                                    #if we have a preferred name but no variant
+                                                                    if not props.has_key('name:' + str(import_lang_code) + '_x_variant'):
+                                                                        props['name:' + str(import_lang_code) + '_x_variant'] = [name]
+                                                                        update = True
+                                                                        add_count +=1
+
+                                                                #if there is no preferred
+                                                                if not props.has_key('name:' + str(import_lang_code) + '_x_preferred'):
+                                                                    props['name:' + str(import_lang_code) + '_x_preferred'] = [name]
+                                                                    update = True
+                                                                    add_count +=1
+
+                                                                    #anytime we're adding a completely new language code (not appending)
+                                                                    #update the counter
+                                                                    if lang_counts_added.has_key(import_lang_code):
+                                                                        lang_counts_added[import_lang_code] = lang_counts_added[import_lang_code] + 1
+
+                                                                    if not lang_counts_added.has_key(import_lang_code):
+                                                                        lang_counts_added[import_lang_code] = 1
+
+                                                                #now that we have added a name,
+                                                                #do some sanitizing to ensure we're not duplicating values
+                                                                if props.has_key('name:' + str(import_lang_code) + '_x_preferred'):
+                                                                    if props.has_key('name:' + str(import_lang_code) + '_x_variant'):
+                                                                        for item in props['name:' + str(import_lang_code) + '_x_variant']:
+                                                                            if item in props['name:' + str(import_lang_code) + '_x_preferred']:
+                                                                                props['name:' + str(import_lang_code) + '_x_variant'].remove(item)
+                                                                                update = True
+                                                                                add_count -=1
+
+                                                                        if len(props['name:' + str(import_lang_code) + '_x_variant']) == 0:
+                                                                            del props['name:' + str(import_lang_code) + '_x_variant']
+                                                                            update = True
+
+                    #print and append any failed id to a list for later use if failed
+                    except:
+                        print 'FAILED: ' + str(props['wof:id'])
+
+                    #write out
+                    if update:
+                        #while we may have flagged a record as "update", sometimes these additions are reverted
+                        #this check ensures that we only export/update records that actually have a change at the end of all this work
+                        if int(add_count) > 0:
+                            if props.has_key('wof:population_rank'):
+                                if int(props['wof:population_rank']) > 10:
+                                    manual_review.append(props['wof:id'])
+
+                            #and finally, export the file
+                            exporter.export_feature(feature)
+                            count+=1
 
     #optional, this simply outputs some metrics
     total = 0
