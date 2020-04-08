@@ -15,7 +15,7 @@ At a minimum, alt-geometry filenames must conform to the following convention:
 
 `id-alt-source.geojson`
 
-_Example: 85922583-alt-mapzen.geojson_
+Example: [`85922583-alt-mapzen.geojson`](https://raw.githubusercontent.com/whosonfirst-data/whosonfirst-data-admin-us/master/data/859/225/83/85922583-alt-mapzen.geojson)
 
 The `source` must be listed in the [`whosonfirst-sources`](https://github.com/whosonfirst/whosonfirst-sources) repository. This is required record-keeping that allows any user or application to trace the origin of that geometry.
 
