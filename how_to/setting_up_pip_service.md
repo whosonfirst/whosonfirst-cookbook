@@ -22,7 +22,7 @@ After navigating to the `go-whosonfirst-pgis` repository, follow the README file
 This will setup postgis and create the database that we will load the whosonfirst-data into:
 
 ```
-createuser -P whosonfirst
+createuser -P whosonfirst (*see below)
 createdb -O whosonfirst whosonfirst
 psql -c "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;" whosonfirst
 psql -c "CREATE TABLE whosonfirst (id BIGINT PRIMARY KEY,parent_id BIGINT,placetype_id BIGINT,is_superseded SMALLINT,is_deprecated SMALLINT,meta JSON, geom_hash CHAR(32), lastmod CHAR(25), geom GEOGRAPHY(MULTIPOLYGON, 4326), centroid GEOGRAPHY(POINT, 4326))" whosonfirst
@@ -44,6 +44,20 @@ Run the wof-pgis-index tool, via:
 ./bin/wof-pgis-index -verbose -mode directory /path/to/whosonfirst-data
 ```
 
+### (*) Note
+
+If you see a _"createuser: error: could not connect to database postgres: could not connect to server: No such file or directory"_ error when trying to create a new user after removing the `postmaster.pid` file, try the following:
+
+- Uninstall postgresql with brew: `brew uninstall postgresql`
+- `brew doctor` (fix whatever is here)
+- `brew cleanup`
+- Remove all Postgres folders:
+  - `rm -r /usr/local/var/postgres`
+  - `rm -r /Users/<username>/Library/Application\ Support/Postgres`
+- Reinstall postgresql with brew : `brew install postgresql`
+- Start server: `brew services start postgresql`
+More info: https://stackoverflow.com/questions/13573204/psql-could-not-connect-to-server-no-such-file-or-directory-mac-os-x
+
 ## Updating a Who's On First record
 
 The [py-mapzen-whosonfirst-hierarchy](https://github.com/whosonfirst/py-mapzen-whosonfirst-hierarchy/) repository has a handy [rebuild script] that can be used to PIP a single Who's On First record.
@@ -51,8 +65,6 @@ The [py-mapzen-whosonfirst-hierarchy](https://github.com/whosonfirst/py-mapzen-w
 By running the following command, the `wof-hierarchy-rebuild` tool will update the hierarchy of the `data/856/886/37/85688637.geojson` record using the new postgres index we've just spun up.
 
 `wof-hierarchy-rebuild -C postgis /path/to/whosonfirst-data/data/856/886/37/85688637.geojson -U -v`
-
-
 
 ## Updating descendant records 
 
