@@ -1,5 +1,5 @@
 iso alpha-2 | iso alpha-3 | placetype | country | macroregion | region | macrocounty | county | localadmin | locality | borough | macrohood | neighbourhood | microhood
--- | -- | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --:
+-- | -- | -- | -- | --: | --: | --: | --: | --: | --: | --: | --: | --: | --:
 [AD](https://github.com/whosonfirst-data/whosonfirst-data-admin-ad) | AND | country | Andorra | 7 | 0 | 0 | 0 | 0 | 64 | 0 | 0 | 0 | 0
 [AE](https://github.com/whosonfirst-data/whosonfirst-data-admin-ae) | ARE | country | United Arab Emirates | 9 | 0 | 0 | 17 | 0 | 357 | 0 | 0 | 241 | 0
 [AF](https://github.com/whosonfirst-data/whosonfirst-data-admin-af) | AFG | country | Afghanistan | 34 | 0 | 0 | 400 | 0 | 30904 | 0 | 0 | 11 | 0
