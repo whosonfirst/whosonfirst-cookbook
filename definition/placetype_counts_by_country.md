@@ -244,9 +244,9 @@ iso alpha-2 | iso alpha-3 | placetype | country | macroregion | region | macroco
 [VU](https://github.com/whosonfirst-data/whosonfirst-data-admin-vu) | VUT | country | Vanuatu | 6 | 0 | 0 | 0 | 0 | 1279 | 0 | 0 | 0 | 0
 [WF](https://github.com/whosonfirst-data/whosonfirst-data-admin-wf) | WLF | dependency | Wallis and Futuna | 3 | 0 | 0 | 0 | 0 | 57 | 0 | 0 | 0 | 0
 [WS](https://github.com/whosonfirst-data/whosonfirst-data-admin-ws) | WSM | country | Samoa | 11 | 0 | 0 | 0 | 1 | 411 | 0 | 0 | 0 | 0
-[XK](https://github.com/whosonfirst-data/whosonfirst-data-admin-xk) |     |         | Kosovo | 7 | 0 | 0 | 0 | 40 | 2506 | 0 | 0 | 0 | 0
-[XN](https://github.com/whosonfirst-data/whosonfirst-data-admin-xn) |     |         | Null Island | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
-[XS](https://github.com/whosonfirst-data/whosonfirst-data-admin-xs) |     |         | Somaliland | 5 | 0 | 0 | 18 | 0 | 13 | 0 | 0 | 0 | 0
+[XK](https://github.com/whosonfirst-data/whosonfirst-data-admin-xk) |     | country | Kosovo | 7 | 0 | 0 | 0 | 40 | 2506 | 0 | 0 | 0 | 0
+[XN](https://github.com/whosonfirst-data/whosonfirst-data-admin-xn) |     | country | Null Island | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
+[XS](https://github.com/whosonfirst-data/whosonfirst-data-admin-xs) |     | country | Somaliland | 5 | 0 | 0 | 18 | 0 | 13 | 0 | 0 | 0 | 0
 [XX](https://github.com/whosonfirst-data/whosonfirst-data-admin-xx) |     |         | "unknown" | 3 | 0 | 0 | 36 | 6926 | 872 | 0 | 0 | 4491 | 0
 [XY](https://github.com/whosonfirst-data/whosonfirst-data-admin-xy) |     |         | "unknown" | 20 | 0 | 0 | 33 | 1 | 2018 | 0 | 0 | 1492 | 0
 [XZ](https://github.com/whosonfirst-data/whosonfirst-data-admin-xz) |     |         | "unknown" | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
