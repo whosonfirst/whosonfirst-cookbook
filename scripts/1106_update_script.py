@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
     opt_parser = optparse.OptionParser()
     opt_parser.add_option('-i', '--input', dest='input', action='store', default=None, help='Where to read GeoJSON import file from')
-    opt_parser.add_option('-o', '--output', dest='output', action='store', default="/Users/stephen.epps/development/wof/whosonfirst-data/data", help='Where to write WOF records to')
+    opt_parser.add_option('-o', '--output', dest='output', action='store', default="/path/to/whosonfirst-data/data", help='Where to write WOF records to')
     opt_parser.add_option('-s', '--source', dest='wof_source', action='store', default=None, help='What WOF data source identifier')
     options, args = opt_parser.parse_args()
 
