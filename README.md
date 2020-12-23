@@ -4,12 +4,13 @@ This repository contains instructions, how-to guides, and definitions for the [W
 
 This repository includes the following:
 
-* **_images**: Supporting images for documents in this repository.
+* **images**: Supporting images for documents in this repository.
 * **definition**: A collection of files that define Who's On First related terms, processes, and services.
 * **how_to**: Non issue-related guides to completing a process in (or related to) Who's On First.
 * **issue_workflows**: Workflow documents guides for specific Who's On First issues.
 * **scripts**: General, miscellaneous tools used for Who's On First issues.
 
 ## See also:
+- https://www.whosonfirst.org
 - https://www.github.com/whosonfirst
-- https://www.github.com/whosonfirst-data/whosonfirst-data
+- https://www.github.com/whosonfirst-data
