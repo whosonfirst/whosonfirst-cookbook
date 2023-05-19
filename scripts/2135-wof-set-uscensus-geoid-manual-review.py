@@ -172,7 +172,7 @@ if __name__ == "__main__":
       # an odd thing happened to Puerto Rico where the dependency and region collapsed
       # but all the counties still point to the superseded region, so fix that
       if row['parent_id']:
-        props['wof:parent_id'] = row['parent_id']
+        props['wof:parent_id'] = int(row['parent_id'])
 
       # in this case, we always have something to say
       exporter.export_feature(feature)
