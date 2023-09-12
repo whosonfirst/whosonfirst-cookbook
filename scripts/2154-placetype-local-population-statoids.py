@@ -129,7 +129,7 @@ if __name__ == "__main__":
           # But an empty string means take no action
           if not set_placetype_local_en == '':
             # this is one of those "single element" lists in WOF
-            label = props['label:eng_x_preferred_placetype'] = [set_placetype_local_en]
+            props['label:eng_x_preferred_placetype'] = [set_placetype_local_en]
         except:
           ids_with_problems.append([repo,id,"set label"])
           sys.stdout.write('\rProblem with WOF ID = {} in repo {} to set label:eng_x_preferred_placetype...\r'.format(id,repo))
