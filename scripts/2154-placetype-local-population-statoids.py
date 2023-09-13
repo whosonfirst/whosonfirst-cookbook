@@ -82,11 +82,17 @@ if __name__ == "__main__":
           #
           # if this is not "", then set WOF property to the value of this column
           set_placetype_local_en = row['set_placetype_local_en']
+          placetype_label_original_en = row['placetype_label']
           #
           # if these related are not "", then set WOF property to the value of this column
           set_name = row['set_name']              # some had non-ASCII characters
+          name_orig = row['name']
+          set_name_variant_lang = row['set_name_to_xxx_variant']
           set_name_en = row['set_name_en']        # Some had placetypes in the names in error
+          name_en_orig = row['name_en']
+          set_name_en_variant_lang = row['set_name_en_to_xxx_variant']
           set_label_long = row['set_label_long']  # Regenerate if any name or placetype local change
+          label_long_orig = row['label_long']
           #
           # if this is not "", then set WOF property to the value of this column
           set_wof_c_hasc_id = row['set_wof_c_hasc_id']
@@ -130,6 +136,21 @@ if __name__ == "__main__":
           if not set_placetype_local_en == '':
             # this is one of those "single element" lists in WOF
             props['label:eng_x_preferred_placetype'] = [set_placetype_local_en]
+
+            # because of earlier mistake
+            if 'label:eng_x_variant_placetype' in props:
+              del props['label:eng_x_variant_placetype']
+
+            # also store the earlier version as a variant (mostly for Sudan)
+            # technically a multi-element list in WOF, but first usage so shortcut
+            if not placetype_label_original_en == '':
+              props['label:eng_x_variant_placetype'] = [placetype_label_original_en]
+
+            if 'label:eng_x_variant_placetype' in props:
+              if 'label:eng_x_preferred_placetype' in props:
+                if props['label:eng_x_preferred_placetype'] == props['label:eng_x_variant_placetype']:
+                  del props['label:eng_x_variant_placetype']
+
         except:
           ids_with_problems.append([repo,id,"set label"])
           sys.stdout.write('\rProblem with WOF ID = {} in repo {} to set label:eng_x_preferred_placetype...\r'.format(id,repo))
@@ -139,23 +160,104 @@ if __name__ == "__main__":
           # This property stores the value to set it to
           # But an empty string means take no action
           if not set_name == '':
-            # This happens on several hundred features that weren't ASCII so OK to not store as variants
+            # This happens on several hundred features that weren't ASCII
             props['wof:name'] = set_name
+
+            # we should store the old name as a variant
+
+            if not set_name_variant_lang == '':
+              name_prop_preferred = 'name:' + set_name_variant_lang + '_x_preferred'
+              name_prop_variant = 'name:' + set_name_variant_lang + '_x_variant'
+
+              # we need to store the old name as a variant
+              # if the record already has a preferred name...
+              if name_prop_preferred not in props:
+                # this is one of those "single element" lists in WOF
+                # We might save the previous value as alt, but they were a lot of junk?
+                props[name_prop_preferred] = [name_orig]
+
+                # if there was not a preferred name, there shouldn't be variant names...
+              else:
+                  # We need to store existing preferred name as variant...
+                  #
+                  # simple case of no variant name first
+                  if name_prop_variant not in props:
+                      # move existing preferred name to new variant list
+                      props[name_prop_variant] = [name_orig]
+
+                  # if there are variants, then more maneuvers
+                  else:
+                      # We don't want to overwrite that, we think the orig WOF name was junk
+                      # NOTE: we have this in CSV as name_en_orig, but use what's in GeoJSON
+                      # NOTE: We'll dedup the variant list later
+                      props[name_prop_variant].append(name_orig)
         except:
           ids_with_problems.append([repo,id,"set wof name"])
           sys.stdout.write('\rProblem with WOF ID = {} in repo {} to set wof:name...\r'.format(id,repo))
 
-        # Some had placetypes in the names in error
+        # Some had placetypes in the names in error or were NOT english
         try:
           # This property stores the value to set it to
           # But an empty string means take no action
           if not set_name_en == '':
-            # this is one of those "single element" lists in WOF
-            # We might save the previous value as alt, but they were a lot of junk?
-            props['name:eng_x_preferred'] = [set_name_en]
+            if not set_name_en_variant_lang == '':
+              name_prop_preferred = 'name:' + set_name_en_variant_lang + '_x_preferred'
+              name_prop_variant = 'name:' + set_name_en_variant_lang + '_x_variant'
+
+              # we need to store the old name as a variant
+              # if the record already has a preferred name...
+              if name_prop_preferred not in props:
+                # this is one of those "single element" lists in WOF
+                # We might save the previous value as alt, but they were a lot of junk?
+                props[name_prop_preferred] = [set_name_en]
+
+                # Nothing to add to variant list (which should be empty!) since
+                # no initial preferred value
+              else:
+                  # simple case of no variant name first
+                  if name_prop_variant not in props:
+                      # move existing preferred name to new variant list
+                      props[name_prop_variant] = props[name_prop_preferred]
+                      # set new preferred name
+                      props[name_prop_preferred] = [set_name_en]
+
+                  # if there are variants, then more maneuvers
+                  else:
+                      # then add the preferred name to variant
+                      # NOTE: we have this in CSV as name_en_orig, but use what's in GeoJSON
+                      # NOTE: We'll dedup the variant list later
+                      props[name_prop_variant].append(props[name_prop_preferred][0])
+                      # update preferred name
+                      props[name_prop_preferred] = [set_name_en]
         except:
           ids_with_problems.append([repo,id,"set English name"])
-          sys.stdout.write('\rProblem with WOF ID = {} in repo {} to set English name...\r'.format(id,repo))
+          sys.stdout.write('\rProblem with WOF ID = {} in repo {} to set English name or variants...\r'.format(id,repo))
+
+        # dedup names variant lists
+        try:
+          langs = ['eng','zho','ara','bul','ell']
+          for lang in langs:
+            variants = []
+            name_prop_preferred = 'name:' + lang + '_x_preferred'
+            name_prop_variant = 'name:' + lang + '_x_variant'
+            if name_prop_variant in props:
+                for variant_name in props[name_prop_variant]:
+                    #also check we're not adding preferred name
+                    if not variant_name in props[name_prop_preferred]:
+                        if not variant_name in variants:
+                            variants.append(variant_name)
+
+                #now the new vars list should only contain unique values
+                #and shouldnt contain the preferred name value either
+                if len(variants) > 0:
+                  props[name_prop_variant] = variants
+                # we may have created a 0 length variant list (because dup with preferred name)
+                else:
+                  # remove the whole variant list in that case
+                  del props[name_prop_variant]
+        except:
+          ids_with_problems.append([repo,id,"dedup variant names"])
+          sys.stdout.write('\rProblem with WOF ID = {} in repo {} to dedup lang variant names...\r'.format(id,repo))
 
         # Regenerate if any name or placetype local change
         try:
@@ -165,6 +267,18 @@ if __name__ == "__main__":
             # this is one of those "single element" lists in WOF
             # This is just a WOF-ism so no need to track earlier variants
             props['label:eng_x_preferred_longname'] = [set_label_long]
+
+            # also store the earlier version as a variant
+            # technically a multi-element list in WOF, but first usage so shortcut
+            if not label_long_orig == '':
+              if not label_long_orig == set_label_long:
+                props['label:eng_x_variant_longname'] = [label_long_orig]
+
+            if 'label:eng_x_variant_longname' in props:
+              if 'label:eng_x_preferred_longname' in props:
+                if props['label:eng_x_preferred_longname'] == props['label:eng_x_variant_longname']:
+                  del props['label:eng_x_variant_longname']
+
         except:
           ids_with_problems.append([repo,id,"set English long label"])
           sys.stdout.write('\rProblem with WOF ID = {} in repo {} to set English long label...\r'.format(id,repo))
@@ -232,7 +346,11 @@ if __name__ == "__main__":
           if set_population == '1':
             props['wof:population'] = int(population)
             props['src:population'] = pop_src
-            props['src:population_year'] = pop_year
+            props['src:population_date'] = pop_year
+
+            # because of earlier mistake (should have been src:population_date)
+            if 'src:population_year' in props:
+              del props['src:population_year']
 
             # set population_rank, too
             # https://github.com/whosonfirst/whosonfirst-properties/blob/main/properties/wof/README.md#population_rank
