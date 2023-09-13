@@ -208,9 +208,11 @@ if __name__ == "__main__":
               # if the record already has a preferred name...
               if name_prop_preferred not in props:
                 # this is one of those "single element" lists in WOF
-                # We might save the previous value as alt, but they were a lot of junk?
-                props[name_prop_preferred] = [set_name_en]
+                if set_name_en_variant_lang == 'eng':
+                  props[name_prop_preferred] = [set_name_en]
 
+                # We might save the previous value as alt, but they were a lot of junk?
+                #
                 # Nothing to add to variant list (which should be empty!) since
                 # no initial preferred value
               else:
@@ -219,7 +221,8 @@ if __name__ == "__main__":
                       # move existing preferred name to new variant list
                       props[name_prop_variant] = props[name_prop_preferred]
                       # set new preferred name
-                      props[name_prop_preferred] = [set_name_en]
+                      if set_name_en_variant_lang == 'eng':
+                        props[name_prop_preferred] = [set_name_en]
 
                   # if there are variants, then more maneuvers
                   else:
@@ -227,8 +230,9 @@ if __name__ == "__main__":
                       # NOTE: we have this in CSV as name_en_orig, but use what's in GeoJSON
                       # NOTE: We'll dedup the variant list later
                       props[name_prop_variant].append(props[name_prop_preferred][0])
-                      # update preferred name
-                      props[name_prop_preferred] = [set_name_en]
+                      # update preferred name, if appropriate
+                      if set_name_en_variant_lang == 'eng':
+                        props[name_prop_preferred] = [set_name_en]
         except:
           ids_with_problems.append([repo,id,"set English name"])
           sys.stdout.write('\rProblem with WOF ID = {} in repo {} to set English name or variants...\r'.format(id,repo))
