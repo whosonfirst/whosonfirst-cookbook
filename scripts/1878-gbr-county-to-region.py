@@ -85,7 +85,8 @@ if __name__ == "__main__":
     src          = geojson_props['wof_src']
 
     # when setting new records up
-    country      = geojson_props['wof_country']
+    if 'wof_country' in geojson_props:
+      country      = geojson_props['wof_country']
 
     new_geom = row['geometry']
 
@@ -93,8 +94,9 @@ if __name__ == "__main__":
     # latitude/longitude values of each geometry's inner centroid
     # can be calculated using Mapshaper
     # see: https://github.com/mbloch/mapshaper
-    mps_long     = float( geojson_props['mps_long'] )
-    mps_lat      = float( geojson_props['mps_lat'] )
+    if 'mps_long' in geojson_props:
+      mps_long     = float( geojson_props['mps_long'] )
+      mps_lat      = float( geojson_props['mps_lat'] )
 
     lgd_name = ''
     lgd_code = ''
@@ -357,7 +359,56 @@ if __name__ == "__main__":
           if not 'src:geom' in props:
             props['src:geom'] = 'unknown'
 
-          if action == 'set macroregion revgeo':
+          if action == 'set geo':
+            # create a new alt file
+            alt_geom_feature = {'type': 'Feature'}
+
+            # TODO: This should generate a named file with '-reversegeo' postfixed at the end
+            # but it does not!? So manual cleanup...
+            alt_geom_feature['properties'] = {
+                'wof:id': props.get('wof:id'),
+                'src:geom': src,
+                #'src:alt_label': 'reversegeo',
+                'wof:repo': repo #,
+                #'wof:geomhash': props.get('wof:geomhash')
+            }
+
+            # and use old geom variable as new alt geom, export
+            alt_geom_feature['geometry'] = geom
+
+            # export alt
+            # WARNING: order is important here... as we change the value of
+            # props['src:geom'] later but because Python vars (especially in objects)
+            # are interned (pointers) and we later change the pointer's value
+            exporter.export_alt_feature(alt_geom_feature, source=alt_geom_feature['properties']['src:geom'])
+
+            # update the existing feature's default geometry
+            feature['geometry'] =  new_geom
+
+            # update src and wof props
+            # (assumes a "simple" alt geom versus a "source-usage" alt geom)
+            if 'src:geom_alt' in props:
+              props['src:geom_alt'].append(props['src:geom'])
+              # ensure no duplicates
+              props['src:geom_alt'] = list(dict.fromkeys(props['src:geom_alt']))
+            else:
+              props['src:geom_alt'] = [props['src:geom']]
+
+            # this is needed because we always want to list out the explicate,
+            # fully qualified "source-usage" alt geom names... while src:geom_alt only
+            # lists the source prefixes
+            if 'wof:geom_alt' in props:
+              props['wof:geom_alt'].append(src)
+              # ensure no duplicates
+              props['wof:geom_alt'] = list(dict.fromkeys(props['wof:geom_alt']))
+            else:
+              props['wof:geom_alt'] = [src]
+
+            props['src:geom'] = src
+
+            # export feature (to add linkage)
+            exporter.export_feature(feature)
+          elif action == 'set macroregion revgeo' or action == 'set revgeo':
             # create a new alt file
             alt_geom_feature = {'type': 'Feature'}
 
